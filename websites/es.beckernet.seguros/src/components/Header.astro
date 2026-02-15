@@ -6,7 +6,6 @@ import { getTranslatedPath } from "@/lib/registry";
 import type { Language } from "@/lib/i18n";
 import { Image } from "astro:assets";
 import logo from "../assets/bib.png";
-import font from "../assets/becker-insurance-broker.png";
 
 interface Props {
   lang: Language;
@@ -27,25 +26,11 @@ const homeHref = getTranslatedPath("home", lang);
          LOGO BEREICH (Gestapelt)
          Hier ist die Änderung für Logo oben / Text unten.
       -->
-      <a
-        href={homeHref}
-        class="relative z-50 flex flex-col items-center justify-center gap-0.5"
-      >
-        <!-- 1. BIB Symbol (Oben) -->
-        <!-- lg:h-9 sorgt für Größe auf Desktop, h-6/7 auf Mobile/Tablet -->
+      <a href={homeHref} class="relative z-50 flex items-center justify-center">
         <Image
           src={logo}
           alt="BIB Logo"
-          class="h-7 w-auto lg:h-9 object-contain mb-0.5"
-          loading="eager"
-        />
-
-        <!-- 2. Schriftzug (Unten) -->
-        <!-- w-32 auf Mobile/Tablet, w-48 auf Desktop (ab 1024px) -->
-        <Image
-          src={font}
-          alt="Becker Insurance Broker"
-          class="h-auto w-32 lg:w-48 object-contain"
+          class="h-9 w-auto lg:h-11 object-contain"
           loading="eager"
         />
       </a>

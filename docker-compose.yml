@@ -1,0 +1,107 @@
+networks:
+  traefik:
+    external: true
+
+services:
+  pulpo-cloud:
+    image: ghcr.io/tobiasbenkner/pulpo-cloud:latest
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.pulpo-cloud.rule=Host(`pulpo.cloud`)
+      - traefik.http.routers.pulpo-cloud.tls.certresolver=letsencrypt
+      - com.centurylinklabs.watchtower.enable=true
+    networks:
+      - traefik
+
+  beckernet:
+    image: ghcr.io/tobiasbenkner/beckernet:latest
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.beckernet.rule=Host(`beckernet.es`)
+      - traefik.http.routers.beckernet.tls.certresolver=letsencrypt
+      - com.centurylinklabs.watchtower.enable=true
+    networks:
+      - traefik
+
+  beckernet-seguros:
+    image: ghcr.io/tobiasbenkner/beckernet-seguros:latest
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.beckernet-seguros.rule=Host(`seguros.beckernet.es`)
+      - traefik.http.routers.beckernet-seguros.tls.certresolver=letsencrypt
+      - com.centurylinklabs.watchtower.enable=true
+    networks:
+      - traefik
+
+  holacanterasclub:
+    image: ghcr.io/tobiasbenkner/holacanterasclub:latest
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.holacanterasclub.rule=Host(`holacanterasclub.com`)
+      - traefik.http.routers.holacanterasclub.tls.certresolver=letsencrypt
+      - com.centurylinklabs.watchtower.enable=true
+    networks:
+      - traefik
+
+  lumera:
+    image: ghcr.io/tobiasbenkner/lumera:latest
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.lumera.rule=Host(`lumera.benkner-it.com`)
+      - traefik.http.routers.lumera.tls.certresolver=letsencrypt
+      - com.centurylinklabs.watchtower.enable=true
+    networks:
+      - traefik
+
+  vibradanceacademy:
+    image: ghcr.io/tobiasbenkner/vibradanceacademy:latest
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.vibradanceacademy.rule=Host(`hektorysara.com`)
+      - traefik.http.routers.vibradanceacademy.tls.certresolver=letsencrypt
+      - com.centurylinklabs.watchtower.enable=true
+    networks:
+      - traefik
+
+  benkner-it:
+    image: ghcr.io/tobiasbenkner/benkner-it:latest
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.benkner-it.rule=Host(`benkner-it.com`)
+      - traefik.http.routers.benkner-it.tls.certresolver=letsencrypt
+      - com.centurylinklabs.watchtower.enable=true
+    networks:
+      - traefik
+
+  elbuhotuerto:
+    image: ghcr.io/tobiasbenkner/elbuhotuerto:latest
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.elbuhotuerto.rule=Host(`elbuhotuerto.com`)
+      - traefik.http.routers.elbuhotuerto.tls.certresolver=letsencrypt
+      - com.centurylinklabs.watchtower.enable=true
+    networks:
+      - traefik
+
+  watchtower:
+    image: containrrr/watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_POLL_INTERVAL=60
+      - WATCHTOWER_LABEL_ENABLE=true
+    labels:
+      - com.centurylinklabs.watchtower.enable=true
+    networks:
+      - traefik
+

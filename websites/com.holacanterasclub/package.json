@@ -6,8 +6,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "deploy": "gh-pages -d dist --repo https://x-access-token:${GH_TOKEN}@github.com/tobiasbenkner/com.holacanterasclub --branch main --cname holacanterasclub.com --dotfiles --nojekyll"
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/svelte": "^7.2.4",
@@ -25,7 +24,6 @@
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.19",
-    "gh-pages": "^6.3.0"
+    "@tailwindcss/typography": "^0.5.19"
   }
 }

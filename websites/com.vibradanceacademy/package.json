@@ -6,8 +6,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "deploy": "gh-pages -d dist --repo https://x-access-token:${GH_TOKEN}@github.com/tobiasbenkner/com.vibradanceacademy --branch main --cname hektorysara.com --dotfiles --nojekyll"
+    "astro": "astro"
   },
   "dependencies": {
     "@fontsource-variable/montserrat": "^5.2.8",
@@ -19,7 +18,6 @@
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
-    "gh-pages": "^6.3.0",
     "sharp": "^0.34.5"
   }
 }

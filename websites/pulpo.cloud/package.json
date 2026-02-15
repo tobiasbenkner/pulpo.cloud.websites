@@ -6,9 +6,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "docker:build": "docker build -t pulpocloud/landingpage .",
-    "docker:push": "docker push pulpocloud/landingpage"
+    "astro": "astro"
   },
   "dependencies": {
     "@fontsource/inter": "^5.2.8",

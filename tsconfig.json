@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@pulpo/cms": ["./packages/cms/src/index.ts"],
+      "@pulpo/auth": ["./packages/auth/src/index.ts"]
+    }
+  }
+}

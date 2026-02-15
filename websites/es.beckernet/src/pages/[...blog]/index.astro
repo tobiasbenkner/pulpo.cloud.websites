@@ -1,6 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { getBlogCategories, getPostsByCategory, imageUrl } from "@/lib/cms";
+import { getBlogCategories, getPostsByCategory } from "@/lib/cms";
 import {
   defaultLang,
   languages,
@@ -10,7 +10,7 @@ import {
 import { addRoute } from "@/lib/registry";
 import BlogDetail from "@/views/blog/BlogDetail.astro";
 import BlogList from "@/views/blog/BlogList.astro";
-import { type BlogPost, type BlogPostCategory } from "@pulpo/cms";
+import { type BlogPost, type BlogPostCategory, imageUrl } from "@pulpo/cms";
 
 type PathProps = {
   type: "category" | "post";

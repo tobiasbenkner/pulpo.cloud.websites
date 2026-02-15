@@ -8,8 +8,8 @@ services:
     restart: unless-stopped
     labels:
       - traefik.enable=true
-      - traefik.http.routers.pulpo-cloud.rule=Host(`pulpo.cloud`)
-      - traefik.http.routers.pulpo-cloud.tls.certresolver=letsencrypt
+      - traefik.http.routers.pulpo-cloud.rule=Host(`pulpo.cloud`) || Host(`www.pulpo.cloud`)
+      - traefik.http.routers.pulpo-cloud.tls.certresolver=le
       - com.centurylinklabs.watchtower.enable=true
     networks:
       - websites
@@ -19,8 +19,8 @@ services:
     restart: unless-stopped
     labels:
       - traefik.enable=true
-      - traefik.http.routers.beckernet.rule=Host(`beckernet.es`)
-      - traefik.http.routers.beckernet.tls.certresolver=letsencrypt
+      - traefik.http.routers.beckernet.rule=Host(`beckernet.es`) || Host(`www.beckernet.es`)
+      - traefik.http.routers.beckernet.tls.certresolver=le
       - com.centurylinklabs.watchtower.enable=true
     networks:
       - websites
@@ -31,7 +31,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.beckernet-seguros.rule=Host(`seguros.beckernet.es`)
-      - traefik.http.routers.beckernet-seguros.tls.certresolver=letsencrypt
+      - traefik.http.routers.beckernet-seguros.tls.certresolver=le
       - com.centurylinklabs.watchtower.enable=true
     networks:
       - websites
@@ -41,8 +41,8 @@ services:
     restart: unless-stopped
     labels:
       - traefik.enable=true
-      - traefik.http.routers.holacanterasclub.rule=Host(`holacanterasclub.com`)
-      - traefik.http.routers.holacanterasclub.tls.certresolver=letsencrypt
+      - traefik.http.routers.holacanterasclub.rule=Host(`holacanterasclub.com`) || Host(`www.holacanterasclub.com`)
+      - traefik.http.routers.holacanterasclub.tls.certresolver=le
       - com.centurylinklabs.watchtower.enable=true
     networks:
       - websites
@@ -53,7 +53,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.lumera.rule=Host(`lumera.benkner-it.com`)
-      - traefik.http.routers.lumera.tls.certresolver=letsencrypt
+      - traefik.http.routers.lumera.tls.certresolver=le
       - com.centurylinklabs.watchtower.enable=true
     networks:
       - websites
@@ -63,8 +63,8 @@ services:
     restart: unless-stopped
     labels:
       - traefik.enable=true
-      - traefik.http.routers.vibradanceacademy.rule=Host(`hektorysara.com`)
-      - traefik.http.routers.vibradanceacademy.tls.certresolver=letsencrypt
+      - traefik.http.routers.vibradanceacademy.rule=Host(`hektorysara.com`) || Host(`www.hektorysara.com`)
+      - traefik.http.routers.vibradanceacademy.tls.certresolver=le
       - com.centurylinklabs.watchtower.enable=true
     networks:
       - websites
@@ -74,8 +74,8 @@ services:
     restart: unless-stopped
     labels:
       - traefik.enable=true
-      - traefik.http.routers.benkner-it.rule=Host(`benkner-it.com`)
-      - traefik.http.routers.benkner-it.tls.certresolver=letsencrypt
+      - traefik.http.routers.benkner-it.rule=Host(`benkner-it.com`) || Host(`www.benkner-it.com`)
+      - traefik.http.routers.benkner-it.tls.certresolver=le
       - com.centurylinklabs.watchtower.enable=true
     networks:
       - websites
@@ -85,21 +85,10 @@ services:
     restart: unless-stopped
     labels:
       - traefik.enable=true
-      - traefik.http.routers.elbuhotuerto.rule=Host(`elbuhotuerto.com`)
-      - traefik.http.routers.elbuhotuerto.tls.certresolver=letsencrypt
+      - traefik.http.routers.elbuhotuerto.rule=Host(`elbuhotuerto.com`) || Host(`www.elbuhotuerto.com`)
+      - traefik.http.routers.elbuhotuerto.tls.certresolver=le
       - com.centurylinklabs.watchtower.enable=true
     networks:
       - websites
 
-  watchtower:
-    image: containrrr/watchtower
-    restart: unless-stopped
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - WATCHTOWER_CLEANUP=true
-      - WATCHTOWER_POLL_INTERVAL=60
-      - WATCHTOWER_LABEL_ENABLE=true
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
-
+  

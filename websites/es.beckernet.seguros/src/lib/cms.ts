@@ -1,19 +1,12 @@
-import { DIRECTUS_TOKEN } from "@/config";
 import {
-  getAssetUrl,
   type BlogPostCategory,
   type Language,
   type BlogPost,
 } from "@pulpo/cms";
 import { getCollection } from "astro:content";
 
-const DIRECTUS_URL = import.meta.env.DIRECTUS_URL;
-
 // Blog category IDs to exclude from this site (inmobiliaria for insurance-only site)
 const EXCLUDED_CATEGORY_IDS = ["2441ed0b-b857-408c-b01d-a837a016fac4"];
-
-export const imageUrl = (id: string, width = 800) =>
-  getAssetUrl(id, DIRECTUS_URL, DIRECTUS_TOKEN, { width });
 
 export const getBlogCategories = async (): Promise<BlogPostCategory[]> => {
   const categories = await getCollection("categories");

@@ -1,12 +1,12 @@
 import { TENANT_ID } from "@/config";
 import {
-  createClientPublic,
+  createClient,
   getCategoriesWithProducts as _getCategoriesWithProducts,
   getOpeningHours as _getOpeningHours,
   getTenant as _getTenant,
 } from "@pulpo/cms";
 
-export const client = createClientPublic();
+export const client = createClient();
 
 export function getCategoriesWithProducts() {
   return _getCategoriesWithProducts(client, {

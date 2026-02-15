@@ -1,7 +1,9 @@
 import { defineCollection } from "astro:content";
-import { client } from "./lib/client";
+import { createClient } from "@pulpo/cms";
 import { getBlogCategories, getBlogPosts, getLanguages } from "@pulpo/cms";
 import { TENANT } from "./config";
+
+const client = createClient();
 
 const languages = defineCollection({
   loader: async () => {

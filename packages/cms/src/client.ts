@@ -1,16 +1,13 @@
-import { createDirectus, rest, realtime, staticToken } from "@directus/sdk";
+import { createDirectus, DirectusClient, rest, RestClient } from "@directus/sdk";
 import { Schema } from "./types";
-import { URL } from "./config";
+import { DIRECTUS_URL } from "./config";
 
-export function createClient(url: string = URL, token?: string) {
-  const client = createDirectus<Schema>(url)
-    .with(staticToken(token ?? ""))
-    .with(rest())
-    .with(realtime());
-  return client;
-}
+let _client: DirectusClient<Schema> & RestClient<Schema>;
 
-export function createClientPublic(url: string = URL) {
-  const client = createDirectus<Schema>(url).with(rest());
-  return client;
+export function createClient() {
+  if (_client) {
+    return _client;
+  }
+  _client = createDirectus<Schema>(DIRECTUS_URL).with(rest());
+  return _client;
 }

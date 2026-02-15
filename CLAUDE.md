@@ -11,15 +11,13 @@ This is a **pnpm monorepo** managed with **Turborepo**.
 | `pnpm install` | Install all workspace dependencies |
 | `pnpm dev` | Start dev servers for all packages |
 | `pnpm build` | Build all packages |
-| `pnpm build:website` | Build only @pulpo/website |
 | `pnpm lint` | Lint all packages |
 | `pnpm check-types` | TypeScript type checking |
-| `pnpm deploy` | Deploy all deployable packages |
 
 To run commands for a specific workspace:
 ```bash
-pnpm --filter @pulpo/website dev
-pnpm --filter @pulpo/shop build
+pnpm --filter @pulpo/lumera dev
+pnpm --filter @pulpo/beckernet build
 ```
 
 ## Architecture
@@ -27,29 +25,22 @@ pnpm --filter @pulpo/shop build
 ### Monorepo Structure
 
 ```
-apps/           # Astro applications (reusable app templates)
-├── agenda/     # Event/calendar app with Svelte components
-├── shop/       # E-commerce app with nanostores
-└── website/    # Standard website template
+packages/           # Shared libraries
+├── cms/            # Directus SDK wrapper and types (@pulpo/cms)
+└── i18n/           # Shared i18n utilities (@pulpo/i18n)
 
-packages/       # Shared libraries
-└── cms/        # Directus SDK wrapper and types (@pulpo/cms)
-
-websites/       # Client website instances
-├── beckernet.es/
-├── holacanterasclub.com/
-└── pulpo.cloud/          # Landing page
-
-tools/          # Development and migration tools
-├── migrate/    # Data migration scripts (PocketBase → Directus)
-└── proxy/      # Traefik reverse proxy config
+websites/           # Client website instances
+├── pulpo.cloud/            # Landing page
+├── es.beckernet/           # beckernet.es
+├── es.beckernet.seguros/   # seguros.beckernet.es
+├── com.holacanterasclub/   # holacanterasclub.com
+├── com.lumera/             # lumera.benkner-it.com
+├── com.vibradanceacademy/  # hektorysara.com
+├── com.benkner-it/         # benkner-it.com
+└── com.elbuhotuerto/       # elbuhotuerto.com
 ```
 
-### Apps vs Websites
-
-- **apps/** contain reusable Astro application templates
-- **websites/** are client-specific deployments that may extend or customize apps
-- Both use the same patterns: Astro + Tailwind CSS v4 + Directus CMS
+Each website is a standalone Astro project using Tailwind CSS v4, optionally with Directus CMS.
 
 ### Shared CMS Package (@pulpo/cms)
 
@@ -58,7 +49,7 @@ Located at `packages/cms/`, provides:
 - Type definitions for all CMS collections
 - API helpers for common queries
 
-Used by apps via workspace dependency:
+Used by websites via workspace dependency:
 ```json
 "@pulpo/cms": "workspace:*"
 ```
@@ -76,16 +67,23 @@ Website apps use a convention-based routing system:
 
 3. **Dynamic routing** in `src/pages/[...slug]/index.astro` generates all language variants
 
-### Environment Variables
-
-Required for CMS-connected apps:
-- `DIRECTUS_URL` - Directus instance URL
-- `DIRECTUS_TOKEN` - API token
-
-For deployment:
-- `CLOUDFLARE_API_TOKEN`
-- `CLOUDFLARE_ACCOUNT_ID`
-
 ### Deployment
 
-Apps deploy to **Cloudflare Pages** via Wrangler CLI. The `pnpm deploy` command builds and pushes to the configured Cloudflare project.
+All websites deploy via **Docker** to a server running **Traefik** as reverse proxy.
+
+- **Dockerfile** (root-level): Multi-stage build with `WEBSITE` build-arg — builds one website at a time using `node:24-alpine` + `nginx:alpine`
+- **docker-compose.yml**: Defines all 8 website services with Traefik labels for domain routing + TLS, plus Watchtower for auto-updates
+- **GitHub Actions** (`.github/workflows/build-and-deploy.yml`): On push to main, builds all 8 Docker images in parallel and pushes to `ghcr.io/tobiasbenkner/`
+- **Watchtower**: Polls ghcr.io every 60s and auto-pulls new images
+
+Local Docker test:
+```bash
+docker build --build-arg WEBSITE=pulpo.cloud -t test .
+docker run -p 8080:80 test
+```
+
+### Environment Variables
+
+Required for CMS-connected websites (passed as Docker build-args in CI):
+- `DIRECTUS_URL` - Directus instance URL
+- `DIRECTUS_TOKEN` - API token

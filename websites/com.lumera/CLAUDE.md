@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Lumera (`@pulpo/lumera`) is a bilingual (Polish + English) portfolio website for an AI portrait studio. It is part of the Pulpo.cloud pnpm monorepo and deploys to GitHub Pages.
+Lumera (`@pulpo/lumera`) is a bilingual (Polish + English) portfolio website for an AI portrait studio. It is part of the Pulpo.cloud pnpm monorepo.
 
 ## Commands
 
@@ -12,7 +12,6 @@ Lumera (`@pulpo/lumera`) is a bilingual (Polish + English) portfolio website for
 pnpm dev              # Start Astro dev server
 pnpm build            # Production build (output: dist/)
 pnpm preview          # Preview production build locally
-pnpm deploy           # Build and deploy to GitHub Pages (requires GH_TOKEN)
 ```
 
 From monorepo root:
@@ -71,7 +70,7 @@ Tailwind CSS v4 with global import in `src/styles/global.css`. Color palette:
 
 ### Deployment
 
-Deploys to **GitHub Pages** via `gh-pages` to repo `tobiasbenkner/lumera` with custom domain `lumera.benkner-it.com`. Site URL is set in `astro.config.mjs`.
+Deploys via Docker to `ghcr.io/tobiasbenkner/lumera`. Domain: `lumera.benkner-it.com`. See root `CLAUDE.md` for deployment details.
 
 ### Path Aliases
 

@@ -10,8 +10,6 @@ COPY websites/${WEBSITE}/ websites/${WEBSITE}/
 RUN pnpm install --frozen-lockfile
 
 # Build only the target website
-ARG DIRECTUS_URL
-ARG DIRECTUS_TOKEN
 RUN pnpm --filter "./websites/${WEBSITE}" build
 
 # Nginx stage - serve static files only

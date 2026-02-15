@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-VibraDance Academy (`@pulpo/vibradanceacademy`) — a static multilingual marketing website for a dance academy in Maspalomas, Gran Canaria. Deployed to GitHub Pages at **hektorysara.com**.
+VibraDance Academy (`@pulpo/vibradanceacademy`) — a static multilingual marketing website for a dance academy in Maspalomas, Gran Canaria. Domain: **hektorysara.com**.
 
 Part of the Pulpo Cloud pnpm monorepo at `websites/com.vibradanceacademy/`.
 
@@ -12,19 +12,16 @@ Part of the Pulpo Cloud pnpm monorepo at `websites/com.vibradanceacademy/`.
 
 ```bash
 # From this directory
-npm run dev        # Start Astro dev server
-npm run build      # Build static site to dist/
-npm run preview    # Preview production build
+pnpm dev        # Start Astro dev server
+pnpm build      # Build static site to dist/
+pnpm preview    # Preview production build
 
 # From monorepo root
 pnpm --filter @pulpo/vibradanceacademy dev
 pnpm --filter @pulpo/vibradanceacademy build
 ```
 
-Deployment uses `gh-pages` to push `dist/` to GitHub Pages (requires `GH_TOKEN` env var):
-```bash
-npm run deploy
-```
+Deploys via Docker to `ghcr.io/tobiasbenkner/vibradanceacademy`. See root `CLAUDE.md` for deployment details.
 
 ## Architecture
 

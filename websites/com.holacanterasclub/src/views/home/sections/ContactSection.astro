@@ -3,8 +3,9 @@ import Container from "@/components/ui/Container.astro";
 import PrivacyMap from "@/components/ui/PrivacyMap.astro";
 import OpeningHours from "@/components/contact/OpeningHours.svelte";
 import { siteData } from "@/data/siteData";
-import { DIRECTUS_URL, TENANT } from "@/config";
+import { TENANT } from "@/config";
 import type { Language } from "@/lib/i18n";
+import { DIRECTUS_URL } from "@pulpo/cms";
 
 interface Props {
   label: string;

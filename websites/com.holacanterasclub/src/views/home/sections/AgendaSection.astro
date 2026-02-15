@@ -1,8 +1,9 @@
 ---
 import Container from "@/components/ui/Container.astro";
 import EventList from "@/components/events/EventList.svelte";
-import { DIRECTUS_URL, TENANT } from "@/config";
+import { TENANT } from "@/config";
 import type { Language } from "@/lib/i18n";
+import { DIRECTUS_URL } from "@pulpo/cms";
 
 interface Props {
   title: string;

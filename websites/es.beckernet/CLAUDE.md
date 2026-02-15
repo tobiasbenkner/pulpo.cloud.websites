@@ -12,7 +12,6 @@ This project uses `pnpm` as the package manager.
 | `pnpm dev` | Start local dev server at `localhost:4321` |
 | `pnpm build` | Build production site to `./dist/` |
 | `pnpm preview` | Preview production build locally |
-| `pnpm deploy` | Deploy to Cloudflare Pages (beckernet project, main branch) |
 
 ## Architecture
 
@@ -68,9 +67,7 @@ Content is fetched from **Directus CMS** (`@pulpo/cms` workspace package).
 
 Content is loaded at build time using Astro's content loaders, not at runtime.
 
-**Environment variables** (required in `.env`):
-- `DIRECTUS_URL` - Directus instance URL
-- `DIRECTUS_TOKEN` - API token for authentication
+**Environment variables**:
 - Tenant ID is hardcoded in `src/config.ts`
 
 **Helper functions** (`src/lib/cms.ts`):
@@ -110,4 +107,4 @@ Typography plugin is available for prose content (`@tailwindcss/typography`).
 
 ### Deployment
 
-Deployed to **Cloudflare Pages** via Wrangler CLI. The deploy command pushes the `dist/` directory to the `beckernet` project.
+Deploys via Docker to `ghcr.io/tobiasbenkner/beckernet`. Domain: `beckernet.es`. See root `CLAUDE.md` for deployment details.

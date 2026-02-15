@@ -3,11 +3,7 @@
   "ui": "tui",
   "tasks": {
     "build": {
-      "env": [
-        "DIRECTUS_URL",
-        "DIRECTUS_TOKEN",
-        "TENANT"
-      ],
+      "env": [],
       "dependsOn": [
         "^build"
       ],

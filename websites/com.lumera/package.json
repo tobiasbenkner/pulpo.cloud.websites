@@ -7,7 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "deploy": "gh-pages -d dist --repo https://x-access-token:${GH_TOKEN}@github.com/tobiasbenkner/lumera --branch main --cname lumera.benkner-it.com --dotfiles --nojekyll"
+    "deploy:old": "gh-pages -d dist --repo https://x-access-token:${GH_TOKEN}@github.com/tobiasbenkner/lumera --branch main --cname lumera.benkner-it.com --dotfiles --nojekyll"
   },
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.2.11",

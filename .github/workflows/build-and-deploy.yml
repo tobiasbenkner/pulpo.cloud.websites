@@ -21,6 +21,7 @@ jobs:
           - { dir: com.lumera, image: lumera }
           - { dir: com.vibradanceacademy, image: vibradanceacademy }
           - { dir: com.benkner-it, image: benkner-it }
+          - { dir: com.benkner-it.xml-compare, image: benkner-it-xml-compare }
           - { dir: com.elbuhotuerto, image: elbuhotuerto }
     steps:
       - name: Checkout Code

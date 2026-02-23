@@ -45,7 +45,6 @@ export async function getCategoriesWithProducts(
       return {
         id: product.id,
         sort: product.sort,
-        price: product.price,
         price_gross: product.price_gross,
         image: product.image,
         allergies: product.allergies ?? [],

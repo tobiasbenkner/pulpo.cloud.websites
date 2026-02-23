@@ -5,7 +5,6 @@ export interface Product {
   name: ReducedTranslations;
   description: ReducedTranslations;
   note: ReducedTranslations;
-  price: number;
   image: DirectusFile;
   allergies: string[];
   category: string;

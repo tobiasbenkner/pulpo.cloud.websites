@@ -11,11 +11,15 @@ const dialogId = product.image
   ? `dialog-${product.id.replace(/\s+/g, "-").toLowerCase()}-${Math.random().toString(36).substring(2, 9)}`
   : undefined;
 
-function formatPrice(price: number) {
+function formatPrice(price: string) {
+  const num = parseFloat(price);
+  if (isNaN(num)) return "";
   return new Intl.NumberFormat("es", {
     style: "currency",
     currency: "EUR",
-  }).format(price);
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(num);
 }
 ---
 
@@ -126,11 +130,7 @@ function formatPrice(price: number) {
         )
       }
       <p class="mt-4 font-semibold text-foreground">
-        {
-          typeof product.price === "number"
-            ? formatPrice(product.price / 100)
-            : ""
-        }
+        {formatPrice(product.price_gross)}
       </p>
     </div>
   </div>

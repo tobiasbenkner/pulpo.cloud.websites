@@ -1,0 +1,55 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+import CategoryBadge from '@/components/CategoryBadge.astro';
+import type { Locale, Category } from '@/lib/i18n';
+import { t, localePath } from '@/lib/i18n';
+import { formatDate } from '@/lib/posts';
+
+interface Props {
+  lang: Locale;
+  post: CollectionEntry<'blog'>;
+  alternateUrl?: string;
+}
+
+const { lang, post, alternateUrl } = Astro.props;
+const i18n = t(lang);
+const category = post.data.category as Category;
+const { Content } = await render(post);
+---
+
+<Base
+  lang={lang}
+  title={post.data.title}
+  description={post.data.description}
+  alternateUrl={alternateUrl}
+>
+  <article>
+    <header class="mb-8">
+      <div class="flex items-center gap-3 mb-4">
+        <CategoryBadge category={category} lang={lang} />
+        <time
+          class="text-sm text-slate-500"
+          datetime={post.data.date.toISOString()}
+        >
+          {formatDate(post.data.date, lang)}
+        </time>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-bold leading-tight">
+        {post.data.title}
+      </h1>
+    </header>
+    <div class="prose dark:prose-invert max-w-none">
+      <Content />
+    </div>
+    <footer class="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800">
+      <a
+        href={localePath(`/${category}`, lang)}
+        class="text-emerald-600 dark:text-emerald-400 hover:underline"
+      >
+        &larr; {i18n.post.backTo} {i18n.categories[category]}
+      </a>
+    </footer>
+  </article>
+</Base>

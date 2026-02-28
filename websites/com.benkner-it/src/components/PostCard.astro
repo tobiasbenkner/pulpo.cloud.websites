@@ -1,0 +1,40 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { Locale } from '@/lib/i18n';
+import { localePath } from '@/lib/i18n';
+import { formatDate } from '@/lib/posts';
+import CategoryBadge from './CategoryBadge.astro';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  lang: Locale;
+}
+
+const { post, lang } = Astro.props;
+const href = localePath(`/${post.data.category}/${post.data.permalink}`, lang);
+---
+
+<article class="group">
+  <a
+    href={href}
+    class="block py-6 -mx-4 px-4 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors"
+  >
+    <div class="flex items-center gap-3 mb-2">
+      <CategoryBadge category={post.data.category} lang={lang} linked={false} />
+      <time
+        class="text-sm text-slate-500 dark:text-slate-500"
+        datetime={post.data.date.toISOString()}
+      >
+        {formatDate(post.data.date, lang)}
+      </time>
+    </div>
+    <h3
+      class="text-lg font-semibold mb-1 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors"
+    >
+      {post.data.title}
+    </h3>
+    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+      {post.data.description}
+    </p>
+  </a>
+</article>

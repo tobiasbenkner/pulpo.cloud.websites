@@ -1,0 +1,36 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+import PostCard from '@/components/PostCard.astro';
+import type { Locale } from '@/lib/i18n';
+import { t, localePath } from '@/lib/i18n';
+
+interface Props {
+  lang: Locale;
+  posts: CollectionEntry<'blog'>[];
+}
+
+const { lang, posts } = Astro.props;
+const i18n = t(lang);
+---
+
+<Base lang={lang}>
+  <section>
+    <h1 class="text-3xl font-bold mb-8">{i18n.home.headline}</h1>
+    <div class="divide-y divide-slate-200 dark:divide-slate-800">
+      {posts.map((post) => <PostCard post={post} lang={lang} />)}
+    </div>
+    {
+      posts.length >= 5 && (
+        <div class="mt-8">
+          <a
+            href={localePath('/blog', lang)}
+            class="text-emerald-600 dark:text-emerald-400 hover:underline"
+          >
+            {i18n.home.viewAll} &rarr;
+          </a>
+        </div>
+      )
+    }
+  </section>
+</Base>

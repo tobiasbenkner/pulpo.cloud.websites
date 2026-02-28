@@ -1,0 +1,29 @@
+---
+import type { Category, Locale } from '@/lib/i18n';
+import { t, localePath } from '@/lib/i18n';
+
+interface Props {
+  category: Category;
+  lang: Locale;
+  linked?: boolean;
+}
+
+const { category, lang, linked = true } = Astro.props;
+const label = t(lang).categories[category];
+const href = localePath(`/${category}`, lang);
+---
+
+{
+  linked ? (
+    <a
+      href={href}
+      class="inline-block px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-200 dark:hover:bg-emerald-900/50 transition-colors"
+    >
+      {label}
+    </a>
+  ) : (
+    <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400">
+      {label}
+    </span>
+  )
+}

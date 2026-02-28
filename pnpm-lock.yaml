@@ -40,12 +40,21 @@ importers:
 
   websites/com.benkner-it:
     dependencies:
+      '@tailwindcss/typography':
+        specifier: ^0.5.19
+        version: 0.5.19(tailwindcss@4.1.18)
+      '@tailwindcss/vite':
+        specifier: ^4.1.18
+        version: 4.1.18(vite@7.1.12(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.46.0)(tsx@4.21.0))
       astro:
         specifier: ^5.17.1
         version: 5.17.1(@types/node@25.2.3)(jiti@2.6.1)(lightningcss@1.30.2)(rollup@4.54.0)(terser@5.46.0)(tsx@4.21.0)(typescript@5.9.3)
       sharp:
         specifier: ^0.34.5
         version: 0.34.5
+      tailwindcss:
+        specifier: ^4.1.18
+        version: 4.1.18
 
   websites/com.benkner-it.xml-compare:
     dependencies:

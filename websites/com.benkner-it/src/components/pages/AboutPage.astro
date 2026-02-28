@@ -1,0 +1,63 @@
+---
+import Base from '@/layouts/Base.astro';
+import type { Locale } from '@/lib/i18n';
+import { t } from '@/lib/i18n';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const i18n = t(lang);
+---
+
+<Base lang={lang} title={i18n.nav.about}>
+  <section class="prose dark:prose-invert max-w-none">
+    <h1>{i18n.about.headline}</h1>
+    {
+      lang === 'en' ? (
+        <Fragment>
+          <p>
+            Hi, I'm Tobias — a developer and DevOps engineer based in Spain. I
+            work across the full stack, from infrastructure and CI/CD pipelines
+            to modern web applications. This blog is where I share what I learn
+            along the way.
+          </p>
+          <p>
+            My main interests revolve around container orchestration,
+            cloud-native tooling, and building fast, accessible websites. When
+            I'm not writing code, you'll find me exploring new dev tools or
+            writing about the intersection of AI and software engineering.
+          </p>
+          <h2>Tech I work with</h2>
+        </Fragment>
+      ) : (
+        <Fragment>
+          <p>
+            Hi, ich bin Tobias — Entwickler und DevOps-Engineer mit Sitz in
+            Spanien. Ich arbeite über den gesamten Stack hinweg, von
+            Infrastruktur und CI/CD-Pipelines bis hin zu modernen
+            Webanwendungen. In diesem Blog teile ich, was ich dabei lerne.
+          </p>
+          <p>
+            Meine Hauptinteressen liegen in Container-Orchestrierung,
+            Cloud-Native Tooling und dem Bau schneller, barrierefreier Websites.
+            Wenn ich nicht gerade Code schreibe, erkunde ich neue Entwicklertools
+            oder schreibe über die Schnittstelle von KI und
+            Softwareentwicklung.
+          </p>
+          <h2>Technologien</h2>
+        </Fragment>
+      )
+    }
+    <ul>
+      <li>
+        <strong>Infrastructure:</strong> Docker, Kubernetes, Traefik, Terraform
+      </li>
+      <li><strong>CI/CD:</strong> GitHub Actions, GitLab CI</li>
+      <li><strong>Web:</strong> Astro, TypeScript, Tailwind CSS, React</li>
+      <li><strong>Backend:</strong> Node.js, Go, PostgreSQL</li>
+      <li><strong>Monitoring:</strong> Grafana, Prometheus, Loki</li>
+    </ul>
+  </section>
+</Base>

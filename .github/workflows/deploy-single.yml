@@ -1,0 +1,57 @@
+name: Deploy Single Website
+
+on:
+  workflow_dispatch:
+    inputs:
+      website:
+        description: Website to build and deploy
+        required: true
+        type: choice
+        options:
+          - pulpo.cloud
+          - es.beckernet
+          - es.beckernet.seguros
+          - com.holacanterasclub
+          - com.lumera
+          - com.vibradanceacademy
+          - com.benkner-it
+          - com.benkner-it.xml-compare
+          - com.elbuhotuerto
+
+permissions:
+  packages: write
+  contents: read
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set image name
+        id: meta
+        run: echo "image=$(echo '${{ inputs.website }}' | sed 's/^com\.//;s/^es\.//;s/\./-/g')" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/tobiasbenkner/${{ steps.meta.outputs.image }}:latest
+          build-args: |
+            WEBSITE=${{ inputs.website }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

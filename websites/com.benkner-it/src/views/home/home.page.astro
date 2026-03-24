@@ -25,19 +25,30 @@ const services = [
 const projects = [
   {
     name: 'pulpo.cloud',
-    desc: t.projects.headline, // placeholder — not used below; inline desc from old code replaced by i18n
+    desc: lang === 'de'
+      ? 'Open-Source-Kassensystem, E-Commerce & Warenwirtschaft für KMU'
+      : 'Open Source POS, e-commerce & inventory management for SMEs',
     url: 'https://pulpo.cloud',
-    tags: ['Astro', 'TypeScript', 'Directus'],
+    tags: ['Astro', 'Svelte', 'Go', 'Docker'],
+    type: 'MVP',
   },
   {
-    name: 'beckernet.es',
-    url: 'https://beckernet.es',
-    tags: ['Astro', 'Tailwind', 'CMS'],
-  },
-  {
-    name: 'hektorysara.com',
-    url: 'https://hektorysara.com',
+    name: 'fincaloscastanos.com',
+    desc: lang === 'de'
+      ? 'Webseite für eine Ferienfinca mit Buchungsanbindung'
+      : 'Holiday finca website with booking integration',
+    url: 'https://fincaloscastanos.com',
     tags: ['Astro', 'Tailwind'],
+    type: lang === 'de' ? 'Webseite' : 'Website',
+  },
+  {
+    name: 'elbuhotuerto.com',
+    desc: lang === 'de'
+      ? 'Restaurant-Webseite mit Online-Speisekarte und Reservierung'
+      : 'Restaurant website with online menu and reservations',
+    url: 'https://elbuhotuerto.com',
+    tags: ['Astro', 'Tailwind', 'CMS'],
+    type: lang === 'de' ? 'Webseite' : 'Website',
   },
 ];
 ---
@@ -50,7 +61,6 @@ const projects = [
 
   <div class="relative max-w-6xl mx-auto px-5 sm:px-8">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-      <!-- Left: Text -->
       <div>
         <div class="hero-animate">
           <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-light border border-primary-border text-primary text-xs font-mono font-medium uppercase tracking-wider">
@@ -82,7 +92,7 @@ const projects = [
             <Icon name="lucide:arrow-right" class="w-4 h-4 ml-2" />
           </a>
           <a
-            href={getTranslatedPath('projects', lang)}
+            href={getTranslatedPath('services', lang)}
             class="inline-flex items-center justify-center border border-border px-7 py-3.5 rounded-lg text-sm font-medium text-body hover:border-primary/30 hover:bg-primary-light/50 transition-all"
           >
             {t.hero.ctaSecondary}
@@ -90,7 +100,6 @@ const projects = [
         </div>
       </div>
 
-      <!-- Right: Browser mockup -->
       <div class="hero-animate hidden lg:block">
         <div class="relative">
           <div class="absolute -inset-4 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl blur-2xl"></div>
@@ -107,27 +116,19 @@ const projects = [
     <div class="flex flex-wrap justify-center gap-8 sm:gap-16 text-center">
       <div class="reveal">
         <p class="font-display text-2xl font-bold text-heading">{config.stats.projectsShipped}</p>
-        <p class="text-xs text-muted mt-1 font-mono uppercase tracking-wider">
-          {t.stats.projectsShipped}
-        </p>
+        <p class="text-xs text-muted mt-1 font-mono uppercase tracking-wider">{t.stats.projectsShipped}</p>
       </div>
       <div class="reveal">
         <p class="font-display text-2xl font-bold text-heading">{config.mvpDays}</p>
-        <p class="text-xs text-muted mt-1 font-mono uppercase tracking-wider">
-          {t.stats.daysForMvp}
-        </p>
+        <p class="text-xs text-muted mt-1 font-mono uppercase tracking-wider">{t.stats.daysForMvp}</p>
       </div>
       <div class="reveal">
         <p class="font-display text-2xl font-bold text-heading">{config.stats.yearsExperience}</p>
-        <p class="text-xs text-muted mt-1 font-mono uppercase tracking-wider">
-          {t.stats.yearsExperience}
-        </p>
+        <p class="text-xs text-muted mt-1 font-mono uppercase tracking-wider">{t.stats.yearsExperience}</p>
       </div>
       <div class="reveal">
         <p class="font-display text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">100%</p>
-        <p class="text-xs text-muted mt-1 font-mono uppercase tracking-wider">
-          {t.stats.fixedPrice}
-        </p>
+        <p class="text-xs text-muted mt-1 font-mono uppercase tracking-wider">{t.stats.fixedPrice}</p>
       </div>
     </div>
   </div>
@@ -137,15 +138,8 @@ const projects = [
 <section class="relative py-20 sm:py-28 overflow-hidden gradient-mesh wave-divider">
   <div class="max-w-6xl mx-auto px-5 sm:px-8">
     <div class="reveal flex items-end justify-between">
-      <div>
-        <p class="font-mono text-faint text-xs uppercase tracking-[0.2em]">
-          {t.services.label}
-        </p>
-      </div>
-      <a
-        href={getTranslatedPath('services', lang)}
-        class="hidden sm:inline-flex items-center gap-2 text-sm text-muted hover:text-primary transition-colors"
-      >
+      <p class="font-mono text-faint text-xs uppercase tracking-[0.2em]">{t.services.label}</p>
+      <a href={getTranslatedPath('services', lang)} class="hidden sm:inline-flex items-center gap-2 text-sm text-muted hover:text-primary transition-colors">
         {t.viewAll}
         <Icon name="lucide:arrow-right" class="w-4 h-4" />
       </a>
@@ -160,9 +154,7 @@ const projects = [
               href={getTranslatedPath('services', lang)}
               class:list={[
                 'reveal card-lift relative p-7 rounded-xl border bg-white flex flex-col group',
-                featured
-                  ? 'border-primary/25 shadow-sm'
-                  : 'border-border hover:border-primary/20',
+                featured ? 'border-primary/25 shadow-sm' : 'border-border hover:border-primary/20',
               ]}
             >
               {featured && (
@@ -170,40 +162,20 @@ const projects = [
                   {t.services.recommended}
                 </span>
               )}
-
-              {/* Icon */}
               <div class:list={[
                 'w-10 h-10 rounded-lg flex items-center justify-center mb-4',
                 featured ? 'bg-gradient-to-br from-primary/10 to-secondary/10' : 'bg-surface',
               ]}>
-                {icon === 'rocket' && (
-                  <Icon name="lucide:rocket" class="w-5 h-5 text-primary" />
-                )}
-                {icon === 'globe' && (
-                  <Icon name="lucide:globe" class="w-5 h-5 text-secondary" />
-                )}
-                {icon === 'users' && (
-                  <Icon name="lucide:briefcase" class="w-5 h-5 text-primary" />
-                )}
+                {icon === 'rocket' && <Icon name="lucide:rocket" class="w-5 h-5 text-primary" />}
+                {icon === 'globe' && <Icon name="lucide:globe" class="w-5 h-5 text-secondary" />}
+                {icon === 'users' && <Icon name="lucide:briefcase" class="w-5 h-5 text-primary" />}
               </div>
-
-              <h3 class="font-display text-lg font-bold tracking-tight text-heading group-hover:text-primary transition-colors">
-                {svc.title}
-              </h3>
-
+              <h3 class="font-display text-lg font-bold tracking-tight text-heading group-hover:text-primary transition-colors">{svc.title}</h3>
               <div class="mt-3 flex items-baseline gap-2">
-                <span class="font-display text-2xl font-extrabold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                  {svc.price}
-                </span>
-                {svc.period && (
-                  <span class="text-sm text-faint font-mono">/ {svc.period}</span>
-                )}
+                <span class="font-display text-2xl font-extrabold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">{svc.price}</span>
+                {svc.period && <span class="text-sm text-faint font-mono">/ {svc.period}</span>}
               </div>
-
-              <p class="mt-3 text-sm text-muted leading-relaxed flex-1">
-                {svc.description}
-              </p>
-
+              <p class="mt-3 text-sm text-muted leading-relaxed flex-1">{svc.description}</p>
               <div class="mt-5 pt-4 border-t border-border flex items-center gap-2 text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity">
                 {t.learnMore}
                 <Icon name="lucide:arrow-right" class="w-4 h-4" />
@@ -216,26 +188,15 @@ const projects = [
   </div>
 </section>
 
-<!-- ══════════════════════════ PROJECTS TEASER ═══ -->
+<!-- ══════════════════════════ PROJECTS ═══ -->
 <section class="relative py-20 sm:py-28 bg-surface overflow-hidden angle-divider-white">
   <div class="absolute inset-0 cross-grid opacity-20 pointer-events-none"></div>
   <div class="relative max-w-6xl mx-auto px-5 sm:px-8">
-    <div class="reveal flex items-end justify-between">
-      <div>
-        <p class="font-mono text-faint text-xs uppercase tracking-[0.2em]">
-          {t.projects.label}
-        </p>
-        <h2 class="font-display text-2xl sm:text-3xl md:text-4xl font-bold mt-4 tracking-tight text-heading">
-          {t.projects.headline}
-        </h2>
-      </div>
-      <a
-        href={getTranslatedPath('projects', lang)}
-        class="hidden sm:inline-flex items-center gap-2 text-sm text-muted hover:text-primary transition-colors shrink-0 ml-8"
-      >
-        {t.viewAll}
-        <Icon name="lucide:arrow-right" class="w-4 h-4" />
-      </a>
+    <div class="reveal">
+      <p class="font-mono text-faint text-xs uppercase tracking-[0.2em]">{t.projects.label}</p>
+      <h2 class="font-display text-2xl sm:text-3xl md:text-4xl font-bold mt-4 tracking-tight text-heading">
+        {t.projects.headline}
+      </h2>
     </div>
 
     <div class="mt-12 space-y-6 stagger">
@@ -247,14 +208,17 @@ const projects = [
             rel="noopener noreferrer"
             class="reveal card-lift group grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-6 border border-border hover:border-primary/20 rounded-xl p-6 bg-white transition-all"
           >
-            {/* Info */}
             <div class="flex flex-col justify-center">
               <div class="flex items-center gap-3">
                 <h3 class="font-display text-lg font-bold tracking-tight text-heading group-hover:text-primary transition-colors">
                   {p.name}
                 </h3>
+                <span class="px-2 py-0.5 text-[10px] font-mono text-primary bg-primary-light border border-primary-border rounded-md uppercase tracking-wider">
+                  {p.type}
+                </span>
                 <Icon name="lucide:arrow-up-right" class="w-4 h-4 text-faint group-hover:text-primary transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </div>
+              <p class="mt-2 text-sm text-muted leading-relaxed">{p.desc}</p>
               <div class="flex flex-wrap gap-2 mt-4">
                 {p.tags.map((tag) => (
                   <span class="px-2.5 py-1 text-[11px] font-mono text-muted bg-surface border border-border rounded-md">
@@ -263,23 +227,12 @@ const projects = [
                 ))}
               </div>
             </div>
-            {/* Browser mockup */}
             <div class="hidden md:block">
               <BrowserMockup url={p.url.replace('https://', '')} />
             </div>
           </a>
         ))
       }
-    </div>
-
-    <div class="mt-8 sm:hidden">
-      <a
-        href={getTranslatedPath('projects', lang)}
-        class="inline-flex items-center gap-2 text-sm text-muted hover:text-primary transition-colors"
-      >
-        {t.viewAll}
-        <Icon name="lucide:arrow-right" class="w-4 h-4" />
-      </a>
     </div>
   </div>
 </section>
@@ -293,9 +246,7 @@ const projects = [
       <div class="relative max-w-6xl mx-auto px-5 sm:px-8">
         <div class="reveal flex items-end justify-between">
           <div>
-            <p class="font-mono text-faint text-xs uppercase tracking-[0.2em]">
-              {t.blogSection.label}
-            </p>
+            <p class="font-mono text-faint text-xs uppercase tracking-[0.2em]">{t.blogSection.label}</p>
             <h2 class="font-display text-2xl sm:text-3xl md:text-4xl font-bold mt-4 tracking-tight text-heading">
               {t.blogSection.headline}
             </h2>
@@ -328,9 +279,7 @@ const projects = [
     <h2 class="reveal font-display text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight">
       {t.contact.headline1} {t.contact.headline2}
     </h2>
-    <p class="reveal text-white/70 mt-4 text-lg">
-      {t.contact.subtitle}
-    </p>
+    <p class="reveal text-white/70 mt-4 text-lg">{t.contact.subtitle}</p>
     <div class="reveal mt-8">
       <a
         href={getTranslatedPath('contact', lang)}

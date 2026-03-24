@@ -15,7 +15,7 @@ const { lang } = Astro.props;
 const t = resolveTranslations(sharedTranslations, lang);
 const year = new Date().getFullYear();
 
-const navLinks = ['services', 'projects', 'blog', 'about', 'contact'].map((key) => ({
+const navLinks = ['services', 'blog', 'about', 'contact'].map((key) => ({
   href: getTranslatedPath(key, lang),
   label: getRouteLabel(key, lang),
 }));

@@ -23,7 +23,7 @@ export const translations = {
       en: `From idea to working product — shipped in ${config.mvpDays} days, fixed price, no surprises.`,
     },
     cta: { de: 'Projekt starten', en: 'Start Your Project' },
-    ctaSecondary: { de: 'Meine Arbeit ansehen', en: 'View My Work' },
+    ctaSecondary: { de: 'Leistungen ansehen', en: 'View Services' },
   },
   services: {
     label: { de: 'Leistungen', en: 'Services' },
@@ -60,12 +60,12 @@ export const translations = {
   },
   blogSection: {
     label: { de: 'Aus dem Blog', en: 'From the Blog' },
-    headline: { de: 'Über Code schreiben.', en: 'Writing about code.' },
+    headline: { de: 'Einblicke & Artikel', en: 'Insights & Articles' },
   },
   contact: {
-    headline1: { de: 'Lass uns etwas', en: "Let's build" },
-    headline2: { de: 'bauen.', en: 'something.' },
-    subtitle: { de: 'Ein Projekt im Kopf? Lass uns reden.', en: "Have a project in mind? Let's talk." },
+    headline1: { de: 'Bringen Sie Ihre Idee', en: 'Bring your idea' },
+    headline2: { de: 'zum Leben.', en: 'to life.' },
+    subtitle: { de: 'Erzählen Sie mir von Ihrem Vorhaben — gemeinsam machen wir es real.', en: 'Tell me about your vision — together we\'ll make it real.' },
   },
   stats: {
     projectsShipped: { de: 'Projekte live', en: 'Projects shipped' },

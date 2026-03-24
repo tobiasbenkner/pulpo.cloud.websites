@@ -15,9 +15,8 @@ export type ResolvedNavItem = {
 export const navTree: NavItem[] = [
   { routeKey: 'home' },
   { routeKey: 'services' },
-  { routeKey: 'projects' },
-  { routeKey: 'blog' },
   { routeKey: 'about' },
+  { routeKey: 'blog' },
   { routeKey: 'contact' },
 ];
 

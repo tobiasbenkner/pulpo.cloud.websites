@@ -10,8 +10,8 @@ export const translations = {
     },
   },
   label: { de: 'Kontakt', en: 'Contact' },
-  headline1: { de: 'Lass uns etwas', en: "Let's build" },
-  headline2: { de: 'bauen.', en: 'something.' },
+  headline1: { de: 'Bringen Sie Ihre Idee', en: 'Bring your idea' },
+  headline2: { de: 'zum Leben.', en: 'to life.' },
   subtitle: {
     de: 'Erzählen Sie mir von Ihrem Projekt — ich melde mich innerhalb von 24 Stunden.',
     en: 'Tell me about your project — I\'ll get back to you within 24 hours.',

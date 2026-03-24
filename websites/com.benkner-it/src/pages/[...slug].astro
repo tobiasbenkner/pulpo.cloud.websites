@@ -9,6 +9,8 @@ import PostPage from '@/components/pages/PostPage.astro';
 import ServicesPage from '@/components/pages/ServicesPage.astro';
 import ProjectsPage from '@/components/pages/ProjectsPage.astro';
 import ContactPage from '@/components/pages/ContactPage.astro';
+import ImprintPage from '@/components/pages/ImprintPage.astro';
+import PrivacyPage from '@/components/pages/PrivacyPage.astro';
 import { locales, defaultLocale, categories } from '@/lib/i18n';
 import type { Locale, Category } from '@/lib/i18n';
 import { getPostsByLang, getAlternatePostUrl } from '@/lib/posts';
@@ -53,6 +55,16 @@ export const getStaticPaths = (async () => {
       props: { page: 'about', lang },
     });
 
+    paths.push({
+      params: { slug: `${prefix}imprint` },
+      props: { page: 'imprint', lang },
+    });
+
+    paths.push({
+      params: { slug: `${prefix}privacy` },
+      props: { page: 'privacy', lang },
+    });
+
     for (const category of categories) {
       const catPosts = posts.filter((p) => p.data.category === category);
       paths.push({
@@ -83,6 +95,8 @@ interface Props {
     | 'contact'
     | 'blog'
     | 'about'
+    | 'imprint'
+    | 'privacy'
     | 'category'
     | 'post';
   lang: Locale;
@@ -101,6 +115,8 @@ const { page, lang, posts, category, post, alternateUrl } = Astro.props;
 {page === 'contact' && <ContactPage lang={lang} />}
 {page === 'blog' && posts && <BlogPage lang={lang} posts={posts} />}
 {page === 'about' && <AboutPage lang={lang} />}
+{page === 'imprint' && <ImprintPage lang={lang} />}
+{page === 'privacy' && <PrivacyPage lang={lang} />}
 {
   page === 'category' && category && posts && (
     <CategoryPage lang={lang} category={category} posts={posts} />

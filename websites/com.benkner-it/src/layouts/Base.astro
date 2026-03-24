@@ -29,7 +29,7 @@ const alternateUrl =
 ---
 
 <!doctype html>
-<html lang={lang} class="dark">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -40,9 +40,8 @@ const alternateUrl =
     <link rel="icon" href="/favicon.ico" />
     <link rel="alternate" hreflang={alternateLang} href={alternateUrl} />
     <link rel="alternate" hreflang={lang} href={Astro.url.pathname} />
-
   </head>
-  <body class="bg-[#09090b] text-[#fafaf9] min-h-screen flex flex-col font-body">
+  <body class="bg-white text-body min-h-screen flex flex-col font-body">
     <Header
       lang={lang}
       currentPath={Astro.url.pathname}

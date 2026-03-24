@@ -1,3 +1,5 @@
+import { config } from '@/data/config';
+
 export const locales = ['en', 'de'] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = 'en';
@@ -36,7 +38,6 @@ interface TranslationSet {
   };
   services: {
     label: string;
-    num: string;
     recommended: string;
     mvp: ServiceBlock;
     websites: ServiceBlock;
@@ -44,19 +45,16 @@ interface TranslationSet {
   };
   projects: {
     label: string;
-    num: string;
     headline: string;
     viewProject: string;
   };
   blogSection: {
     label: string;
-    num: string;
     headline: string;
     viewAll: string;
   };
   aboutSection: {
     label: string;
-    num: string;
     headline: string;
     bio: string;
     bio2: string;
@@ -64,11 +62,9 @@ interface TranslationSet {
   };
   contactSection: {
     label: string;
-    num: string;
     headline1: string;
     headline2: string;
     subtitle: string;
-    cta: string;
   };
   home: { headline: string; viewAll: string };
   blog: { headline: string };
@@ -80,7 +76,7 @@ interface TranslationSet {
 const translations = {
   en: {
     site: {
-      title: 'Tobias Benkner',
+      title: config.name,
       description:
         'Freelance software developer — MVPs in 1 week, websites, and enterprise consulting.',
     },
@@ -103,20 +99,18 @@ const translations = {
       label: 'Software Developer',
       line1: 'Your MVP.',
       line2: 'One Week.',
-      line3: '€10,000.',
-      subtitle:
-        'From idea to working product — shipped in 7 days, fixed price, no surprises.',
+      line3: `${config.pricing.mvp.en}.`,
+      subtitle: `From idea to working product — shipped in ${config.mvpDays} days, fixed price, no surprises.`,
       cta: 'Start Your Project',
       ctaSecondary: 'View My Work',
     },
     services: {
       label: 'Services',
-      num: '001',
       recommended: 'Most Popular',
       mvp: {
         title: 'MVP Development',
-        price: '€10,000',
-        period: '7 days',
+        price: config.pricing.mvp.en,
+        period: `${config.mvpDays} days`,
         description:
           'A complete, working product — designed, built, and deployed in one week.',
         features: [
@@ -130,7 +124,7 @@ const translations = {
       },
       websites: {
         title: 'Websites',
-        price: '€2,000',
+        price: config.pricing.website.en,
         period: undefined,
         description:
           'Professional, fast, and beautifully crafted websites for your business.',
@@ -145,7 +139,7 @@ const translations = {
       },
       consulting: {
         title: 'Consulting',
-        price: 'On Request',
+        price: config.pricing.consulting.en,
         period: undefined,
         description:
           'Enterprise-grade DevOps, cloud infrastructure, and full-stack development.',
@@ -161,19 +155,16 @@ const translations = {
     },
     projects: {
       label: 'Selected Work',
-      num: '002',
       headline: 'Projects that shipped.',
       viewProject: 'View Project',
     },
     blogSection: {
       label: 'From the Blog',
-      num: '003',
       headline: 'Writing about code.',
       viewAll: 'All Posts',
     },
     aboutSection: {
       label: 'About',
-      num: '004',
       headline: 'Building software\nthat works.',
       bio: 'Freelance software developer based in Germany, working with enterprises and startups alike. I specialize in turning complex requirements into clean, maintainable systems — from cloud infrastructure to pixel-perfect frontends.',
       bio2: 'Currently available for MVP sprints, website projects, and contract work in German enterprises.',
@@ -181,12 +172,9 @@ const translations = {
     },
     contactSection: {
       label: 'Contact',
-      num: '005',
       headline1: "Let's build",
       headline2: 'something.',
-      subtitle:
-        "Have a project in mind? Let's talk.",
-      cta: 'hello@benkner-it.com',
+      subtitle: "Have a project in mind? Let's talk.",
     },
     home: { headline: 'Latest Posts', viewAll: 'View all posts' },
     blog: { headline: 'All Posts' },
@@ -196,7 +184,7 @@ const translations = {
   },
   de: {
     site: {
-      title: 'Tobias Benkner',
+      title: config.name,
       description:
         'Freiberuflicher Software-Entwickler — MVPs in 1 Woche, Webseiten und Enterprise-Beratung.',
     },
@@ -219,20 +207,18 @@ const translations = {
       label: 'Software-Entwickler',
       line1: 'Dein MVP.',
       line2: 'Eine Woche.',
-      line3: '€10.000.',
-      subtitle:
-        'Von der Idee zum fertigen Produkt — in 7 Tagen geliefert, Festpreis, keine Überraschungen.',
+      line3: `${config.pricing.mvp.de}.`,
+      subtitle: `Von der Idee zum fertigen Produkt — in ${config.mvpDays} Tagen geliefert, Festpreis, keine Überraschungen.`,
       cta: 'Projekt starten',
       ctaSecondary: 'Meine Arbeit ansehen',
     },
     services: {
       label: 'Leistungen',
-      num: '001',
       recommended: 'Beliebteste Option',
       mvp: {
         title: 'MVP-Entwicklung',
-        price: '€10.000',
-        period: '7 Tage',
+        price: config.pricing.mvp.de,
+        period: `${config.mvpDays} Tage`,
         description:
           'Ein vollständiges, funktionierendes Produkt — konzipiert, gebaut und deployed in einer Woche.',
         features: [
@@ -246,7 +232,7 @@ const translations = {
       },
       websites: {
         title: 'Webseiten',
-        price: '€2.000',
+        price: config.pricing.website.de,
         period: undefined,
         description:
           'Professionelle, schnelle und ansprechend gestaltete Webseiten für Ihr Unternehmen.',
@@ -261,7 +247,7 @@ const translations = {
       },
       consulting: {
         title: 'Beratung',
-        price: 'Auf Anfrage',
+        price: config.pricing.consulting.de,
         period: undefined,
         description:
           'Enterprise-Grade DevOps, Cloud-Infrastruktur und Full-Stack-Entwicklung.',
@@ -277,19 +263,16 @@ const translations = {
     },
     projects: {
       label: 'Ausgewählte Arbeiten',
-      num: '002',
       headline: 'Projekte, die live sind.',
       viewProject: 'Projekt ansehen',
     },
     blogSection: {
       label: 'Aus dem Blog',
-      num: '003',
       headline: 'Über Code schreiben.',
       viewAll: 'Alle Beiträge',
     },
     aboutSection: {
       label: 'Über mich',
-      num: '004',
       headline: 'Software bauen,\ndie funktioniert.',
       bio: 'Freiberuflicher Software-Entwickler mit Sitz in Deutschland, tätig für Konzerne und Startups gleichermaßen. Ich spezialisiere mich darauf, komplexe Anforderungen in saubere, wartbare Systeme zu verwandeln — von Cloud-Infrastruktur bis zu pixel-perfekten Frontends.',
       bio2: 'Aktuell verfügbar für MVP-Sprints, Webseiten-Projekte und Aufträge in deutschen Unternehmen.',
@@ -297,11 +280,9 @@ const translations = {
     },
     contactSection: {
       label: 'Kontakt',
-      num: '005',
       headline1: 'Lass uns etwas',
       headline2: 'bauen.',
       subtitle: 'Ein Projekt im Kopf? Lass uns reden.',
-      cta: 'hello@benkner-it.com',
     },
     home: { headline: 'Neueste Beiträge', viewAll: 'Alle Beiträge anzeigen' },
     blog: { headline: 'Alle Beiträge' },

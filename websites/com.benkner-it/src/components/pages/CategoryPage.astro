@@ -17,10 +17,12 @@ const i18n = t(lang);
 
 <Base lang={lang} title={i18n.categories[category]}>
   <section>
-    <p class="font-mono text-[#52525b] text-xs uppercase tracking-[0.2em]">
+    <p class="font-mono text-faint text-xs uppercase tracking-[0.2em]">
       {category}
     </p>
-    <h1 class="font-display text-3xl sm:text-4xl font-bold mt-4 tracking-tight">
+    <h1
+      class="font-display text-2xl sm:text-3xl font-bold mt-4 tracking-tight text-heading"
+    >
       {i18n.categories[category]}
     </h1>
     {
@@ -31,7 +33,7 @@ const i18n = t(lang);
           ))}
         </div>
       ) : (
-        <p class="text-[#52525b] mt-8">{i18n.notFound}</p>
+        <p class="text-muted mt-8">{i18n.notFound}</p>
       )
     }
   </section>

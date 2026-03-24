@@ -1,0 +1,59 @@
+---
+import Base from '@/layouts/Base.astro';
+import type { Locale } from '@/lib/i18n';
+import { config } from '@/data/config';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const isEn = lang === 'en';
+const { legal } = config;
+---
+
+<Base lang={lang} title={isEn ? 'Imprint' : 'Impressum'}>
+  <article class="prose prose-slate max-w-none prose-headings:font-display prose-headings:tracking-tight prose-headings:text-heading">
+    <h1>{isEn ? 'Imprint' : 'Impressum'}</h1>
+
+    <h2>{isEn ? 'Information according to § 5 TMG' : 'Angaben gemäß § 5 TMG'}</h2>
+    <p>
+      {legal.fullName}<br />
+      {legal.address.street}<br />
+      {legal.address.zip} {legal.address.city}<br />
+      {legal.address.country}
+    </p>
+
+    <h2>{isEn ? 'Contact' : 'Kontakt'}</h2>
+    <p>
+      {isEn ? 'Email' : 'E-Mail'}: <a href={`mailto:${config.email}`}>{config.email}</a><br />
+      {config.phone && <>{isEn ? 'Phone' : 'Telefon'}: <a href={`tel:${config.phone.replace(/\s/g, '')}`}>{config.phone}</a></>}
+    </p>
+
+    {legal.taxId && (
+      <>
+        <h2>{isEn ? 'VAT ID' : 'Umsatzsteuer-ID'}</h2>
+        <p>
+          {isEn
+            ? 'VAT identification number according to § 27a of the German VAT Act'
+            : 'Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz'}:<br />
+          {legal.taxId}
+        </p>
+      </>
+    )}
+
+    <h2>{isEn ? 'Liability for Content' : 'Haftung für Inhalte'}</h2>
+    <p>
+      {isEn
+        ? 'As a service provider, we are responsible for our own content on these pages in accordance with § 7 paragraph 1 of the German Telemedia Act (TMG). According to §§ 8 to 10 TMG, however, we are not obliged to monitor transmitted or stored third-party information or to investigate circumstances that indicate illegal activity.'
+        : 'Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.'}
+    </p>
+
+    <h2>{isEn ? 'Liability for Links' : 'Haftung für Links'}</h2>
+    <p>
+      {isEn
+        ? 'Our offer contains links to external websites of third parties, on whose contents we have no influence. Therefore we cannot assume any liability for these external contents. The respective provider or operator of the pages is always responsible for the content of the linked pages.'
+        : 'Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.'}
+    </p>
+  </article>
+</Base>

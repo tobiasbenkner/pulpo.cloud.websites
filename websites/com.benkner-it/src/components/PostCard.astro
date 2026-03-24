@@ -20,23 +20,23 @@ const href = localePath(
 <article class="group h-full">
   <a
     href={href}
-    class="block h-full p-6 sm:p-7 border border-[#1e1e22] hover:border-[#27272a] bg-surface/30 transition-all card-lift"
+    class="block h-full p-6 border border-border hover:border-border-hover rounded-xl bg-white transition-all card-lift"
   >
-    <div class="flex items-center gap-3 mb-4">
+    <div class="flex items-center gap-3 mb-3">
       <CategoryBadge category={post.data.category} lang={lang} linked={false} />
       <time
-        class="text-xs font-mono text-[#3f3f46]"
+        class="text-xs font-mono text-faint"
         datetime={post.data.date.toISOString()}
       >
         {formatDate(post.data.date, lang)}
       </time>
     </div>
     <h3
-      class="font-display text-base font-bold tracking-tight group-hover:text-accent transition-colors"
+      class="font-display text-base font-bold tracking-tight text-heading group-hover:text-primary transition-colors"
     >
       {post.data.title}
     </h3>
-    <p class="text-sm text-[#71717a] leading-relaxed mt-2 line-clamp-2">
+    <p class="text-sm text-muted leading-relaxed mt-2 line-clamp-2">
       {post.data.description}
     </p>
   </a>

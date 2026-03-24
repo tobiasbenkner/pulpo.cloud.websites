@@ -14,19 +14,29 @@
 @import "@fontsource/ibm-plex-mono/400.css";
 @import "@fontsource/ibm-plex-mono/500.css";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 @theme {
   --font-display: 'Syne', sans-serif;
   --font-body: 'Outfit', sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
 
-  --color-surface: #131316;
-  --color-elevated: #1c1c21;
-  --color-accent: #c8a960;
-  --color-accent-hover: #dcc07a;
-  --color-muted: #71717a;
-  --color-border-subtle: #1e1e22;
+  /* Primary — blue-indigo from logo crown */
+  --color-primary: #4f6ef5;
+  --color-primary-hover: #3b5bdb;
+  --color-primary-light: #eef2ff;
+  --color-primary-border: #c7d2fe;
+
+  /* Secondary — violet from logo roots */
+  --color-secondary: #7c5cf6;
+  --color-secondary-light: #f3f0ff;
+  --color-secondary-border: #ddd6fe;
+
+  --color-surface: #f8fafc;
+  --color-border: #e2e8f0;
+  --color-border-hover: #cbd5e1;
+  --color-heading: #0f172a;
+  --color-body: #334155;
+  --color-muted: #64748b;
+  --color-faint: #94a3b8;
 }
 
 @layer base {
@@ -41,48 +51,37 @@
   }
 
   ::selection {
-    background-color: #c8a96040;
-    color: #fafaf9;
+    background-color: #4f6ef520;
+    color: #0f172a;
   }
 }
 
 /* ── Hero entrance ──────────────────────────────── */
 
 @keyframes hero-up {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .hero-animate {
   opacity: 0;
-  animation: hero-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: hero-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-
 .hero-animate:nth-child(1) { animation-delay: 0.1s; }
-.hero-animate:nth-child(2) { animation-delay: 0.3s; }
-.hero-animate:nth-child(3) { animation-delay: 0.55s; }
-.hero-animate:nth-child(4) { animation-delay: 0.75s; }
+.hero-animate:nth-child(2) { animation-delay: 0.25s; }
+.hero-animate:nth-child(3) { animation-delay: 0.4s; }
+.hero-animate:nth-child(4) { animation-delay: 0.55s; }
+.hero-animate:nth-child(5) { animation-delay: 0.7s; }
 
 /* ── Scroll reveal ──────────────────────────────── */
 
 .reveal {
   opacity: 0;
-  transform: translateY(32px);
-  transition:
-    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+.reveal.visible { opacity: 1; transform: translateY(0); }
 
 .stagger > .reveal:nth-child(1) { transition-delay: 0s; }
 .stagger > .reveal:nth-child(2) { transition-delay: 0.08s; }
@@ -91,56 +90,127 @@
 .stagger > .reveal:nth-child(5) { transition-delay: 0.32s; }
 .stagger > .reveal:nth-child(6) { transition-delay: 0.40s; }
 
-/* ── Dot grid background ────────────────────────── */
-
-.dot-grid {
-  background-image: radial-gradient(circle, #27272a 1px, transparent 1px);
-  background-size: 28px 28px;
-}
-
-/* ── Gradient glow ──────────────────────────────── */
-
-.glow-accent {
-  background: radial-gradient(
-    ellipse 60% 40% at 50% 0%,
-    #c8a96012 0%,
-    transparent 70%
-  );
-}
-
-/* ── Service card hover lift ────────────────────── */
+/* ── Card hover ─────────────────────────────────── */
 
 .card-lift {
-  transition:
-    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.35s ease;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s ease, border-color 0.3s ease;
 }
-
 .card-lift:hover {
-  transform: translateY(-4px);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px -12px rgba(79, 110, 245, 0.12);
 }
 
-/* ── Project card shine ─────────────────────────── */
+/* ── Dot grid ───────────────────────────────────── */
 
-.project-card {
-  position: relative;
-  overflow: hidden;
+.dot-grid {
+  background-image: radial-gradient(circle, #94a3b8 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
-.project-card::before {
+/* ── Gradient mesh background ───────────────────── */
+
+.gradient-mesh {
+  background:
+    radial-gradient(ellipse 50% 50% at 20% 50%, #4f6ef508 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 80% 20%, #7c5cf608 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 60% 80%, #4f6ef505 0%, transparent 70%);
+}
+
+/* ── Browser mockup ─────────────────────────────── */
+
+.browser-mockup {
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.04),
+    0 12px 40px -8px rgba(79, 110, 245, 0.10);
+}
+
+.browser-mockup:hover {
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.04),
+    0 20px 50px -12px rgba(79, 110, 245, 0.16);
+}
+
+/* ── Nav link underline ──────────────────────────── */
+
+.nav-link::after {
   content: '';
   position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    transparent 40%,
-    #c8a96008 50%,
-    transparent 60%
-  );
-  transform: translateX(-100%);
-  transition: transform 0.6s ease;
+  bottom: 2px;
+  left: 12px;
+  right: 12px;
+  height: 2px;
+  border-radius: 1px;
+  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.project-card:hover::before {
-  transform: translateX(100%);
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+.nav-link[data-active]::after {
+  transform: scaleX(1);
+}
+
+/* ── Cross grid pattern ─────────────────────────── */
+
+.cross-grid {
+  background-image:
+    linear-gradient(#cbd5e1 1px, transparent 1px),
+    linear-gradient(90deg, #cbd5e1 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ── Diagonal lines ─────────────────────────────── */
+
+.diagonal-lines {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 14px,
+    #e2e8f0 14px,
+    #e2e8f0 15px
+  );
+}
+
+/* ── Section wave divider ───────────────────────── */
+
+.wave-divider {
+  position: relative;
+}
+.wave-divider::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 48' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 48h1440V24C1320 0 1200 0 1080 12S840 48 720 36 480 0 360 12 120 48 0 36V48Z' fill='%23f8fafc'/%3E%3C/svg%3E") no-repeat center;
+  background-size: cover;
+  pointer-events: none;
+}
+
+.wave-divider-white::after {
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 48' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 48h1440V24C1320 0 1200 0 1080 12S840 48 720 36 480 0 360 12 120 48 0 36V48Z' fill='%23ffffff'/%3E%3C/svg%3E") no-repeat center;
+  background-size: cover;
+}
+
+/* ── Angle divider ──────────────────────────────── */
+
+.angle-divider::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(to right bottom, transparent 49.5%, #f8fafc 50%);
+  pointer-events: none;
+}
+
+.angle-divider-white::after {
+  background: linear-gradient(to right bottom, transparent 49.5%, white 50%);
 }

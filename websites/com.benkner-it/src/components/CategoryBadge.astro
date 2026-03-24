@@ -13,14 +13,14 @@ const label = t(lang).categories[category];
 const href = localePath(`/${category}`, lang);
 
 const classes =
-  'inline-block px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider text-accent border border-accent/20 bg-accent/[0.05]';
+  'inline-block px-2.5 py-0.5 text-[10px] font-mono uppercase tracking-wider text-primary bg-primary-light border border-primary-border rounded-md';
 ---
 
 {
   linked ? (
     <a
       href={href}
-      class:list={[classes, 'hover:bg-accent/10 transition-colors']}
+      class:list={[classes, 'hover:bg-primary/10 transition-colors']}
     >
       {label}
     </a>

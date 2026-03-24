@@ -42,8 +42,7 @@ export const config = {
 
   /** Stats shown on homepage */
   stats: {
-    projectsShipped: '6+',
-    yearsExperience: '10+',
+    yearsExperience: '15+',
   },
   /** Legal / Imprint */
   legal: {

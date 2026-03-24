@@ -9,6 +9,9 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@fontsource/ibm-plex-mono": "^5.2.7",
+    "@fontsource/outfit": "^5.2.8",
+    "@fontsource/syne": "^5.2.7",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.17.1",

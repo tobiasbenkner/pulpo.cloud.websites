@@ -12,25 +12,351 @@ interface Props {
 
 const { lang, posts } = Astro.props;
 const i18n = t(lang);
+
+const services = [
+  { key: 'mvp' as const, featured: true },
+  { key: 'websites' as const, featured: false },
+  { key: 'consulting' as const, featured: false },
+];
 ---
 
-<Base lang={lang}>
-  <section>
-    <h1 class="text-3xl font-bold mb-8">{i18n.home.headline}</h1>
-    <div class="divide-y divide-slate-200 dark:divide-slate-800">
-      {posts.map((post) => <PostCard post={post} lang={lang} />)}
+<Base lang={lang} fullWidth>
+  <!-- ═══════════════════════════════════ HERO ═══ -->
+  <section
+    class="relative min-h-[100dvh] flex items-center dot-grid overflow-hidden"
+  >
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-[#09090b] via-transparent to-[#09090b] pointer-events-none"
+    >
     </div>
-    {
-      posts.length >= 5 && (
-        <div class="mt-8">
-          <a
-            href={localePath('/blog', lang)}
-            class="text-emerald-600 dark:text-emerald-400 hover:underline"
+    <div
+      class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-accent/[0.04] rounded-full blur-[120px] pointer-events-none"
+    >
+    </div>
+
+    <div class="relative max-w-6xl mx-auto px-5 sm:px-8 w-full py-32">
+      <div class="hero-animate">
+        <p
+          class="font-mono text-accent text-xs sm:text-sm uppercase tracking-[0.25em] font-medium"
+        >
+          {i18n.hero.label}
+        </p>
+      </div>
+
+      <h1
+        class="hero-animate font-display text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight mt-8 tracking-tight"
+      >
+        {i18n.hero.line1}<br />
+        {i18n.hero.line2}<br />
+        <span class="text-accent">{i18n.hero.line3}</span>
+      </h1>
+
+      <div class="hero-animate">
+        <p
+          class="text-lg sm:text-xl text-[#a1a1aa] mt-8 max-w-lg leading-relaxed"
+        >
+          {i18n.hero.subtitle}
+        </p>
+      </div>
+
+      <div class="hero-animate flex flex-col sm:flex-row gap-4 mt-12">
+        <a
+          href={localePath('/contact', lang)}
+          class="inline-flex items-center justify-center bg-accent text-[#09090b] px-8 py-4 font-semibold text-sm tracking-wide hover:bg-accent-hover transition-colors"
+        >
+          {i18n.hero.cta}
+          <svg
+            class="w-4 h-4 ml-2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
           >
-            {i18n.home.viewAll} &rarr;
-          </a>
-        </div>
-      )
-    }
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"></path>
+          </svg>
+        </a>
+        <a
+          href={localePath('/projects', lang)}
+          class="inline-flex items-center justify-center border border-[#27272a] px-8 py-4 text-sm font-medium text-[#a1a1aa] hover:border-accent/40 hover:text-[#fafaf9] transition-all"
+        >
+          {i18n.hero.ctaSecondary}
+        </a>
+      </div>
+    </div>
+
+    <div
+      class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40"
+    >
+      <div class="w-px h-8 bg-gradient-to-b from-transparent to-[#52525b]">
+      </div>
+    </div>
   </section>
+
+  <!-- ══════════════════════════ SERVICES TEASER ═══ -->
+  <section class="relative py-28 sm:py-36 glow-accent">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+      <div class="reveal flex items-end justify-between">
+        <p
+          class="font-mono text-[#52525b] text-xs uppercase tracking-[0.2em]"
+        >
+          {i18n.services.num} — {i18n.services.label}
+        </p>
+        <a
+          href={localePath('/services', lang)}
+          class="hidden sm:inline-flex items-center gap-2 text-sm text-[#52525b] hover:text-accent transition-colors font-mono"
+        >
+          {i18n.blogSection.viewAll}
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"></path>
+          </svg>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-14 stagger">
+        {
+          services.map(({ key, featured }) => {
+            const svc = i18n.services[key];
+            return (
+              <a
+                href={localePath('/services', lang)}
+                class:list={[
+                  'reveal card-lift relative p-7 sm:p-8 border flex flex-col group',
+                  featured
+                    ? 'border-accent/30 bg-accent/[0.03]'
+                    : 'border-[#1e1e22] bg-surface/50 hover:border-[#27272a]',
+                ]}
+              >
+                {featured && (
+                  <span class="absolute -top-3 left-7 px-3 py-1 bg-accent text-[#09090b] text-[10px] font-mono font-semibold uppercase tracking-wider">
+                    {i18n.services.recommended}
+                  </span>
+                )}
+
+                <h3 class="font-display text-lg font-bold tracking-tight group-hover:text-accent transition-colors">
+                  {svc.title}
+                </h3>
+
+                <div class="mt-4 flex items-baseline gap-2">
+                  <span class="font-display text-3xl font-extrabold text-accent">
+                    {svc.price}
+                  </span>
+                  {svc.period && (
+                    <span class="text-sm text-[#52525b] font-mono">
+                      / {svc.period}
+                    </span>
+                  )}
+                </div>
+
+                <p class="mt-4 text-sm text-[#a1a1aa] leading-relaxed">
+                  {svc.description}
+                </p>
+              </a>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════ PROJECTS TEASER ═══ -->
+  <section class="py-28 sm:py-36 border-t border-white/[0.04]">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+      <div class="reveal flex items-end justify-between">
+        <div>
+          <p
+            class="font-mono text-[#52525b] text-xs uppercase tracking-[0.2em]"
+          >
+            {i18n.projects.num} — {i18n.projects.label}
+          </p>
+          <h2
+            class="font-display text-3xl sm:text-4xl md:text-5xl font-bold mt-6 tracking-tight"
+          >
+            {i18n.projects.headline}
+          </h2>
+        </div>
+        <a
+          href={localePath('/projects', lang)}
+          class="hidden sm:inline-flex items-center gap-2 text-sm text-[#52525b] hover:text-accent transition-colors font-mono shrink-0 ml-8"
+        >
+          {i18n.blogSection.viewAll}
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"></path>
+          </svg>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-14 stagger">
+        {
+          [
+            {
+              name: 'pulpo.cloud',
+              desc:
+                lang === 'en'
+                  ? 'Open Source POS, e-commerce & inventory management'
+                  : 'Open-Source-Kassensystem, E-Commerce & Warenwirtschaft',
+              url: 'https://pulpo.cloud',
+            },
+            {
+              name: 'beckernet.es',
+              desc:
+                lang === 'en'
+                  ? 'Corporate website for an insurance consultancy'
+                  : 'Unternehmenswebsite für eine Versicherungsberatung',
+              url: 'https://beckernet.es',
+            },
+            {
+              name: 'hektorysara.com',
+              desc:
+                lang === 'en'
+                  ? 'Website for a dance academy'
+                  : 'Webseite für eine Tanzakademie',
+              url: 'https://hektorysara.com',
+            },
+          ].map((p) => (
+            <a
+              href={p.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="reveal project-card group border border-[#1e1e22] hover:border-[#27272a] p-7 flex flex-col justify-between transition-colors"
+            >
+              <div>
+                <div class="flex items-center justify-between">
+                  <h3 class="font-display text-base font-bold tracking-tight group-hover:text-accent transition-colors">
+                    {p.name}
+                  </h3>
+                  <svg
+                    class="w-4 h-4 text-[#3f3f46] group-hover:text-accent transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
+                    />
+                  </svg>
+                </div>
+                <p class="mt-3 text-sm text-[#71717a] leading-relaxed">
+                  {p.desc}
+                </p>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+
+      <div class="mt-8 sm:hidden">
+        <a
+          href={localePath('/projects', lang)}
+          class="inline-flex items-center gap-2 text-sm text-[#52525b] hover:text-accent transition-colors font-mono"
+        >
+          {i18n.blogSection.viewAll}
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ BLOG TEASER ═══ -->
+  {
+    posts.length > 0 && (
+      <section class="py-28 sm:py-36 border-t border-white/[0.04]">
+        <div class="max-w-6xl mx-auto px-5 sm:px-8">
+          <div class="reveal flex items-end justify-between">
+            <div>
+              <p class="font-mono text-[#52525b] text-xs uppercase tracking-[0.2em]">
+                {i18n.blogSection.num} — {i18n.blogSection.label}
+              </p>
+              <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold mt-6 tracking-tight">
+                {i18n.blogSection.headline}
+              </h2>
+            </div>
+            <a
+              href={localePath('/blog', lang)}
+              class="hidden sm:inline-flex items-center gap-2 text-sm text-[#52525b] hover:text-accent transition-colors font-mono shrink-0 ml-8"
+            >
+              {i18n.blogSection.viewAll}
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                />
+              </svg>
+            </a>
+          </div>
+
+          <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-4 stagger">
+            {posts.slice(0, 4).map((post) => (
+              <div class="reveal">
+                <PostCard post={post} lang={lang} />
+              </div>
+            ))}
+          </div>
+
+          <div class="mt-8 sm:hidden">
+            <a
+              href={localePath('/blog', lang)}
+              class="inline-flex items-center gap-2 text-sm text-[#52525b] hover:text-accent transition-colors font-mono"
+            >
+              {i18n.blogSection.viewAll}
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+    )
+  }
 </Base>

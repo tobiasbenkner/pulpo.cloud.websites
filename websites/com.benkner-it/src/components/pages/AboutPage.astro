@@ -9,55 +9,64 @@ interface Props {
 
 const { lang } = Astro.props;
 const i18n = t(lang);
+
+const techStack = [
+  {
+    label: 'Infrastructure',
+    items: ['Docker', 'Kubernetes', 'Traefik', 'Terraform'],
+  },
+  { label: 'CI/CD', items: ['GitHub Actions', 'GitLab CI'] },
+  {
+    label: 'Frontend',
+    items: ['Astro', 'TypeScript', 'Tailwind CSS', 'React'],
+  },
+  { label: 'Backend', items: ['Node.js', 'Go', 'PostgreSQL'] },
+  { label: 'Monitoring', items: ['Grafana', 'Prometheus', 'Loki'] },
+];
 ---
 
 <Base lang={lang} title={i18n.nav.about}>
-  <section class="prose dark:prose-invert max-w-none">
-    <h1>{i18n.about.headline}</h1>
-    {
-      lang === 'en' ? (
-        <Fragment>
-          <p>
-            Hi, I'm Tobias — a developer and DevOps engineer based in Spain. I
-            work across the full stack, from infrastructure and CI/CD pipelines
-            to modern web applications. This blog is where I share what I learn
-            along the way.
-          </p>
-          <p>
-            My main interests revolve around container orchestration,
-            cloud-native tooling, and building fast, accessible websites. When
-            I'm not writing code, you'll find me exploring new dev tools or
-            writing about the intersection of AI and software engineering.
-          </p>
-          <h2>Tech I work with</h2>
-        </Fragment>
-      ) : (
-        <Fragment>
-          <p>
-            Hi, ich bin Tobias — Entwickler und DevOps-Engineer mit Sitz in
-            Spanien. Ich arbeite über den gesamten Stack hinweg, von
-            Infrastruktur und CI/CD-Pipelines bis hin zu modernen
-            Webanwendungen. In diesem Blog teile ich, was ich dabei lerne.
-          </p>
-          <p>
-            Meine Hauptinteressen liegen in Container-Orchestrierung,
-            Cloud-Native Tooling und dem Bau schneller, barrierefreier Websites.
-            Wenn ich nicht gerade Code schreibe, erkunde ich neue Entwicklertools
-            oder schreibe über die Schnittstelle von KI und
-            Softwareentwicklung.
-          </p>
-          <h2>Technologien</h2>
-        </Fragment>
-      )
-    }
-    <ul>
-      <li>
-        <strong>Infrastructure:</strong> Docker, Kubernetes, Traefik, Terraform
-      </li>
-      <li><strong>CI/CD:</strong> GitHub Actions, GitLab CI</li>
-      <li><strong>Web:</strong> Astro, TypeScript, Tailwind CSS, React</li>
-      <li><strong>Backend:</strong> Node.js, Go, PostgreSQL</li>
-      <li><strong>Monitoring:</strong> Grafana, Prometheus, Loki</li>
-    </ul>
+  <section>
+    <p class="font-mono text-[#52525b] text-xs uppercase tracking-[0.2em]">
+      {i18n.aboutSection.num} — {i18n.aboutSection.label}
+    </p>
+    <h1
+      class="font-display text-3xl sm:text-4xl font-bold mt-4 tracking-tight whitespace-pre-line leading-tight"
+    >
+      {i18n.aboutSection.headline}
+    </h1>
+
+    <div class="mt-10 space-y-6">
+      <p class="text-[#a1a1aa] leading-relaxed">{i18n.aboutSection.bio}</p>
+      <p class="text-[#71717a] leading-relaxed text-sm">
+        {i18n.aboutSection.bio2}
+      </p>
+    </div>
+
+    <div class="mt-16">
+      <p
+        class="font-mono text-[#52525b] text-xs uppercase tracking-[0.2em] mb-8"
+      >
+        {i18n.aboutSection.techLabel}
+      </p>
+      <div class="space-y-6">
+        {
+          techStack.map((group) => (
+            <div>
+              <p class="text-[11px] font-mono uppercase tracking-wider text-[#3f3f46] mb-3">
+                {group.label}
+              </p>
+              <div class="flex flex-wrap gap-2">
+                {group.items.map((item) => (
+                  <span class="px-3 py-1.5 text-sm text-[#a1a1aa] border border-[#1e1e22] bg-surface/30">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
   </section>
 </Base>

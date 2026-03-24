@@ -10,14 +10,22 @@ interface Props {
   description?: string;
   lang: Locale;
   alternateUrl?: string;
+  fullWidth?: boolean;
 }
 
-const { lang, title, description, alternateUrl: explicitAlternate } = Astro.props;
+const {
+  lang,
+  title,
+  description,
+  alternateUrl: explicitAlternate,
+  fullWidth = false,
+} = Astro.props;
 const i18n = t(lang);
-const pageTitle = title ? `${title} | ${i18n.site.title}` : i18n.site.title;
+const pageTitle = title ? `${title} — ${i18n.site.title}` : i18n.site.title;
 const pageDescription = description ?? i18n.site.description;
 const alternateLang = lang === 'en' ? 'de' : 'en';
-const alternateUrl = explicitAlternate ?? getAlternateUrl(Astro.url.pathname, alternateLang);
+const alternateUrl =
+  explicitAlternate ?? getAlternateUrl(Astro.url.pathname, alternateLang);
 ---
 
 <!doctype html>
@@ -32,14 +40,37 @@ const alternateUrl = explicitAlternate ?? getAlternateUrl(Astro.url.pathname, al
     <link rel="icon" href="/favicon.ico" />
     <link rel="alternate" hreflang={alternateLang} href={alternateUrl} />
     <link rel="alternate" hreflang={lang} href={Astro.url.pathname} />
+
   </head>
-  <body
-    class="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col"
-  >
-    <Header lang={lang} currentPath={Astro.url.pathname} alternateUrl={alternateUrl} />
-    <main class="flex-1 w-full max-w-3xl mx-auto px-4 sm:px-6 py-12">
-      <slot />
-    </main>
-    <Footer />
+  <body class="bg-[#09090b] text-[#fafaf9] min-h-screen flex flex-col font-body">
+    <Header
+      lang={lang}
+      currentPath={Astro.url.pathname}
+      alternateUrl={alternateUrl}
+    />
+    {
+      fullWidth ? (
+        <main class="flex-1">
+          <slot />
+        </main>
+      ) : (
+        <main class="flex-1 w-full max-w-3xl mx-auto px-5 sm:px-8 pt-32 pb-20">
+          <slot />
+        </main>
+      )
+    }
+    <Footer lang={lang} />
+
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) e.target.classList.add('visible');
+          });
+        },
+        { threshold: 0.08, rootMargin: '0px 0px -40px 0px' },
+      );
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    </script>
   </body>
 </html>

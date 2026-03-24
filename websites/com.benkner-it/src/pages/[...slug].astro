@@ -6,6 +6,9 @@ import BlogPage from '@/components/pages/BlogPage.astro';
 import AboutPage from '@/components/pages/AboutPage.astro';
 import CategoryPage from '@/components/pages/CategoryPage.astro';
 import PostPage from '@/components/pages/PostPage.astro';
+import ServicesPage from '@/components/pages/ServicesPage.astro';
+import ProjectsPage from '@/components/pages/ProjectsPage.astro';
+import ContactPage from '@/components/pages/ContactPage.astro';
 import { locales, defaultLocale, categories } from '@/lib/i18n';
 import type { Locale, Category } from '@/lib/i18n';
 import { getPostsByLang, getAlternatePostUrl } from '@/lib/posts';
@@ -23,6 +26,21 @@ export const getStaticPaths = (async () => {
     paths.push({
       params: { slug: lang === defaultLocale ? undefined : lang },
       props: { page: 'home', lang, posts: posts.slice(0, 5) },
+    });
+
+    paths.push({
+      params: { slug: `${prefix}services` },
+      props: { page: 'services', lang },
+    });
+
+    paths.push({
+      params: { slug: `${prefix}projects` },
+      props: { page: 'projects', lang },
+    });
+
+    paths.push({
+      params: { slug: `${prefix}contact` },
+      props: { page: 'contact', lang },
     });
 
     paths.push({
@@ -58,7 +76,15 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 interface Props {
-  page: 'home' | 'blog' | 'about' | 'category' | 'post';
+  page:
+    | 'home'
+    | 'services'
+    | 'projects'
+    | 'contact'
+    | 'blog'
+    | 'about'
+    | 'category'
+    | 'post';
   lang: Locale;
   posts?: CollectionEntry<'blog'>[];
   category?: Category;
@@ -70,6 +96,9 @@ const { page, lang, posts, category, post, alternateUrl } = Astro.props;
 ---
 
 {page === 'home' && posts && <HomePage lang={lang} posts={posts} />}
+{page === 'services' && <ServicesPage lang={lang} />}
+{page === 'projects' && <ProjectsPage lang={lang} />}
+{page === 'contact' && <ContactPage lang={lang} />}
 {page === 'blog' && posts && <BlogPage lang={lang} posts={posts} />}
 {page === 'about' && <AboutPage lang={lang} />}
 {

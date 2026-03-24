@@ -11,19 +11,20 @@ interface Props {
 const { category, lang, linked = true } = Astro.props;
 const label = t(lang).categories[category];
 const href = localePath(`/${category}`, lang);
+
+const classes =
+  'inline-block px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider text-accent border border-accent/20 bg-accent/[0.05]';
 ---
 
 {
   linked ? (
     <a
       href={href}
-      class="inline-block px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-200 dark:hover:bg-emerald-900/50 transition-colors"
+      class:list={[classes, 'hover:bg-accent/10 transition-colors']}
     >
       {label}
     </a>
   ) : (
-    <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400">
-      {label}
-    </span>
+    <span class={classes}>{label}</span>
   )
 }

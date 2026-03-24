@@ -1,0 +1,108 @@
+---
+import Base from '@/layouts/Base.astro';
+import type { Locale } from '@/lib/i18n';
+import { t, localePath } from '@/lib/i18n';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const i18n = t(lang);
+---
+
+<Base lang={lang} title={i18n.nav.services} fullWidth>
+  <section class="pt-32 pb-28 sm:pt-40 sm:pb-36">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+      <p
+        class="font-mono text-[#52525b] text-xs uppercase tracking-[0.2em]"
+      >
+        {i18n.services.num} — {i18n.services.label}
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-14 stagger">
+        {
+          (
+            [
+              { key: 'mvp' as const, featured: true },
+              { key: 'websites' as const, featured: false },
+              { key: 'consulting' as const, featured: false },
+            ] as const
+          ).map(({ key, featured }) => {
+            const svc = i18n.services[key];
+            return (
+              <div
+                class:list={[
+                  'reveal card-lift relative p-7 sm:p-8 border flex flex-col',
+                  featured
+                    ? 'border-accent/30 bg-accent/[0.03]'
+                    : 'border-[#1e1e22] bg-surface/50',
+                ]}
+              >
+                {featured && (
+                  <span class="absolute -top-3 left-7 px-3 py-1 bg-accent text-[#09090b] text-[10px] font-mono font-semibold uppercase tracking-wider">
+                    {i18n.services.recommended}
+                  </span>
+                )}
+
+                <h3 class="font-display text-lg font-bold tracking-tight">
+                  {svc.title}
+                </h3>
+
+                <div class="mt-4 flex items-baseline gap-2">
+                  <span class="font-display text-3xl font-extrabold text-accent">
+                    {svc.price}
+                  </span>
+                  {svc.period && (
+                    <span class="text-sm text-[#52525b] font-mono">
+                      / {svc.period}
+                    </span>
+                  )}
+                </div>
+
+                <p class="mt-4 text-sm text-[#a1a1aa] leading-relaxed">
+                  {svc.description}
+                </p>
+
+                <div class="mt-6 pt-6 border-t border-white/[0.04] flex-1">
+                  <ul class="space-y-3">
+                    {svc.features.map((f) => (
+                      <li class="flex items-start gap-3 text-sm text-[#a1a1aa]">
+                        <svg
+                          class="w-4 h-4 text-accent shrink-0 mt-0.5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m4.5 12.75 6 6 9-13.5"
+                          />
+                        </svg>
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <a
+                  href={localePath('/contact', lang)}
+                  class:list={[
+                    'mt-8 inline-flex items-center justify-center py-3.5 text-sm font-semibold transition-all',
+                    featured
+                      ? 'bg-accent text-[#09090b] hover:bg-accent-hover'
+                      : 'border border-[#27272a] text-[#a1a1aa] hover:border-accent/40 hover:text-[#fafaf9]',
+                  ]}
+                >
+                  {svc.cta}
+                </a>
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+</Base>

@@ -55,3 +55,9 @@ jobs:
             WEBSITE=${{ inputs.website }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Deploy
+        run: |
+          curl -X GET -H "Authorization: Bearer $DEPLOY_TOKEN" https://deploy.pulpo.cloud/v1/update
+        env:
+            DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}

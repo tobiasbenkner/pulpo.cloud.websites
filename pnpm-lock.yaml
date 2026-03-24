@@ -40,6 +40,15 @@ importers:
 
   websites/com.benkner-it:
     dependencies:
+      '@fontsource/ibm-plex-mono':
+        specifier: ^5.2.7
+        version: 5.2.7
+      '@fontsource/outfit':
+        specifier: ^5.2.8
+        version: 5.2.8
+      '@fontsource/syne':
+        specifier: ^5.2.7
+        version: 5.2.7
       '@tailwindcss/typography':
         specifier: ^0.5.19
         version: 0.5.19(tailwindcss@4.1.18)
@@ -793,6 +802,9 @@ packages:
   '@fontsource/cormorant-garamond@5.2.11':
     resolution: {integrity: sha512-5JjpN023lhA5soijgVT0BdRGzmlijm402ppjccMd6h+vRE0mX2lJnE+41UPfnlidrkV9/rCo1mf58WZlHnB0CA==}
 
+  '@fontsource/ibm-plex-mono@5.2.7':
+    resolution: {integrity: sha512-MKAb8qV+CaiMQn2B0dIi1OV3565NYzp3WN5b4oT6LTkk+F0jR6j0ZN+5BKJiIhffDC3rtBULsYZE65+0018z9w==}
+
   '@fontsource/inter@5.2.8':
     resolution: {integrity: sha512-P6r5WnJoKiNVV+zvW2xM13gNdFhAEpQ9dQJHt3naLvfg+LkF2ldgSLiF4T41lf1SQCM9QmkqPTn4TH568IRagg==}
 
@@ -801,6 +813,12 @@ packages:
 
   '@fontsource/libre-baskerville@5.2.10':
     resolution: {integrity: sha512-Y/bGj4cOdWhAxU4+sBPen3MB5Og3t/WvezVL+05CJ7cvhDQUKpQFUuw/hm1IQKRc9u0lWs8VP2MKDOK2uQtloQ==}
+
+  '@fontsource/outfit@5.2.8':
+    resolution: {integrity: sha512-rXC6g0MqD7cOBjht0bMqc43qM6lRqDLML9KXsmg9uykz0wLQhy8Z/ajrMG6iyoT3NJR+MYgU+OEHp7uHoTb+Yw==}
+
+  '@fontsource/syne@5.2.7':
+    resolution: {integrity: sha512-OgWgLPSbieiSfdFXgMs0l/rspIFzVoDZxw8wKj15n39epRqO5+Uv36c0MXNDcw2GuK/TIBgpC9G8VAgs+bVm7A==}
 
   '@iconify-json/circle-flags@1.2.10':
     resolution: {integrity: sha512-sZRxs689a281RtZvuAiKtV7pQHv8Tk0HkinSM7QvLgdLEK8xgGRCcbDvL09Rq+/KtemmsMzGhS9/qt+r3ca+Ug==}
@@ -3327,11 +3345,17 @@ snapshots:
 
   '@fontsource/cormorant-garamond@5.2.11': {}
 
+  '@fontsource/ibm-plex-mono@5.2.7': {}
+
   '@fontsource/inter@5.2.8': {}
 
   '@fontsource/jost@5.2.8': {}
 
   '@fontsource/libre-baskerville@5.2.10': {}
+
+  '@fontsource/outfit@5.2.8': {}
+
+  '@fontsource/syne@5.2.7': {}
 
   '@iconify-json/circle-flags@1.2.10':
     dependencies:

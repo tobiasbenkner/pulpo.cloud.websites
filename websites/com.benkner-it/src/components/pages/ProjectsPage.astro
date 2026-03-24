@@ -1,0 +1,134 @@
+---
+import Base from '@/layouts/Base.astro';
+import type { Locale } from '@/lib/i18n';
+import { t } from '@/lib/i18n';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const i18n = t(lang);
+
+const projects = [
+  {
+    name: 'pulpo.cloud',
+    description:
+      lang === 'en'
+        ? 'Open Source POS, e-commerce & inventory management platform for SMEs'
+        : 'Open-Source-Kassensystem, E-Commerce & Warenwirtschaft für KMU',
+    tags: ['Astro', 'TypeScript', 'Directus', 'Docker'],
+    url: 'https://pulpo.cloud',
+    featured: true,
+  },
+  {
+    name: 'beckernet.es',
+    description:
+      lang === 'en'
+        ? 'Corporate website for an insurance consultancy'
+        : 'Unternehmenswebsite für eine Versicherungsberatung',
+    tags: ['Astro', 'Tailwind', 'CMS'],
+    url: 'https://beckernet.es',
+  },
+  {
+    name: 'seguros.beckernet.es',
+    description:
+      lang === 'en'
+        ? 'Insurance comparison & quote platform'
+        : 'Versicherungsvergleichs- & Angebotsplattform',
+    tags: ['Astro', 'Directus', 'Tailwind'],
+    url: 'https://seguros.beckernet.es',
+  },
+  {
+    name: 'hektorysara.com',
+    description:
+      lang === 'en'
+        ? 'Website for a dance academy'
+        : 'Webseite für eine Tanzakademie',
+    tags: ['Astro', 'Tailwind', 'CMS'],
+    url: 'https://hektorysara.com',
+  },
+  {
+    name: 'holacanterasclub.com',
+    description:
+      lang === 'en'
+        ? 'Community website for a beach club'
+        : 'Community-Webseite für einen Strandclub',
+    tags: ['Astro', 'Tailwind'],
+    url: 'https://holacanterasclub.com',
+  },
+  {
+    name: 'elbuhotuerto.com',
+    description:
+      lang === 'en'
+        ? 'Restaurant website with online presence'
+        : 'Restaurant-Webseite mit Online-Präsenz',
+    tags: ['Astro', 'Tailwind'],
+    url: 'https://elbuhotuerto.com',
+  },
+];
+---
+
+<Base lang={lang} title={i18n.nav.projects} fullWidth>
+  <section class="pt-32 pb-28 sm:pt-40 sm:pb-36">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+      <p class="font-mono text-[#52525b] text-xs uppercase tracking-[0.2em]">
+        {i18n.projects.num} — {i18n.projects.label}
+      </p>
+      <h1
+        class="font-display text-3xl sm:text-4xl md:text-5xl font-bold mt-6 tracking-tight"
+      >
+        {i18n.projects.headline}
+      </h1>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-14 stagger">
+        {
+          projects.map((project) => (
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class:list={[
+                'reveal project-card group border p-7 sm:p-8 flex flex-col justify-between transition-colors',
+                project.featured
+                  ? 'border-accent/20 bg-accent/[0.02] md:col-span-2'
+                  : 'border-[#1e1e22] hover:border-[#27272a]',
+              ]}
+            >
+              <div>
+                <div class="flex items-center justify-between">
+                  <h2 class="font-display text-lg font-bold tracking-tight group-hover:text-accent transition-colors">
+                    {project.name}
+                  </h2>
+                  <svg
+                    class="w-4 h-4 text-[#3f3f46] group-hover:text-accent transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
+                    />
+                  </svg>
+                </div>
+                <p class="mt-3 text-sm text-[#a1a1aa] leading-relaxed">
+                  {project.description}
+                </p>
+              </div>
+              <div class="flex flex-wrap gap-2 mt-5">
+                {project.tags.map((tag) => (
+                  <span class="px-2.5 py-1 text-[11px] font-mono text-[#52525b] border border-[#1e1e22] group-hover:border-[#27272a] transition-colors">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>

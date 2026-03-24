@@ -15,7 +15,7 @@ const { legal } = config;
 <article class="prose prose-slate max-w-none prose-headings:font-display prose-headings:tracking-tight prose-headings:text-heading">
   <h1>{t.title}</h1>
 
-  <h2>{t.tmg}</h2>
+  <h2>{t.lssi}</h2>
   <p>
     {legal.fullName}<br />
     {legal.address.street}<br />
@@ -32,20 +32,22 @@ const { legal } = config;
   {legal.taxId && (
     <>
       <h2>{t.vatTitle}</h2>
-      <p>
-        {t.vatDescription}:<br />
-        {legal.taxId}
-      </p>
+      <p>{legal.taxId}</p>
     </>
   )}
 
+  <h2>{t.registryTitle}</h2>
+  <p>{t.registryText}</p>
+
   <h2>{t.liabilityContentTitle}</h2>
-  <p>
-    {t.liabilityContent}
-  </p>
+  <p>{t.liabilityContent}</p>
 
   <h2>{t.liabilityLinksTitle}</h2>
-  <p>
-    {t.liabilityLinks}
-  </p>
+  <p>{t.liabilityLinks}</p>
+
+  <h2>{t.intellectualPropertyTitle}</h2>
+  <p>{t.intellectualProperty}</p>
+
+  <h2>{t.jurisdictionTitle}</h2>
+  <p>{t.jurisdiction}</p>
 </article>

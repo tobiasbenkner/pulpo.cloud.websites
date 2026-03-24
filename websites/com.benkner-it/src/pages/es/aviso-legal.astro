@@ -1,0 +1,85 @@
+---
+import '@/styles/global.css';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import { config } from '@/data/config';
+
+const { legal } = config;
+const title = `Aviso Legal — ${config.company} — Software Development`;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content="Aviso legal e información obligatoria según la Ley 34/2002 (LSSI-CE)." />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32" />
+    <link rel="alternate" hreflang="de" href="/impressum" />
+    <link rel="alternate" hreflang="en" href="/en/imprint" />
+    <link rel="alternate" hreflang="es" href="/es/aviso-legal" />
+    {import.meta.env.PROD && (
+      <script defer src="https://analytics.pulpo.cloud/script.js" data-website-id="f8bb41d1-6b2d-40f8-9b32-e0c317802377"></script>
+    )}
+  </head>
+  <body class="bg-white text-body min-h-screen flex flex-col font-body">
+    <Header lang="de" currentPath="/es/aviso-legal" alternateUrl="/impressum" />
+    <main class="flex-1 w-full max-w-3xl mx-auto px-5 sm:px-8 pt-32 pb-20">
+      <article class="prose prose-slate max-w-none prose-headings:font-display prose-headings:tracking-tight prose-headings:text-heading">
+        <h1>Aviso Legal</h1>
+
+        <h2>Información obligatoria según la Ley 34/2002 (LSSI-CE)</h2>
+        <p>
+          {legal.fullName}<br />
+          {legal.address.street}<br />
+          {legal.address.zip} {legal.address.city}<br />
+          {legal.address.country}
+        </p>
+
+        <h2>Contacto</h2>
+        <p>
+          Correo electrónico: <a href={`mailto:${config.email}`}>{config.email}</a><br />
+          {config.phone && <>Teléfono: <a href={`tel:${config.phone.replace(/\s/g, '')}`}>{config.phone}</a></>}
+        </p>
+
+        {legal.taxId && (
+          <>
+            <h2>NIF/NIE</h2>
+            <p>{legal.taxId}</p>
+          </>
+        )}
+
+        <h2>Registro mercantil</h2>
+        <p>Registrado como Autónomo (trabajador por cuenta propia) en España.</p>
+
+        <h2>Responsabilidad sobre el contenido</h2>
+        <p>
+          El titular de esta página web es responsable del contenido propio conforme a la legislación vigente.
+          No existe obligación de supervisar información de terceros transmitida o almacenada, ni de investigar
+          circunstancias que indiquen actividad ilegal.
+        </p>
+
+        <h2>Responsabilidad sobre enlaces</h2>
+        <p>
+          Esta página web contiene enlaces a sitios web externos de terceros, sobre cuyo contenido no tenemos
+          influencia. El proveedor u operador respectivo es siempre responsable del contenido de las páginas enlazadas.
+        </p>
+
+        <h2>Propiedad intelectual</h2>
+        <p>
+          Todos los contenidos de esta página web, incluyendo textos, imágenes, gráficos, diseño y código fuente,
+          son propiedad del titular o de sus licenciantes y están protegidos por la Ley de Propiedad Intelectual
+          española. Queda prohibida su reproducción, distribución o modificación sin autorización expresa.
+        </p>
+
+        <h2>Legislación aplicable y jurisdicción</h2>
+        <p>
+          Se aplica la legislación española. La jurisdicción competente es Las Palmas de Gran Canaria, España.
+        </p>
+      </article>
+    </main>
+    <Footer lang="de" />
+  </body>
+</html>

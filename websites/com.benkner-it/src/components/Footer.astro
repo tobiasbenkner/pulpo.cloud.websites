@@ -84,7 +84,14 @@ const legalLinks = [
     </div>
 
     <div class="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
-      <p class="text-[13px] text-faint">&copy; {year} {config.name}. {t.footer.allRightsReserved}</p>
+      <div>
+        <p class="text-[13px] text-faint">&copy; {year} {config.name}. {t.footer.allRightsReserved}</p>
+        <p class="text-[11px] text-faint/60 mt-1">
+          <a href="/es/aviso-legal" class="hover:text-faint transition-colors">Aviso Legal</a>
+          {' · '}
+          <a href="/es/privacidad" class="hover:text-faint transition-colors">Privacidad</a>
+        </p>
+      </div>
       {config.social.github && (
         <a href={config.social.github} target="_blank" rel="noopener noreferrer" class="text-faint hover:text-primary transition-colors" aria-label="GitHub">
           <Icon name="lucide:github" class="w-5 h-5" />

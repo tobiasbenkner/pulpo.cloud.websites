@@ -1,0 +1,106 @@
+---
+import '@/styles/global.css';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import { config } from '@/data/config';
+
+const { legal } = config;
+const title = `Política de Privacidad — ${config.company} — Software Development`;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content="Política de privacidad conforme al RGPD y la LOPD-GDD." />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" href="/favicon-32.png" sizes="32x32" />
+    <link rel="alternate" hreflang="de" href="/datenschutz" />
+    <link rel="alternate" hreflang="en" href="/en/privacy" />
+    <link rel="alternate" hreflang="es" href="/es/privacidad" />
+    {import.meta.env.PROD && (
+      <script defer src="https://analytics.pulpo.cloud/script.js" data-website-id="f8bb41d1-6b2d-40f8-9b32-e0c317802377"></script>
+    )}
+  </head>
+  <body class="bg-white text-body min-h-screen flex flex-col font-body">
+    <Header lang="de" currentPath="/es/privacidad" alternateUrl="/datenschutz" />
+    <main class="flex-1 w-full max-w-3xl mx-auto px-5 sm:px-8 pt-32 pb-20">
+      <article class="prose prose-slate max-w-none prose-headings:font-display prose-headings:tracking-tight prose-headings:text-heading">
+        <h1>Política de Privacidad</h1>
+
+        <h2>1. Protección de datos en resumen</h2>
+        <h3>Información general</h3>
+        <p>
+          La siguiente información ofrece una visión general de lo que ocurre con sus datos personales cuando
+          visita esta página web. Esta web se opera desde España. El tratamiento de datos personales se realiza
+          conforme al Reglamento General de Protección de Datos (RGPD) y la Ley Orgánica 3/2018 de Protección
+          de Datos Personales y garantía de los derechos digitales (LOPD-GDD).
+        </p>
+
+        <h2>2. Responsable del tratamiento</h2>
+        <p>El responsable del tratamiento de datos en esta página web es:</p>
+        <p>
+          {legal.fullName}<br />
+          {legal.address.street}<br />
+          {legal.address.zip} {legal.address.city}<br />
+          {legal.address.country}
+        </p>
+        <p>
+          Correo electrónico: <a href={`mailto:${config.email}`}>{config.email}</a>
+        </p>
+        <p>
+          La base jurídica para el tratamiento es el Art. 6(1)(f) RGPD (interés legítimo en el funcionamiento
+          de la web) y el Art. 6(1)(b) RGPD (medidas precontractuales cuando se pone en contacto con nosotros).
+        </p>
+
+        <h2>3. Recogida de datos en esta web</h2>
+        <h3>Archivos de registro del servidor</h3>
+        <p>
+          Al visitar esta web, se almacenan automáticamente datos técnicos en los archivos de registro del servidor:
+          tipo y versión del navegador, sistema operativo, URL de referencia, dirección IP (anonimizada) y hora
+          de la solicitud. Estos datos sirven para el funcionamiento técnico de la web y no se combinan con otras
+          fuentes de datos. Base jurídica: Art. 6(1)(f) RGPD.
+        </p>
+
+        <h3>Analítica web</h3>
+        <p>
+          Esta web utiliza Umami Analytics, una solución de analítica web respetuosa con la privacidad.
+          No se establecen cookies y no se almacenan datos personales. Todos los datos recogidos son
+          anónimos y se procesan en servidores propios dentro de la UE.
+        </p>
+
+        <h3>Contacto por correo electrónico</h3>
+        <p>
+          Si se pone en contacto con nosotros por correo electrónico, su consulta, incluyendo todos los datos
+          personales derivados (nombre, dirección de correo), será almacenada y procesada para gestionar su
+          solicitud. Los datos no serán compartidos con terceros sin su consentimiento.
+          Base jurídica: Art. 6(1)(b) RGPD.
+        </p>
+
+        <h2>4. Alojamiento</h2>
+        <p>
+          Esta web está alojada en Hetzner Online GmbH en Alemania. Los servidores se encuentran en la UE.
+          Al visitar la web, los datos personales (p. ej., direcciones IP) se procesan en los servidores del
+          proveedor de alojamiento. Base jurídica: Art. 6(1)(f) RGPD y contrato de encargo de tratamiento
+          con el proveedor.
+        </p>
+
+        <h2>5. Sus derechos</h2>
+        <p>
+          Conforme al RGPD y la LOPD-GDD, usted tiene los siguientes derechos: acceso a sus datos almacenados
+          (Art. 15 RGPD), rectificación de datos inexactos (Art. 16 RGPD), supresión de sus datos (Art. 17 RGPD),
+          limitación del tratamiento (Art. 18 RGPD), portabilidad de datos (Art. 20 RGPD), oposición al
+          tratamiento (Art. 21 RGPD). También tiene derecho a presentar una reclamación ante la autoridad de
+          control competente — en España, la Agencia Española de Protección de Datos (AEPD).
+        </p>
+        <p>
+          Para consultas sobre protección de datos, puede contactarnos en cualquier momento en la dirección
+          de correo electrónico indicada anteriormente.
+        </p>
+      </article>
+    </main>
+    <Footer lang="de" />
+  </body>
+</html>

@@ -17,14 +17,10 @@ const { legal } = config;
 
   <h2>{t.overview.title}</h2>
   <h3>{t.overview.subtitle}</h3>
-  <p>
-    {t.overview.text}
-  </p>
+  <p>{t.overview.text}</p>
 
   <h2>{t.responsible.title}</h2>
-  <p>
-    {t.responsible.text}:
-  </p>
+  <p>{t.responsible.text}:</p>
   <p>
     {legal.fullName}<br />
     {legal.address.street}<br />
@@ -34,28 +30,22 @@ const { legal } = config;
   <p>
     {t.responsible.emailLabel}: <a href={`mailto:${config.email}`}>{config.email}</a>
   </p>
+  <p>{t.responsible.basis}</p>
 
   <h2>{t.collection.title}</h2>
   <h3>{t.collection.serverTitle}</h3>
-  <p>
-    {t.collection.serverText}
-  </p>
+  <p>{t.collection.serverText}</p>
+
+  <h3>{t.collection.analyticsTitle}</h3>
+  <p>{t.collection.analyticsText}</p>
 
   <h3>{t.collection.emailTitle}</h3>
-  <p>
-    {t.collection.emailText}
-  </p>
+  <p>{t.collection.emailText}</p>
 
   <h2>{t.hosting.title}</h2>
-  <p>
-    {t.hosting.text}
-  </p>
+  <p>{t.hosting.text}</p>
 
   <h2>{t.rights.title}</h2>
-  <p>
-    {t.rights.text}
-  </p>
-  <p>
-    {t.rights.contact}
-  </p>
+  <p>{t.rights.text}</p>
+  <p>{t.rights.contact}</p>
 </article>

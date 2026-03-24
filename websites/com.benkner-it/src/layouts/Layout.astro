@@ -45,6 +45,8 @@ const ogLocale = lang === 'de' ? 'de_DE' : 'en_GB';
     <link rel="apple-touch-icon" href="/favicon-192.png" />
     <link rel="alternate" hreflang={alternateLang} href={alternateUrl} />
     <link rel="alternate" hreflang={lang} href={Astro.url.pathname} />
+    {routeKey === 'imprint' && <link rel="alternate" hreflang="es" href="/es/aviso-legal" />}
+    {routeKey === 'privacy' && <link rel="alternate" hreflang="es" href="/es/privacidad" />}
 
     <!-- Open Graph -->
     <meta property="og:type" content={ogType || 'website'} />

@@ -17,6 +17,7 @@ export const navTree: NavItem[] = [
   { routeKey: 'services' },
   { routeKey: 'projects' },
   { routeKey: 'blog' },
+  { routeKey: 'about' },
   { routeKey: 'contact' },
 ];
 

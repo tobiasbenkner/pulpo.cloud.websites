@@ -20,8 +20,14 @@ const { lang, post } = Astro.props;
 const t = resolveTranslations(sharedTranslations, lang);
 const category = post.data.category;
 const categoryLabel = (t.categories as Record<string, string>)[category] ?? category;
-const { Content } = await render(post);
+const { Content, remarkPluginFrontmatter } = await render(post);
 const isDefaultLang = lang === defaultLang;
+
+// Reading time estimate (~200 words/min)
+const body = post.body ?? '';
+const wordCount = body.split(/\s+/).filter(Boolean).length;
+const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+const readingLabel = lang === 'de' ? `${readingTime} Min. Lesezeit` : `${readingTime} min read`;
 const categoryHref = isDefaultLang ? `/blog/${category}` : `/${lang}/blog/${category}`;
 
 const breadcrumbs = [
@@ -40,6 +46,8 @@ const breadcrumbs = [
       <time class="text-xs font-mono text-faint" datetime={post.data.date.toISOString()}>
         {formatDate(post.data.date, lang)}
       </time>
+      <span class="text-xs text-faint">·</span>
+      <span class="text-xs font-mono text-faint">{readingLabel}</span>
     </div>
     <h1 class="font-display text-2xl sm:text-3xl font-bold leading-tight tracking-tight text-heading">
       {post.data.title}

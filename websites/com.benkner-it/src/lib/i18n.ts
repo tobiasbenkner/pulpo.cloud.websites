@@ -76,7 +76,7 @@ interface TranslationSet {
 const translations = {
   en: {
     site: {
-      title: config.name,
+      title: config.domain,
       description:
         'Freelance software developer — MVPs in 1 week, websites, and enterprise consulting.',
     },
@@ -184,7 +184,7 @@ const translations = {
   },
   de: {
     site: {
-      title: config.name,
+      title: config.domain,
       description:
         'Freiberuflicher Software-Entwickler — MVPs in 1 Woche, Webseiten und Enterprise-Beratung.',
     },

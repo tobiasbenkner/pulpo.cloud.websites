@@ -1,0 +1,28 @@
+services:
+  benkner-it:
+    image: ghcr.io/tobiasbenkner/benkner-it:latest
+    container_name: benkner-it
+    restart: unless-stopped
+    labels:
+      # === Hauptrouter – benkner-it.com ===
+      - traefik.enable=true
+      - traefik.http.routers.benkner-it.rule=Host(`benkner-it.com`)
+      - traefik.http.routers.benkner-it.tls.certresolver=le
+
+      # === www.benkner-it.com → benkner-it.com ===
+      - traefik.http.routers.benkner-it-www.rule=Host(`www.benkner-it.com`)
+      - traefik.http.routers.benkner-it-www.tls.certresolver=le
+      - traefik.http.routers.benkner-it-www.middlewares=benkner-redirect
+
+      # === Alle anderen Domains → benkner-it.com ===
+      - traefik.http.routers.benkner-it-aliases.rule=Host(`tobias-benkner.de`) || Host(`www.tobias-benkner.de`) || Host(`benkner-it.de`) || Host(`www.benkner-it.de`) || Host(`benknerit.de`) || Host(`www.benknerit.de`)
+      - traefik.http.routers.benkner-it-aliases.tls.certresolver=le
+      - traefik.http.routers.benkner-it-aliases.middlewares=benkner-redirect
+
+      # === Redirect-Middleware (für alle Nicht-Hauptdomains) ===
+      - traefik.http.middlewares.benkner-redirect.redirectregex.regex=^https?://[^/]+/(.*)
+      - traefik.http.middlewares.benkner-redirect.redirectregex.replacement=https://benkner-it.com/$${1}
+      - traefik.http.middlewares.benkner-redirect.redirectregex.permanent=true
+
+      # === Watchtower ===
+      - com.centurylinklabs.watchtower.enable=true

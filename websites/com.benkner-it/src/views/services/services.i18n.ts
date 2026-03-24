@@ -21,8 +21,8 @@ export const translations = {
       en: 'A complete, working product — designed, built, and deployed in one week.',
     },
     features: {
-      de: ['Full-Stack-Anwendung', 'Individuelles Design & UX', 'Cloud-Deployment inklusive', 'Quellcode-Eigentum', 'Support nach Launch'],
-      en: ['Full-stack application', 'Custom design & UX', 'Cloud deployment included', 'Source code ownership', 'Post-launch support'],
+      de: ['Full-Stack-Anwendung', 'Umsetzung Ihres Corporate Designs', 'Vollständiger Quellcode & Dokumentation', 'Hosting optional zubuchbar', 'Wartung optional zubuchbar'],
+      en: ['Full-stack application', 'Implementation of your corporate design', 'Full source code & documentation', 'Hosting available as add-on', 'Maintenance available as add-on'],
     },
     cta: { de: 'MVP Sprint buchen', en: 'Book MVP Sprint' },
   },
@@ -34,8 +34,8 @@ export const translations = {
       en: 'Professional, fast, and beautifully crafted websites for your business.',
     },
     features: {
-      de: ['Individuelles Design', 'Mobil-optimiert', 'SEO-optimiert', 'CMS-Integration', 'Hosting-Einrichtung'],
-      en: ['Custom design', 'Mobile responsive', 'SEO optimized', 'CMS integration', 'Hosting setup'],
+      de: ['Umsetzung Ihres Corporate Designs', 'Mobil-optimiert', 'SEO-optimiert', 'CMS-Integration', 'Hosting & Wartung optional zubuchbar'],
+      en: ['Implementation of your corporate design', 'Mobile responsive', 'SEO optimized', 'CMS integration', 'Hosting & maintenance available as add-on'],
     },
     cta: { de: 'Webseite anfragen', en: 'Get a Website' },
   },
@@ -179,9 +179,58 @@ export const translations = {
           en: 'How does the initial consultation work?',
         },
         answer: {
-          de: 'Schreiben Sie mir einfach eine Nachricht über das Kontaktformular oder per E-Mail. Wir vereinbaren dann einen kurzen Videocall (ca. 30 Minuten), in dem wir Ihr Projekt besprechen. Kostenlos und unverbindlich.',
-          en: 'Simply send me a message via the contact form or email. We then schedule a short video call (about 30 minutes) to discuss your project. Free and no obligation.',
+          de: 'Schreiben Sie mir einfach per E-Mail oder WhatsApp. Wir vereinbaren dann einen kurzen Videocall (ca. 30 Minuten), in dem wir Ihr Projekt besprechen. Kostenlos und unverbindlich.',
+          en: 'Simply send me an email or WhatsApp message. We then schedule a short video call (about 30 minutes) to discuss your project. Free and no obligation.',
         },
+      },
+    },
+  },
+  addons: {
+    label: { de: 'Zusatzpakete', en: 'Add-ons' },
+    websiteLabel: { de: 'Für Webseiten', en: 'For Websites' },
+    websiteSubtitle: {
+      de: 'Optional zum Webseiten-Paket zubuchbar.',
+      en: 'Optionally available with the website package.',
+    },
+    mvpLabel: { de: 'Für MVPs', en: 'For MVPs' },
+    mvpSubtitle: {
+      de: 'Ihr MVP ist live — und jetzt? Ich übernehme die Weiterentwicklung, damit Sie sich auf Ihr Geschäft konzentrieren können.',
+      en: 'Your MVP is live — what\'s next? I take care of further development so you can focus on your business.',
+    },
+    mvpDevelopment: {
+      title: { de: 'Weiterentwicklung', en: 'Further Development' },
+      price: { de: 'Individuelles Angebot', en: 'Custom Quote' },
+      description: {
+        de: 'Neue Features, Skalierung, Optimierung — ich begleite Ihr Produkt nach dem Launch weiter.',
+        en: 'New features, scaling, optimization — I continue to support your product after launch.',
+      },
+      features: {
+        de: ['Neue Features & Funktionen', 'Performance-Optimierung', 'Skalierung & Infrastruktur', 'Persönlicher Ansprechpartner'],
+        en: ['New features & functionality', 'Performance optimization', 'Scaling & infrastructure', 'Dedicated point of contact'],
+      },
+    },
+    hosting: {
+      title: { de: 'Hosting', en: 'Hosting' },
+      price: { de: 'ab €19/Monat', en: 'from €19/month' },
+      description: {
+        de: 'Ich übernehme das Hosting Ihrer Anwendung — Server-Setup, SSL, Monitoring und regelmäßige Updates inklusive.',
+        en: 'I take care of hosting your application — server setup, SSL, monitoring, and regular updates included.',
+      },
+      features: {
+        de: ['Server-Einrichtung & Konfiguration', 'SSL-Zertifikat & Domain', 'Monitoring & Uptime-Überwachung', 'Automatische Backups', 'Regelmäßige Sicherheitsupdates', 'Web Analytics inklusive (DSGVO-konform)'],
+        en: ['Server setup & configuration', 'SSL certificate & domain', 'Monitoring & uptime tracking', 'Automatic backups', 'Regular security updates', 'Web analytics included (GDPR compliant)'],
+      },
+    },
+    maintenance: {
+      title: { de: 'Wartung & Pflege', en: 'Maintenance' },
+      price: { de: 'ab €59/Monat', en: 'from €59/month' },
+      description: {
+        de: 'Rundum-sorglos-Paket — Hosting, Inhalte aktualisieren, Abhängigkeiten pflegen und kleine Erweiterungen umsetzen.',
+        en: 'All-in-one package — hosting, content updates, dependency maintenance, and small enhancements.',
+      },
+      features: {
+        de: ['Hosting inklusive (Server, SSL, Backups, Analytics)', 'Inhaltliche Aktualisierungen (Texte, Bilder, neue Seiten)', 'Dependency- & Sicherheitsupdates', 'Kleine Anpassungen & Erweiterungen', 'Bis zu 2 Änderungen pro Monat', 'Persönlicher Ansprechpartner'],
+        en: ['Hosting included (server, SSL, backups, analytics)', 'Content updates (texts, images, new pages)', 'Dependency & security updates', 'Small adjustments & enhancements', 'Up to 2 changes per month', 'Dedicated point of contact'],
       },
     },
   },

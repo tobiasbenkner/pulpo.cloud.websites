@@ -8,6 +8,12 @@ import { config } from '@/data/config';
 import { getPostsByLang } from '@/lib/posts';
 import type { HomeTranslations } from './home.i18n';
 
+import { Image } from 'astro:assets';
+import heroImage from '@/assets/hero.png';
+import screenshotPulpo from '@/assets/screenshots/pulpo-cloud.png';
+import screenshotFinca from '@/assets/screenshots/fincaloscastanos.png';
+import screenshotBuho from '@/assets/screenshots/elbuhotuerto.png';
+
 interface Props {
   lang: Language;
   t: HomeTranslations;
@@ -31,6 +37,7 @@ const projects = [
     url: 'https://pulpo.cloud',
     tags: ['Astro', 'Svelte', 'Go', 'Docker'],
     type: 'MVP',
+    screenshot: screenshotPulpo,
   },
   {
     name: 'fincaloscastanos.com',
@@ -40,6 +47,7 @@ const projects = [
     url: 'https://fincaloscastanos.com',
     tags: ['Astro', 'Tailwind'],
     type: lang === 'de' ? 'Webseite' : 'Website',
+    screenshot: screenshotFinca,
   },
   {
     name: 'elbuhotuerto.com',
@@ -49,6 +57,7 @@ const projects = [
     url: 'https://elbuhotuerto.com',
     tags: ['Astro', 'Tailwind', 'CMS'],
     type: lang === 'de' ? 'Webseite' : 'Website',
+    screenshot: screenshotBuho,
   },
 ];
 ---
@@ -101,10 +110,13 @@ const projects = [
       </div>
 
       <div class="hero-animate hidden lg:block">
-        <div class="relative">
-          <div class="absolute -inset-4 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl blur-2xl"></div>
-          <BrowserMockup url="pulpo.cloud" class="relative" />
-        </div>
+        <Image
+          src={heroImage}
+          alt={lang === 'de' ? 'Von der Idee zum fertigen Produkt in 7 Tagen' : 'From idea to finished product in 7 days'}
+          width={560}
+          height={380}
+          class="w-full h-auto"
+        />
       </div>
     </div>
   </div>
@@ -228,7 +240,7 @@ const projects = [
               </div>
             </div>
             <div class="hidden md:block">
-              <BrowserMockup url={p.url.replace('https://', '')} />
+              <BrowserMockup url={p.url.replace('https://', '')} screenshot={p.screenshot} />
             </div>
           </a>
         ))

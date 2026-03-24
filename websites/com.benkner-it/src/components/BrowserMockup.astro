@@ -1,10 +1,13 @@
 ---
+import { Image } from 'astro:assets';
+
 interface Props {
   url: string;
+  screenshot?: ImageMetadata;
   class?: string;
 }
 
-const { url, class: className } = Astro.props;
+const { url, screenshot, class: className } = Astro.props;
 ---
 
 <div
@@ -29,26 +32,33 @@ const { url, class: className } = Astro.props;
     </div>
   </div>
   <!-- Screenshot area -->
-  <div class="aspect-[16/10] bg-gradient-to-br from-primary-light via-white to-secondary-light relative overflow-hidden">
-    <!-- Decorative placeholder elements -->
-    <div class="absolute inset-0 p-6 flex flex-col gap-3">
-      <!-- Nav placeholder -->
-      <div class="flex items-center justify-between">
-        <div class="w-16 h-3 rounded-full bg-primary/10"></div>
-        <div class="flex gap-2">
-          <div class="w-10 h-2 rounded-full bg-muted/10"></div>
-          <div class="w-10 h-2 rounded-full bg-muted/10"></div>
-          <div class="w-10 h-2 rounded-full bg-muted/10"></div>
+  {screenshot ? (
+    <Image
+      src={screenshot}
+      alt={url}
+      width={640}
+      height={400}
+      class="w-full aspect-[16/10] object-cover object-top"
+    />
+  ) : (
+    <div class="aspect-[16/10] bg-gradient-to-br from-primary-light via-white to-secondary-light relative overflow-hidden">
+      <div class="absolute inset-0 p-6 flex flex-col gap-3">
+        <div class="flex items-center justify-between">
+          <div class="w-16 h-3 rounded-full bg-primary/10"></div>
+          <div class="flex gap-2">
+            <div class="w-10 h-2 rounded-full bg-muted/10"></div>
+            <div class="w-10 h-2 rounded-full bg-muted/10"></div>
+            <div class="w-10 h-2 rounded-full bg-muted/10"></div>
+          </div>
+        </div>
+        <div class="flex-1 flex flex-col justify-center gap-3 max-w-[60%]">
+          <div class="w-3/4 h-4 rounded-full bg-primary/15"></div>
+          <div class="w-full h-4 rounded-full bg-primary/10"></div>
+          <div class="w-1/2 h-4 rounded-full bg-secondary/10"></div>
+          <div class="mt-2 w-24 h-6 rounded-md bg-primary/20"></div>
         </div>
       </div>
-      <!-- Hero placeholder -->
-      <div class="flex-1 flex flex-col justify-center gap-3 max-w-[60%]">
-        <div class="w-3/4 h-4 rounded-full bg-primary/15"></div>
-        <div class="w-full h-4 rounded-full bg-primary/10"></div>
-        <div class="w-1/2 h-4 rounded-full bg-secondary/10"></div>
-        <div class="mt-2 w-24 h-6 rounded-md bg-primary/20"></div>
-      </div>
+      <slot />
     </div>
-    <slot />
-  </div>
+  )}
 </div>

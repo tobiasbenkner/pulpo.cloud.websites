@@ -47,8 +47,8 @@ export const translations = {
   hosting: {
     title: { de: '4. Hosting', en: '4. Hosting' },
     text: {
-      de: 'Diese Website wird bei Hetzner Online GmbH in Deutschland gehostet. Die Server befinden sich in der EU. Beim Besuch der Website werden personenbezogene Daten (z.B. IP-Adressen) auf den Servern des Hosters verarbeitet. Grundlage hierfür ist Art. 6 Abs. 1 lit. f DSGVO sowie ein Auftragsverarbeitungsvertrag mit dem Hoster.',
-      en: 'This website is hosted by Hetzner Online GmbH in Germany. The servers are located in the EU. When visiting the website, personal data (e.g., IP addresses) is processed on the host\'s servers. The legal basis is Art. 6(1)(f) GDPR and a data processing agreement with the host.',
+      de: 'Diese Website wird bei netcup GmbH in Deutschland gehostet. Die Server befinden sich in der EU. Beim Besuch der Website werden personenbezogene Daten (z.B. IP-Adressen) auf den Servern des Hosters verarbeitet. Grundlage hierfür ist Art. 6 Abs. 1 lit. f DSGVO sowie ein Auftragsverarbeitungsvertrag mit dem Hoster.',
+      en: 'This website is hosted by netcup GmbH in Germany. The servers are located in the EU. When visiting the website, personal data (e.g., IP addresses) is processed on the host\'s servers. The legal basis is Art. 6(1)(f) GDPR and a data processing agreement with the host.',
     },
   },
   rights: {

@@ -4,6 +4,7 @@ permalink: freelancing-developer-germany
 date: 2026-03-18
 description: "Practical lessons from years of freelance software development in German enterprises — contracts, rates, Scheinselbständigkeit, and finding the right clients."
 category: thoughts
+cover: ./cover.png
 ---
 
 Freelancing as a software developer in Germany is one of the best career moves I've made. But it comes with a unique set of challenges that nobody tells you about upfront.

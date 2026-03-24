@@ -4,6 +4,7 @@ permalink: typsicherer-blog-mit-astro-5
 date: 2026-01-20
 description: "Wie die Content Layer API von Astro 5 volle Typsicherheit für content-getriebene Seiten bringt — von Schema-Validierung bis zum Rendering."
 category: web
+cover: ./cover.png
 ---
 
 Astro 5 hat eines der praktischsten Features geliefert, die ich in einem Meta-Framework gesehen habe: die **Content Layer API**. Sie ersetzt die alten Content Collections durch einen flexibleren, Loader-basierten Ansatz — und ist von Haus aus voll typsicher.

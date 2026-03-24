@@ -4,6 +4,7 @@ permalink: ki-gestuetzte-entwicklung
 date: 2026-02-10
 description: "Ein ehrlicher Blick auf den Einsatz von LLMs zur Code-Generierung in echten Projekten — was funktioniert, was scheitert und wie man das Beste herausholt."
 category: ai
+cover: ./cover.png
 ---
 
 Nach Monaten täglicher Nutzung von KI-Assistenten in Produktions-Codebases habe ich eine differenzierte Sicht entwickelt, die irgendwo zwischen „es wird uns alle ersetzen" und „es ist nur Autocomplete" liegt.

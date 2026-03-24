@@ -4,6 +4,7 @@ permalink: ai-assisted-development
 date: 2026-02-10
 description: "A honest look at using LLMs for code generation in real projects — what works, what fails, and how to get the most out of it."
 category: ai
+cover: ./cover.png
 ---
 
 After months of using AI assistants daily in production codebases, I've developed a nuanced view that sits somewhere between "it will replace us all" and "it's just autocomplete."

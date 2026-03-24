@@ -4,6 +4,7 @@ permalink: gitops-with-argocd
 date: 2025-11-15
 description: "A practical introduction to GitOps principles and how to set up ArgoCD for continuous delivery on Kubernetes."
 category: devops
+cover: ./cover.png
 ---
 
 GitOps has fundamentally changed how teams deploy applications to Kubernetes. Instead of running `kubectl apply` from your laptop or CI pipeline, you describe the desired state in Git — and a controller takes care of the rest.

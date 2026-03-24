@@ -4,6 +4,7 @@ permalink: freiberuflicher-entwickler-deutschland
 date: 2026-03-18
 description: "Praktische Erkenntnisse aus Jahren freiberuflicher Software-Entwicklung in deutschen Konzernen — Verträge, Tagessätze, Scheinselbständigkeit und die richtigen Kunden finden."
 category: thoughts
+cover: ./cover.png
 ---
 
 Als Software-Entwickler in Deutschland freiberuflich zu arbeiten ist eine der besten Karriereentscheidungen, die ich getroffen habe. Aber es kommt mit einzigartigen Herausforderungen, über die vorher niemand spricht.

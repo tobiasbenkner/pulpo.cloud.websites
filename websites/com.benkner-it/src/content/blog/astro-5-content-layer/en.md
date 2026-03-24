@@ -4,6 +4,7 @@ permalink: type-safe-blog-with-astro-5
 date: 2026-01-20
 description: "How Astro 5's Content Layer API brings full type safety to your content-driven sites, from schema validation to rendering."
 category: web
+cover: ./cover.png
 ---
 
 Astro 5 shipped with one of the most practical features I've seen in a meta-framework: the **Content Layer API**. It replaces the old content collections with a more flexible, loader-based approach — and it's fully type-safe out of the box.

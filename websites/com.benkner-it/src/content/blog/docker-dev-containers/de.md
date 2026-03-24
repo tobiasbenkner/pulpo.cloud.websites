@@ -4,6 +4,7 @@ permalink: dev-containers-docker
 date: 2026-03-05
 description: "Wie man mit VS Code Dev Containers und Docker Compose konsistente, teilbare Entwicklungsumgebungen erstellt, die einfach funktionieren."
 category: tooling
+cover: ./cover.png
 ---
 
 „Funktioniert auf meinem Rechner" ist der älteste Witz in der Software-Entwicklung — und Dev Containers sind das Nächste, was wir an einer echten Lösung haben.

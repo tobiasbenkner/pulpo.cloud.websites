@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { type Language } from '@/lib/i18n';
 import { getPostUrl, formatDate } from '@/lib/posts';
@@ -16,19 +17,30 @@ const href = getPostUrl(post, lang);
 <article class="group h-full">
   <a
     href={href}
-    class="block h-full p-6 border border-border hover:border-border-hover rounded-xl bg-white transition-all card-lift"
+    class="block h-full border border-border hover:border-border-hover rounded-xl bg-white transition-all card-lift overflow-hidden"
   >
-    <div class="flex items-center gap-3 mb-3">
-      <CategoryBadge category={post.data.category} lang={lang} linked={false} />
-      <time class="text-xs font-mono text-faint" datetime={post.data.date.toISOString()}>
-        {formatDate(post.data.date, lang)}
-      </time>
+    {post.data.cover && (
+      <Image
+        src={post.data.cover}
+        alt={post.data.title}
+        width={600}
+        height={315}
+        class="w-full h-40 object-cover"
+      />
+    )}
+    <div class="p-6">
+      <div class="flex items-center gap-3 mb-3">
+        <CategoryBadge category={post.data.category} lang={lang} linked={false} />
+        <time class="text-xs font-mono text-faint" datetime={post.data.date.toISOString()}>
+          {formatDate(post.data.date, lang)}
+        </time>
+      </div>
+      <h3 class="font-display text-base font-bold tracking-tight text-heading group-hover:text-primary transition-colors">
+        {post.data.title}
+      </h3>
+      <p class="text-sm text-muted leading-relaxed mt-2 line-clamp-2">
+        {post.data.description}
+      </p>
     </div>
-    <h3 class="font-display text-base font-bold tracking-tight text-heading group-hover:text-primary transition-colors">
-      {post.data.title}
-    </h3>
-    <p class="text-sm text-muted leading-relaxed mt-2 line-clamp-2">
-      {post.data.description}
-    </p>
   </a>
 </article>

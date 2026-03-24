@@ -93,6 +93,8 @@ let description = '';
 let Component: any = null;
 let componentProps: Record<string, any> = {};
 let layoutAlternateUrl: string | undefined;
+let ogImage: string | undefined;
+let ogType: string | undefined;
 
 if (type === 'view') {
   const view = getView(routeKey, lang);
@@ -119,11 +121,17 @@ if (type === 'view') {
   componentProps = { lang, post: props.post, alternateUrl: props.alternateUrl };
   // Use the alternate post URL (may be undefined if no translation exists)
   layoutAlternateUrl = props.alternateUrl;
+  ogType = 'article';
+  // Use cover image as OG image if available
+  if (props.post.data.cover?.src) {
+    const baseUrl = Astro.site?.toString().replace(/\/$/, '') || `https://benkner-it.com`;
+    ogImage = `${baseUrl}${props.post.data.cover.src}`;
+  }
 }
 ---
 
 {Component && (
-  <Layout title={title} description={description} lang={lang} routeKey={routeKey} alternateUrl={layoutAlternateUrl}>
+  <Layout title={title} description={description} lang={lang} routeKey={routeKey} alternateUrl={layoutAlternateUrl} ogImage={ogImage} ogType={ogType}>
     <Component {...componentProps} />
   </Layout>
 )}

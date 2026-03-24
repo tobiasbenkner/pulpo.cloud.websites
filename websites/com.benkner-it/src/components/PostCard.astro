@@ -1,20 +1,16 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import type { Locale } from '@/lib/i18n';
-import { localePath } from '@/lib/i18n';
-import { formatDate } from '@/lib/posts';
+import { type Language } from '@/lib/i18n';
+import { getPostUrl, formatDate } from '@/lib/posts';
 import CategoryBadge from './CategoryBadge.astro';
 
 interface Props {
   post: CollectionEntry<'blog'>;
-  lang: Locale;
+  lang: Language;
 }
 
 const { post, lang } = Astro.props;
-const href = localePath(
-  `/${post.data.category}/${post.data.permalink}`,
-  lang,
-);
+const href = getPostUrl(post, lang);
 ---
 
 <article class="group h-full">
@@ -24,16 +20,11 @@ const href = localePath(
   >
     <div class="flex items-center gap-3 mb-3">
       <CategoryBadge category={post.data.category} lang={lang} linked={false} />
-      <time
-        class="text-xs font-mono text-faint"
-        datetime={post.data.date.toISOString()}
-      >
+      <time class="text-xs font-mono text-faint" datetime={post.data.date.toISOString()}>
         {formatDate(post.data.date, lang)}
       </time>
     </div>
-    <h3
-      class="font-display text-base font-bold tracking-tight text-heading group-hover:text-primary transition-colors"
-    >
+    <h3 class="font-display text-base font-bold tracking-tight text-heading group-hover:text-primary transition-colors">
       {post.data.title}
     </h3>
     <p class="text-sm text-muted leading-relaxed mt-2 line-clamp-2">

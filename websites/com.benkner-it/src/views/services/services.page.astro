@@ -1,0 +1,93 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { Language } from '@/lib/i18n';
+import { getTranslatedPath } from '@/lib/registry';
+import type { ServicesTranslations } from './services.i18n';
+
+interface Props {
+  lang: Language;
+  t: ServicesTranslations;
+}
+
+const { lang, t } = Astro.props;
+---
+
+<section class="pt-32 pb-20 sm:pt-40 sm:pb-28">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <p class="font-mono text-faint text-xs uppercase tracking-[0.2em]">
+      {t.label}
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-12 stagger">
+      {
+        (
+          [
+            { key: 'mvp' as const, featured: true },
+            { key: 'websites' as const, featured: false },
+            { key: 'consulting' as const, featured: false },
+          ] as const
+        ).map(({ key, featured }) => {
+          const svc = t[key];
+          return (
+            <div
+              class:list={[
+                'reveal card-lift relative p-7 rounded-xl border bg-white flex flex-col',
+                featured
+                  ? 'border-primary/25 shadow-sm'
+                  : 'border-border',
+              ]}
+            >
+              {featured && (
+                <span class="absolute -top-3 left-6 px-3 py-1 bg-gradient-to-r from-primary to-secondary text-white text-[10px] font-mono font-semibold uppercase tracking-wider rounded-full">
+                  {t.recommended}
+                </span>
+              )}
+
+              <h3 class="font-display text-lg font-bold tracking-tight text-heading">
+                {svc.title}
+              </h3>
+
+              <div class="mt-4 flex items-baseline gap-2">
+                <span class="font-display text-3xl font-extrabold text-primary">
+                  {svc.price}
+                </span>
+                {svc.period && (
+                  <span class="text-sm text-faint font-mono">
+                    / {svc.period}
+                  </span>
+                )}
+              </div>
+
+              <p class="mt-4 text-sm text-muted leading-relaxed">
+                {svc.description}
+              </p>
+
+              <div class="mt-6 pt-6 border-t border-border flex-1">
+                <ul class="space-y-3">
+                  {svc.features.map((f: string) => (
+                    <li class="flex items-start gap-3 text-sm text-body">
+                      <Icon name="lucide:check" class="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <a
+                href={getTranslatedPath('contact', lang)}
+                class:list={[
+                  'mt-8 inline-flex items-center justify-center py-3.5 rounded-lg text-sm font-semibold transition-all',
+                  featured
+                    ? 'bg-primary text-white hover:bg-primary-hover shadow-sm'
+                    : 'border border-border text-body hover:border-primary hover:text-primary',
+                ]}
+              >
+                {svc.cta}
+              </a>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

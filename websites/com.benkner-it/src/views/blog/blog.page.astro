@@ -1,0 +1,38 @@
+---
+import PostCard from '@/components/PostCard.astro';
+import BlogNav from '@/components/BlogNav.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import type { Language } from '@/lib/i18n';
+import { getTranslatedPath } from '@/lib/registry';
+import { getPostsByLang } from '@/lib/posts';
+import type { BlogTranslations } from './blog.i18n';
+
+interface Props {
+  lang: Language;
+  t: BlogTranslations;
+}
+
+const { lang, t } = Astro.props;
+const posts = await getPostsByLang(lang);
+
+const breadcrumbs = [
+  { label: lang === 'de' ? 'Start' : 'Home', href: getTranslatedPath('home', lang) },
+  { label: 'Blog' },
+];
+---
+
+<section>
+  <Breadcrumbs items={breadcrumbs} />
+
+  <h1 class="font-display text-2xl sm:text-3xl font-bold mt-4 tracking-tight text-heading">
+    {t.headline}
+  </h1>
+
+  <div class="mt-8">
+    <BlogNav lang={lang} />
+  </div>
+
+  <div class="grid grid-cols-1 gap-4 mt-8">
+    {posts.map((post) => <PostCard post={post} lang={lang} />)}
+  </div>
+</section>

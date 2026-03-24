@@ -1,0 +1,129 @@
+---
+import { languages, defaultLang, type Language } from '@/lib/i18n';
+import { routeSlugs, getView } from '@/lib/registry';
+import Layout from '@/layouts/Layout.astro';
+import CategoryPage from '@/components/CategoryPage.astro';
+import PostPage from '@/components/PostPage.astro';
+import { getPostsByLang, getAlternatePostUrl, categories } from '@/lib/posts';
+import type { CollectionEntry } from 'astro:content';
+
+interface ViewProps {
+  lang: Language;
+  routeKey: string;
+  type: 'view';
+}
+
+interface CategoryProps {
+  lang: Language;
+  routeKey: string;
+  type: 'category';
+  category: string;
+  posts: CollectionEntry<'blog'>[];
+}
+
+interface PostProps {
+  lang: Language;
+  routeKey: string;
+  type: 'post';
+  post: CollectionEntry<'blog'>;
+  alternateUrl?: string;
+}
+
+type Props = ViewProps | CategoryProps | PostProps;
+
+export async function getStaticPaths() {
+  const paths: any[] = [];
+  const allRouteKeys = [...new Set([...Object.keys(routeSlugs), 'home'])];
+
+  // 1. View-based routes (auto-discovered from views/)
+  allRouteKeys.forEach((routeKey) => {
+    languages.forEach((lang) => {
+      let slugParam: string | undefined;
+      const isDefaultLang = lang === defaultLang;
+
+      if (routeKey === 'home') {
+        slugParam = isDefaultLang ? undefined : lang;
+      } else {
+        const slugs = routeSlugs[routeKey];
+        if (!slugs) return;
+        const pageSlug = slugs[lang];
+        if (!pageSlug) return;
+        slugParam = isDefaultLang ? pageSlug : `${lang}/${pageSlug}`;
+      }
+
+      paths.push({
+        params: { slug: slugParam },
+        props: { lang, routeKey, type: 'view' },
+      });
+    });
+  });
+
+  // 2. Category pages
+  for (const lang of languages) {
+    const posts = await getPostsByLang(lang);
+    const isDefaultLang = lang === defaultLang;
+    const prefix = isDefaultLang ? '' : `${lang}/`;
+
+    for (const category of categories) {
+      const catPosts = posts.filter((p) => p.data.category === category);
+      paths.push({
+        params: { slug: `${prefix}blog/${category}` },
+        props: { lang, routeKey: `category_${category}`, type: 'category', category, posts: catPosts },
+      });
+    }
+
+    // 3. Individual blog posts
+    for (const post of posts) {
+      const alternateUrl = await getAlternatePostUrl(post);
+      paths.push({
+        params: { slug: `${prefix}blog/${post.data.category}/${post.data.permalink}` },
+        props: { lang, routeKey: `post_${post.id}`, type: 'post', post, alternateUrl },
+      });
+    }
+  }
+
+  return paths;
+}
+
+const props = Astro.props as Props;
+const { lang, routeKey, type } = props;
+
+let title = '';
+let description = '';
+let Component: any = null;
+let componentProps: Record<string, any> = {};
+let layoutAlternateUrl: string | undefined;
+
+if (type === 'view') {
+  const view = getView(routeKey, lang);
+  if (view) {
+    Component = view.Component;
+    title = view.t.seo?.title ?? '';
+    description = view.t.seo?.description ?? '';
+    componentProps = { lang, t: view.t };
+  }
+} else if (type === 'category') {
+  Component = CategoryPage;
+  title = props.category;
+  componentProps = { lang, category: props.category, posts: props.posts };
+  // Alternate URL for category: /blog/{category} with language prefix
+  const alternateLang = lang === 'de' ? 'en' : 'de';
+  const isAlternateDefault = alternateLang === defaultLang;
+  layoutAlternateUrl = isAlternateDefault
+    ? `/blog/${props.category}`
+    : `/${alternateLang}/blog/${props.category}`;
+} else if (type === 'post') {
+  Component = PostPage;
+  title = props.post.data.title;
+  description = props.post.data.description;
+  componentProps = { lang, post: props.post, alternateUrl: props.alternateUrl };
+  // Use the alternate post URL (may be undefined if no translation exists)
+  layoutAlternateUrl = props.alternateUrl;
+}
+---
+
+{Component && (
+  <Layout title={title} description={description} lang={lang} routeKey={routeKey} alternateUrl={layoutAlternateUrl}>
+    <Component {...componentProps} />
+  </Layout>
+)}

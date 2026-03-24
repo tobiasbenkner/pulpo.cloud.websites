@@ -1,0 +1,51 @@
+---
+import type { Language } from '@/lib/i18n';
+import { config } from '@/data/config';
+import type { ImprintTranslations } from './imprint.i18n';
+
+interface Props {
+  lang: Language;
+  t: ImprintTranslations;
+}
+
+const { lang, t } = Astro.props;
+const { legal } = config;
+---
+
+<article class="prose prose-slate max-w-none prose-headings:font-display prose-headings:tracking-tight prose-headings:text-heading">
+  <h1>{t.title}</h1>
+
+  <h2>{t.tmg}</h2>
+  <p>
+    {legal.fullName}<br />
+    {legal.address.street}<br />
+    {legal.address.zip} {legal.address.city}<br />
+    {legal.address.country}
+  </p>
+
+  <h2>{t.contactLabel}</h2>
+  <p>
+    {t.emailLabel}: <a href={`mailto:${config.email}`}>{config.email}</a><br />
+    {config.phone && <>{t.phoneLabel}: <a href={`tel:${config.phone.replace(/\s/g, '')}`}>{config.phone}</a></>}
+  </p>
+
+  {legal.taxId && (
+    <>
+      <h2>{t.vatTitle}</h2>
+      <p>
+        {t.vatDescription}:<br />
+        {legal.taxId}
+      </p>
+    </>
+  )}
+
+  <h2>{t.liabilityContentTitle}</h2>
+  <p>
+    {t.liabilityContent}
+  </p>
+
+  <h2>{t.liabilityLinksTitle}</h2>
+  <p>
+    {t.liabilityLinks}
+  </p>
+</article>

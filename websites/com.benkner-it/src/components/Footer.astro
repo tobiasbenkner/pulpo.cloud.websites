@@ -2,146 +2,91 @@
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import logoIcon from '@/assets/logo-icon.png';
-import type { Locale } from '@/lib/i18n';
-import { t, localePath } from '@/lib/i18n';
+import { type Language, resolveTranslations } from '@/lib/i18n';
+import { getTranslatedPath, getRouteLabel } from '@/lib/registry';
+import { sharedTranslations } from '@/lib/shared.i18n';
 import { config } from '@/data/config';
 
 interface Props {
-  lang: Locale;
+  lang: Language;
 }
 
 const { lang } = Astro.props;
-const i18n = t(lang);
+const t = resolveTranslations(sharedTranslations, lang);
 const year = new Date().getFullYear();
 
-const legalLinks = lang === 'en'
-  ? [
-      { href: localePath('/imprint', lang), label: 'Imprint' },
-      { href: localePath('/privacy', lang), label: 'Privacy Policy' },
-    ]
-  : [
-      { href: localePath('/imprint', lang), label: 'Impressum' },
-      { href: localePath('/privacy', lang), label: 'Datenschutz' },
-    ];
+const navLinks = ['services', 'projects', 'blog', 'about', 'contact'].map((key) => ({
+  href: getTranslatedPath(key, lang),
+  label: getRouteLabel(key, lang),
+}));
+
+const legalLinks = [
+  { href: getTranslatedPath('imprint', lang), label: getRouteLabel('imprint', lang) },
+  { href: getTranslatedPath('privacy', lang), label: getRouteLabel('privacy', lang) },
+];
 ---
 
 <footer class="border-t border-border bg-surface">
   <div class="max-w-6xl mx-auto px-5 sm:px-8 py-16">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
-      <!-- Brand -->
       <div class="sm:col-span-2 lg:col-span-1">
-        <a href={localePath('/', lang)} class="flex items-center gap-2.5">
-          <Image
-            src={logoIcon}
-            alt={config.company}
-            width={112}
-            height={128}
-            class="w-7 h-auto"
-            quality={100}
-          />
-          <span class="font-display text-sm font-bold text-heading tracking-tight">
-            {config.company}
-          </span>
+        <a href={getTranslatedPath('home', lang)} class="flex items-center gap-2.5">
+          <Image src={logoIcon} alt={config.company} width={112} height={128} class="w-7 h-auto" quality={100} />
+          <span class="font-display text-sm font-bold text-heading tracking-tight">{config.company}</span>
         </a>
-        <p class="mt-4 text-sm text-muted leading-relaxed max-w-xs">
-          {i18n.site.description}
-        </p>
+        <p class="mt-4 text-sm text-muted leading-relaxed max-w-xs">{t.site.description}</p>
       </div>
 
-      <!-- Navigation -->
       <div>
-        <p class="font-mono text-xs uppercase tracking-wider text-faint mb-4">
-          Navigation
-        </p>
+        <p class="font-mono text-xs uppercase tracking-wider text-faint mb-4">{t.footer.navigation}</p>
         <ul class="space-y-2.5">
-          {[
-            { href: localePath('/services', lang), label: i18n.nav.services },
-            { href: localePath('/projects', lang), label: i18n.nav.projects },
-            { href: localePath('/blog', lang), label: i18n.nav.blog },
-            { href: localePath('/about', lang), label: i18n.nav.about },
-            { href: localePath('/contact', lang), label: i18n.nav.contact },
-          ].map(({ href, label }) => (
-            <li>
-              <a href={href} class="text-sm text-muted hover:text-primary transition-colors">
-                {label}
-              </a>
-            </li>
+          {navLinks.map(({ href, label }) => (
+            <li><a href={href} class="text-sm text-muted hover:text-primary transition-colors">{label}</a></li>
           ))}
         </ul>
       </div>
 
-      <!-- Contact -->
       <div>
         <p class="font-mono text-xs uppercase tracking-wider text-faint mb-4">
-          {i18n.contactSection.label}
+          {getRouteLabel('contact', lang)}
         </p>
         <ul class="space-y-2.5">
           <li>
-            <a
-              href={`mailto:${config.email}`}
-              class="inline-flex items-center gap-2 text-sm text-muted hover:text-primary transition-colors"
-            >
-              <Icon name="lucide:mail" class="w-4 h-4" />
-              {config.email}
+            <a href={`mailto:${config.email}`} class="inline-flex items-center gap-2 text-sm text-muted hover:text-primary transition-colors">
+              <Icon name="lucide:mail" class="w-4 h-4" />{config.email}
             </a>
           </li>
           {config.phone && (
             <li>
-              <a
-                href={`tel:${config.phone.replace(/\s/g, '')}`}
-                class="inline-flex items-center gap-2 text-sm text-muted hover:text-primary transition-colors"
-              >
-                <Icon name="lucide:phone" class="w-4 h-4" />
-                {config.phone}
+              <a href={`tel:${config.phone.replace(/\s/g, '')}`} class="inline-flex items-center gap-2 text-sm text-muted hover:text-primary transition-colors">
+                <Icon name="lucide:phone" class="w-4 h-4" />{config.phone}
               </a>
             </li>
           )}
           {config.whatsapp && (
             <li>
-              <a
-                href={`https://wa.me/${config.whatsapp}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 text-sm text-muted hover:text-primary transition-colors"
-              >
-                <Icon name="mdi:whatsapp" class="w-4 h-4" />
-                WhatsApp
+              <a href={`https://wa.me/${config.whatsapp}`} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm text-muted hover:text-primary transition-colors">
+                <Icon name="mdi:whatsapp" class="w-4 h-4" />WhatsApp
               </a>
             </li>
           )}
         </ul>
       </div>
 
-      <!-- Legal -->
       <div>
-        <p class="font-mono text-xs uppercase tracking-wider text-faint mb-4">
-          {lang === 'en' ? 'Legal' : 'Rechtliches'}
-        </p>
+        <p class="font-mono text-xs uppercase tracking-wider text-faint mb-4">{t.footer.legal}</p>
         <ul class="space-y-2.5">
           {legalLinks.map(({ href, label }) => (
-            <li>
-              <a href={href} class="text-sm text-muted hover:text-primary transition-colors">
-                {label}
-              </a>
-            </li>
+            <li><a href={href} class="text-sm text-muted hover:text-primary transition-colors">{label}</a></li>
           ))}
         </ul>
       </div>
     </div>
 
-    <!-- Bottom bar -->
     <div class="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
-      <p class="text-[13px] text-faint">
-        &copy; {year} {config.name}. {lang === 'en' ? 'All rights reserved.' : 'Alle Rechte vorbehalten.'}
-      </p>
+      <p class="text-[13px] text-faint">&copy; {year} {config.name}. {t.footer.allRightsReserved}</p>
       {config.social.github && (
-        <a
-          href={config.social.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-faint hover:text-primary transition-colors"
-          aria-label="GitHub"
-        >
+        <a href={config.social.github} target="_blank" rel="noopener noreferrer" class="text-faint hover:text-primary transition-colors" aria-label="GitHub">
           <Icon name="lucide:github" class="w-5 h-5" />
         </a>
       )}

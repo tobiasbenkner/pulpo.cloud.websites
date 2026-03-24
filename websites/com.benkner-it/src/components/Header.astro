@@ -2,34 +2,20 @@
 import { Image } from 'astro:assets';
 import { Icon } from 'astro-icon/components';
 import logoIcon from '@/assets/logo-icon.png';
-import type { Locale } from '@/lib/i18n';
-import { t, localePath } from '@/lib/i18n';
+import { type Language } from '@/lib/i18n';
+import { getTranslatedPath } from '@/lib/registry';
+import { resolveNavTree } from '@/lib/navbar';
+import { config } from '@/data/config';
 
 interface Props {
-  lang: Locale;
+  lang: Language;
   currentPath: string;
   alternateUrl: string;
 }
 
 const { lang, currentPath, alternateUrl } = Astro.props;
-const i18n = t(lang);
-const alternateLang = lang === 'en' ? 'de' : 'en';
-
-function isActive(path: string): boolean {
-  const normalized = currentPath.replace(/\/$/, '') || '/';
-  const target = path.replace(/\/$/, '') || '/';
-  const home = localePath('/', lang).replace(/\/$/, '') || '/';
-  if (target === home) return normalized === target;
-  return normalized.startsWith(target);
-}
-
-const navItems = [
-  { href: localePath('/', lang), label: i18n.nav.home },
-  { href: localePath('/services', lang), label: i18n.nav.services },
-  { href: localePath('/projects', lang), label: i18n.nav.projects },
-  { href: localePath('/blog', lang), label: i18n.nav.blog },
-  { href: localePath('/contact', lang), label: i18n.nav.contact },
-];
+const alternateLang: Language = lang === 'de' ? 'en' : 'de';
+const navItems = resolveNavTree(lang, currentPath);
 ---
 
 <header
@@ -38,34 +24,32 @@ const navItems = [
   <div class="max-w-6xl mx-auto px-5 sm:px-8">
     <div class="flex items-center justify-between h-16">
       <a
-        href={localePath('/', lang)}
+        href={getTranslatedPath('home', lang)}
         class="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
       >
         <Image
           src={logoIcon}
-          alt="Benkner IT"
+          alt={config.company}
           width={112}
           height={128}
           class="w-7 h-auto"
           quality={100}
         />
         <span class="font-display text-sm font-bold text-heading tracking-tight">
-          Benkner IT
+          {config.company}
         </span>
       </a>
 
       <nav class="hidden md:flex items-center gap-1">
         {
-          navItems.map(({ href, label }) => (
+          navItems.map(({ href, label, isActive }) => (
             <a
               href={href}
               class:list={[
                 'nav-link relative px-3 py-2 text-[13px] font-medium transition-colors',
-                isActive(href)
-                  ? 'text-primary'
-                  : 'text-muted hover:text-heading',
+                isActive ? 'text-primary' : 'text-muted hover:text-heading',
               ]}
-              data-active={isActive(href) ? 'true' : undefined}
+              data-active={isActive ? 'true' : undefined}
             >
               {label}
             </a>
@@ -98,17 +82,17 @@ const navItems = [
   class="fixed inset-0 z-[55] bg-white hidden md:hidden flex-col"
 >
   <div class="flex items-center justify-between h-16 px-5 border-b border-border">
-    <a href={localePath('/', lang)} class="flex items-center gap-2.5">
+    <a href={getTranslatedPath('home', lang)} class="flex items-center gap-2.5">
       <Image
         src={logoIcon}
-        alt="Benkner IT"
+        alt={config.company}
         width={112}
         height={128}
         class="w-7 h-auto"
         quality={100}
       />
       <span class="font-display text-sm font-bold text-heading tracking-tight">
-        Benkner IT
+        {config.company}
       </span>
     </a>
     <button
@@ -122,14 +106,12 @@ const navItems = [
 
   <div class="flex flex-col justify-center items-center flex-1 gap-2">
     {
-      navItems.map(({ href, label }) => (
+      navItems.map(({ href, label, isActive }) => (
         <a
           href={href}
           class:list={[
             'px-6 py-3 text-2xl font-display font-bold transition-colors rounded-lg',
-            isActive(href)
-              ? 'text-primary'
-              : 'text-heading hover:text-primary',
+            isActive ? 'text-primary' : 'text-heading hover:text-primary',
           ]}
         >
           {label}
@@ -172,15 +154,10 @@ const navItems = [
 
   toggle?.addEventListener('click', () => {
     const isOpen = !menu?.classList.contains('hidden');
-    if (isOpen) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
+    isOpen ? closeMenu() : openMenu();
   });
 
   closeBtn?.addEventListener('click', closeMenu);
-
   menu?.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', closeMenu);
   });

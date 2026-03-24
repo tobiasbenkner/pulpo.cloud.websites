@@ -1,0 +1,47 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { type Language, resolveTranslations } from '@/lib/i18n';
+import { getTranslatedPath } from '@/lib/registry';
+import { sharedTranslations } from '@/lib/shared.i18n';
+import PostCard from './PostCard.astro';
+import BlogNav from './BlogNav.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+
+interface Props {
+  lang: Language;
+  category: string;
+  posts: CollectionEntry<'blog'>[];
+}
+
+const { lang, category, posts } = Astro.props;
+const t = resolveTranslations(sharedTranslations, lang);
+const categoryLabel = (t.categories as Record<string, string>)[category] ?? category;
+
+const breadcrumbs = [
+  { label: lang === 'de' ? 'Start' : 'Home', href: getTranslatedPath('home', lang) },
+  { label: 'Blog', href: getTranslatedPath('blog', lang) },
+  { label: categoryLabel },
+];
+---
+
+<section>
+  <Breadcrumbs items={breadcrumbs} />
+
+  <h1 class="font-display text-2xl sm:text-3xl font-bold mt-4 tracking-tight text-heading">
+    {categoryLabel}
+  </h1>
+
+  <div class="mt-8">
+    <BlogNav lang={lang} activeCategory={category} />
+  </div>
+
+  {
+    posts.length > 0 ? (
+      <div class="grid grid-cols-1 gap-4 mt-8">
+        {posts.map((post) => <PostCard post={post} lang={lang} />)}
+      </div>
+    ) : (
+      <p class="text-muted mt-8">{t.notFound}</p>
+    )
+  }
+</section>

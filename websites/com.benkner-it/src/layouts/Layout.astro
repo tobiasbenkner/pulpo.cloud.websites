@@ -2,30 +2,28 @@
 import '@/styles/global.css';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
-import type { Locale } from '@/lib/i18n';
-import { t, getAlternateUrl } from '@/lib/i18n';
+import { type Language, resolveTranslations } from '@/lib/i18n';
+import { getTranslatedPath } from '@/lib/registry';
+import { sharedTranslations } from '@/lib/shared.i18n';
 
 interface Props {
   title?: string;
   description?: string;
-  lang: Locale;
+  lang: Language;
+  routeKey: string;
   alternateUrl?: string;
-  fullWidth?: boolean;
 }
 
-const {
-  lang,
-  title,
-  description,
-  alternateUrl: explicitAlternate,
-  fullWidth = false,
-} = Astro.props;
-const i18n = t(lang);
-const pageTitle = title ? `${title} — ${i18n.site.title}` : i18n.site.title;
-const pageDescription = description ?? i18n.site.description;
-const alternateLang = lang === 'en' ? 'de' : 'en';
-const alternateUrl =
-  explicitAlternate ?? getAlternateUrl(Astro.url.pathname, alternateLang);
+const { lang, title, description, routeKey, alternateUrl: explicitAlternate } = Astro.props;
+const t = resolveTranslations(sharedTranslations, lang);
+const pageTitle = title
+  ? `${title} — ${t.site.title}`
+  : t.site.title;
+const pageDescription = description || t.site.description;
+const alternateLang: Language = lang === 'de' ? 'en' : 'de';
+const alternateUrl = explicitAlternate || getTranslatedPath(routeKey, alternateLang) || getTranslatedPath('home', alternateLang);
+
+const isFullWidth = ['home', 'services', 'projects', 'contact'].includes(routeKey);
 ---
 
 <!doctype html>
@@ -41,15 +39,14 @@ const alternateUrl =
     <link rel="apple-touch-icon" href="/favicon-192.png" />
     <link rel="alternate" hreflang={alternateLang} href={alternateUrl} />
     <link rel="alternate" hreflang={lang} href={Astro.url.pathname} />
+    {import.meta.env.PROD && (
+      <script defer src="https://analytics.pulpo.cloud/script.js" data-website-id="f8bb41d1-6b2d-40f8-9b32-e0c317802377"></script>
+    )}
   </head>
   <body class="bg-white text-body min-h-screen flex flex-col font-body">
-    <Header
-      lang={lang}
-      currentPath={Astro.url.pathname}
-      alternateUrl={alternateUrl}
-    />
+    <Header lang={lang} currentPath={Astro.url.pathname} alternateUrl={alternateUrl} />
     {
-      fullWidth ? (
+      isFullWidth ? (
         <main class="flex-1">
           <slot />
         </main>

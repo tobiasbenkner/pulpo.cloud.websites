@@ -1,0 +1,61 @@
+---
+import type { Language } from '@/lib/i18n';
+import { config } from '@/data/config';
+import type { PrivacyTranslations } from './privacy.i18n';
+
+interface Props {
+  lang: Language;
+  t: PrivacyTranslations;
+}
+
+const { lang, t } = Astro.props;
+const { legal } = config;
+---
+
+<article class="prose prose-slate max-w-none prose-headings:font-display prose-headings:tracking-tight prose-headings:text-heading">
+  <h1>{t.title}</h1>
+
+  <h2>{t.overview.title}</h2>
+  <h3>{t.overview.subtitle}</h3>
+  <p>
+    {t.overview.text}
+  </p>
+
+  <h2>{t.responsible.title}</h2>
+  <p>
+    {t.responsible.text}:
+  </p>
+  <p>
+    {legal.fullName}<br />
+    {legal.address.street}<br />
+    {legal.address.zip} {legal.address.city}<br />
+    {legal.address.country}
+  </p>
+  <p>
+    {t.responsible.emailLabel}: <a href={`mailto:${config.email}`}>{config.email}</a>
+  </p>
+
+  <h2>{t.collection.title}</h2>
+  <h3>{t.collection.serverTitle}</h3>
+  <p>
+    {t.collection.serverText}
+  </p>
+
+  <h3>{t.collection.emailTitle}</h3>
+  <p>
+    {t.collection.emailText}
+  </p>
+
+  <h2>{t.hosting.title}</h2>
+  <p>
+    {t.hosting.text}
+  </p>
+
+  <h2>{t.rights.title}</h2>
+  <p>
+    {t.rights.text}
+  </p>
+  <p>
+    {t.rights.contact}
+  </p>
+</article>

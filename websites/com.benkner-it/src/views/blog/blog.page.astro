@@ -1,10 +1,13 @@
 ---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
 import PostCard from '@/components/PostCard.astro';
 import BlogNav from '@/components/BlogNav.astro';
 import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import CategoryBadge from '@/components/CategoryBadge.astro';
 import type { Language } from '@/lib/i18n';
 import { getTranslatedPath } from '@/lib/registry';
-import { getPostsByLang } from '@/lib/posts';
+import { getPostsByLang, getPostUrl, formatDate } from '@/lib/posts';
 import type { BlogTranslations } from './blog.i18n';
 
 interface Props {
@@ -14,6 +17,8 @@ interface Props {
 
 const { lang, t } = Astro.props;
 const posts = await getPostsByLang(lang);
+const featuredPost = posts[0];
+const remainingPosts = posts.slice(1);
 
 const breadcrumbs = [
   { label: lang === 'de' ? 'Start' : 'Home', href: getTranslatedPath('home', lang) },
@@ -21,18 +26,74 @@ const breadcrumbs = [
 ];
 ---
 
-<section>
-  <Breadcrumbs items={breadcrumbs} />
+<!-- Header -->
+<section class="relative pt-32 pb-8 sm:pt-40 sm:pb-12 dot-grid overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-b from-white/70 via-white/50 to-white pointer-events-none"></div>
+  <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-bl from-primary/[0.04] to-secondary/[0.03] rounded-full blur-[100px] -translate-y-1/3 translate-x-1/4 pointer-events-none"></div>
 
-  <h1 class="font-display text-2xl sm:text-3xl font-bold mt-4 tracking-tight text-heading">
-    {t.headline}
-  </h1>
-
-  <div class="mt-8">
-    <BlogNav lang={lang} />
-  </div>
-
-  <div class="grid grid-cols-1 gap-4 mt-8">
-    {posts.map((post) => <PostCard post={post} lang={lang} />)}
+  <div class="relative max-w-6xl mx-auto px-5 sm:px-8">
+    <Breadcrumbs items={breadcrumbs} />
+    <h1 class="font-display text-2xl sm:text-3xl md:text-4xl font-bold mt-4 tracking-tight text-heading">
+      {t.headline}
+    </h1>
+    <div class="mt-8">
+      <BlogNav lang={lang} />
+    </div>
   </div>
 </section>
+
+<!-- Featured Post -->
+{featuredPost && (
+  <section class="relative py-8 sm:py-12">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8">
+      <a
+        href={getPostUrl(featuredPost, lang)}
+        class="reveal card-lift group grid grid-cols-1 md:grid-cols-2 gap-6 rounded-xl border border-border bg-white overflow-hidden"
+      >
+        {featuredPost.data.cover && (
+          <Image
+            src={featuredPost.data.cover}
+            alt={featuredPost.data.title}
+            width={640}
+            height={400}
+            class="w-full h-48 md:h-full object-cover"
+          />
+        )}
+        <div class="p-6 md:p-8 flex flex-col justify-center">
+          <div class="flex items-center gap-3 mb-3">
+            <CategoryBadge category={featuredPost.data.category} lang={lang} linked={false} />
+            <time class="text-xs font-mono text-faint" datetime={featuredPost.data.date.toISOString()}>
+              {formatDate(featuredPost.data.date, lang)}
+            </time>
+          </div>
+          <h2 class="font-display text-xl sm:text-2xl font-bold tracking-tight text-heading group-hover:text-primary transition-colors">
+            {featuredPost.data.title}
+          </h2>
+          <p class="text-sm text-muted leading-relaxed mt-3 line-clamp-3">
+            {featuredPost.data.description}
+          </p>
+          <div class="mt-5 flex items-center gap-2 text-sm font-medium text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+            {lang === 'de' ? 'Weiterlesen' : 'Read more'}
+            <Icon name="lucide:arrow-right" class="w-4 h-4" />
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+)}
+
+<!-- Remaining Posts -->
+{remainingPosts.length > 0 && (
+  <section class="relative py-12 sm:py-16 bg-surface overflow-hidden">
+    <div class="absolute inset-0 cross-grid opacity-20 pointer-events-none"></div>
+    <div class="relative max-w-6xl mx-auto px-5 sm:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 stagger">
+        {remainingPosts.map((post) => (
+          <div class="reveal">
+            <PostCard post={post} lang={lang} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

@@ -1,0 +1,73 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { config } from "../data/config";
+---
+
+<Layout title="Política de Privacidad">
+  <section class="bg-navy-900 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.04]">
+      <div class="w-full h-full bg-diagonals"></div>
+    </div>
+    <div class="relative max-w-7xl mx-auto px-6 py-20 md:py-28">
+      <h1 class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white">Política de Privacidad</h1>
+    </div>
+    <div class="h-px bg-gradient-to-r from-transparent via-gold-500 to-transparent"></div>
+  </section>
+
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 py-20 md:py-28 prose prose-navy">
+      <h2 class="font-heading text-2xl font-bold text-navy-900 mb-4">Responsable del Tratamiento</h2>
+      <div class="gold-divider max-w-[120px] mb-8"></div>
+      <p class="text-navy-600 text-sm leading-relaxed">
+        El responsable del tratamiento de los datos personales es <strong>{config.name}</strong>, con correo electrónico de contacto <a href={`mailto:${config.email}`} class="text-gold-600 hover:text-gold-700">{config.email}</a>.
+      </p>
+
+      <h2 class="font-heading text-2xl font-bold text-navy-900 mt-12 mb-4">Finalidad del Tratamiento</h2>
+      <div class="gold-divider max-w-[120px] mb-8"></div>
+      <p class="text-navy-600 text-sm leading-relaxed">
+        Los datos personales que nos facilite a través del formulario de contacto serán tratados con la finalidad de atender su consulta y, en su caso, gestionar la relación profesional que pueda derivarse de ella.
+      </p>
+
+      <h2 class="font-heading text-2xl font-bold text-navy-900 mt-12 mb-4">Derechos del Usuario</h2>
+      <div class="gold-divider max-w-[120px] mb-8"></div>
+      <p class="text-navy-600 text-sm leading-relaxed">
+        Usted tiene derecho a acceder, rectificar y suprimir sus datos, así como otros derechos reconocidos en la normativa vigente, que podrá ejercer dirigiéndose a {config.email}.
+      </p>
+
+      <h2 class="font-heading text-2xl font-bold text-navy-900 mt-12 mb-4">Conservación de Datos</h2>
+      <div class="gold-divider max-w-[120px] mb-8"></div>
+      <p class="text-navy-600 text-sm leading-relaxed">
+        Los datos personales proporcionados se conservarán durante el tiempo necesario para atender su solicitud y, en su caso, durante los plazos legalmente establecidos.
+      </p>
+
+      <h2 class="font-heading text-2xl font-bold text-navy-900 mt-12 mb-4">Google Maps</h2>
+      <div class="gold-divider max-w-[120px] mb-8"></div>
+      <p class="text-navy-600 text-sm leading-relaxed mb-4">
+        Este sitio web utiliza Google Maps para mostrar la ubicación de nuestras oficinas. Al cargar el mapa, se transfieren datos a Google LLC, incluida su dirección IP. Esta transferencia se realiza únicamente con su consentimiento explícito.
+      </p>
+      <p class="text-navy-600 text-sm leading-relaxed mb-6">
+        Si ha dado su consentimiento previamente y desea revocarlo, puede hacerlo aquí:
+      </p>
+      <button
+        id="revoke-maps-btn"
+        class="inline-flex items-center gap-2 bg-navy-900 hover:bg-navy-800 text-white font-semibold px-6 py-3 text-xs tracking-wide uppercase transition-colors"
+      >
+        Revocar consentimiento de Google Maps
+      </button>
+      <p id="revoke-maps-msg" class="text-gold-600 text-sm mt-3 hidden">
+        Consentimiento revocado correctamente.
+      </p>
+
+      <script>
+        document.getElementById("revoke-maps-btn")?.addEventListener("click", () => {
+          if (typeof (window as any).revokeMapConsent === "function") {
+            (window as any).revokeMapConsent();
+          } else {
+            localStorage.removeItem("maps-consent");
+          }
+          document.getElementById("revoke-maps-msg")?.classList.remove("hidden");
+        });
+      </script>
+    </div>
+  </section>
+</Layout>

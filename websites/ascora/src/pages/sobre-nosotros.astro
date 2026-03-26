@@ -1,0 +1,239 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+import { config } from "../data/config";
+import logo1 from "../assets/logo1.png";
+
+const gc = config.locations.granCanaria;
+
+const values = [
+  {
+    icon: "lucide:award",
+    title: "Experiencia",
+    text: "Más de 30 años de trayectoria profesional nos respaldan. Conocemos a fondo la normativa fiscal, laboral y administrativa de las Islas Canarias.",
+  },
+  {
+    icon: "lucide:handshake",
+    title: "Confianza",
+    text: "Construimos relaciones duraderas con nuestros clientes basadas en la transparencia, la honestidad y el compromiso con sus intereses.",
+  },
+  {
+    icon: "lucide:clock",
+    title: "Puntualidad",
+    text: "Siempre cumplimos con los plazos. Sus documentos estarán listos a tiempo para que usted nunca tenga que preocuparse.",
+  },
+  {
+    icon: "lucide:target",
+    title: "Personalización",
+    text: "Cada cliente recibe un asesoramiento adaptado a sus necesidades específicas, ya sea empresa o particular.",
+  },
+];
+
+const milestones = [
+  { year: "1994", text: "Fundación de Ascora Asesoría Fiscal S.L. en Gran Canaria" },
+  { year: "2000", text: "Apertura de la segunda sede en Fuerteventura (Costa Calma)" },
+  { year: "2010", text: "Ampliación de servicios: mediación de seguros" },
+  { year: "Hoy", text: "Más de 30 años asesorando a empresas y particulares en Canarias" },
+];
+---
+
+<Layout title="Sobre Nosotros">
+  <!-- Header -->
+  <section class="bg-navy-900 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.04]">
+      <div class="w-full h-full bg-diagonals"></div>
+    </div>
+    <div class="absolute bottom-0 right-0 w-[500px] h-[300px] bg-gold-500/5 rounded-full blur-3xl translate-y-1/2 translate-x-1/4"></div>
+    <div class="relative max-w-7xl mx-auto px-6 py-20 md:py-28">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="h-px w-8 bg-gold-500"></div>
+        <p class="text-gold-400 text-xs font-medium tracking-[0.25em] uppercase">Conózcanos</p>
+      </div>
+      <h1 class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-5">Sobre Nosotros</h1>
+      <p class="text-navy-300 max-w-2xl text-lg leading-relaxed">
+        Una asesoría con raíces en Canarias, dedicada a acompañar a empresas y particulares en cada etapa.
+      </p>
+    </div>
+    <div class="h-px bg-gradient-to-r from-transparent via-gold-500 to-transparent"></div>
+  </section>
+
+  <!-- Story -->
+  <section class="bg-white relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-gold-50 rounded-full blur-3xl opacity-50 -translate-y-1/3 translate-x-1/4"></div>
+
+    <div class="relative max-w-7xl mx-auto px-6 py-24 md:py-32">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <p class="text-gold-600 text-xs font-medium tracking-[0.25em] uppercase mb-3">Nuestra Historia</p>
+          <h2 class="font-heading text-3xl md:text-4xl font-bold text-navy-900 mb-4">
+            Tres décadas al servicio de Canarias
+          </h2>
+          <div class="h-px w-16 bg-gradient-to-r from-gold-500 to-transparent mb-8"></div>
+          <div class="space-y-5 text-navy-600 leading-relaxed">
+            <p>
+              Desde 1994, <strong class="text-navy-900">Ascora Asesoría Fiscal S.L.</strong> presta servicios de asesoría fiscal, laboral, gestoría y seguros desde sus sedes en Gran Canaria y Fuerteventura.
+            </p>
+            <p>
+              Nuestro equipo de profesionales se esmera por ofrecer un servicio integral que cubre todas las necesidades administrativas y fiscales de empresas y particulares en las Islas Canarias.
+            </p>
+            <p>
+              Trabajamos con la convicción de que cada cliente merece un trato personalizado y una atención profesional que le permita centrarse en lo que realmente importa: su negocio y su vida.
+            </p>
+          </div>
+          <a
+            href="/contacto"
+            class="inline-flex items-center gap-2 mt-8 bg-gold-500 hover:bg-gold-600 text-navy-900 font-semibold px-7 py-3 text-xs tracking-wide uppercase transition-colors"
+          >
+            Hablar con nosotros
+            <Icon name="lucide:arrow-right" class="w-4 h-4" />
+          </a>
+        </div>
+
+        <!-- Logo with decorative frame -->
+        <div class="flex justify-center">
+          <div class="relative">
+            <div class="absolute -inset-4 border border-gold-200"></div>
+            <div class="absolute -inset-8 border border-gold-100"></div>
+            <div class="absolute -inset-4 bg-gradient-to-br from-gold-500/5 to-transparent"></div>
+            <img src={logo1.src} alt="Ascora Asesoría Fiscal S.L." class="relative w-64 md:w-80 bg-white p-8" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="bg-navy-900 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.03]">
+      <div class="w-full h-full bg-crossgrid"></div>
+    </div>
+    <div class="h-px bg-gradient-to-r from-transparent via-gold-500 to-transparent"></div>
+
+    <div class="relative max-w-7xl mx-auto px-6 py-16 md:py-20">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6 text-center">
+        {[
+          { value: "1994", label: "Año de fundación" },
+          { value: "30+", label: "Años de experiencia" },
+          { value: "2", label: "Sedes en Canarias" },
+          { value: "4", label: "Áreas de servicio" },
+        ].map((stat) => (
+          <div>
+            <div class="font-heading text-3xl md:text-4xl font-bold text-gold-gradient mb-2">{stat.value}</div>
+            <div class="h-px w-10 bg-gold-500/30 mx-auto mb-2"></div>
+            <p class="text-navy-300 text-xs md:text-sm uppercase tracking-wider">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="h-px bg-gradient-to-r from-transparent via-gold-500/30 to-transparent"></div>
+  </section>
+
+  <!-- Values -->
+  <section class="bg-white">
+    <div class="max-w-4xl mx-auto px-6 py-24 md:py-32">
+      <div class="text-center mb-16">
+        <p class="text-gold-600 text-xs font-medium tracking-[0.25em] uppercase mb-3">Nuestros Valores</p>
+        <h2 class="font-heading text-3xl md:text-4xl font-bold text-navy-900">Lo que nos define</h2>
+        <div class="gold-divider max-w-xs mx-auto mt-6"></div>
+      </div>
+
+      <div class="space-y-0">
+        {values.map((v, i) => (
+          <div class="flex items-start gap-6 py-8 border-b border-warm-200 last:border-b-0">
+            <div class="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-gold-50 text-gold-600 mt-0.5">
+              <Icon name={v.icon} class="w-5 h-5" />
+            </div>
+            <div>
+              <h3 class="font-heading text-lg font-semibold text-navy-900 mb-1">{v.title}</h3>
+              <p class="text-navy-500 text-sm leading-relaxed">{v.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="relative bg-warm-50">
+    <div class="absolute inset-0 bg-dots opacity-15"></div>
+    <div class="relative max-w-3xl mx-auto px-6 py-24 md:py-32">
+      <div class="text-center mb-16">
+        <p class="text-gold-600 text-xs font-medium tracking-[0.25em] uppercase mb-3">Nuestra Trayectoria</p>
+        <h2 class="font-heading text-3xl md:text-4xl font-bold text-navy-900">Hitos importantes</h2>
+        <div class="gold-divider max-w-xs mx-auto mt-6"></div>
+      </div>
+
+      <div class="relative">
+        {/* Vertical line */}
+        <div class="absolute left-[1.6rem] md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-gold-400 via-gold-300 to-gold-200 md:-translate-x-px"></div>
+
+        <div class="space-y-12">
+          {milestones.map((m, i) => (
+            <div class:list={[
+              "relative flex items-start gap-8 md:gap-0",
+              i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+            ]}>
+              {/* Dot */}
+              <div class="absolute left-[1.6rem] md:left-1/2 -translate-x-1/2 w-4 h-4 bg-gold-500 border-4 border-warm-50 rounded-full z-10"></div>
+
+              {/* Content */}
+              <div class:list={[
+                "ml-14 md:ml-0 md:w-1/2",
+                i % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12"
+              ]}>
+                <div class="bg-white border border-warm-200 p-6">
+                  <span class="font-heading text-2xl font-bold text-gold-gradient">{m.year}</span>
+                  <p class="text-navy-600 text-sm leading-relaxed mt-2">{m.text}</p>
+                </div>
+              </div>
+
+              {/* Spacer for alternating side */}
+              <div class="hidden md:block md:w-1/2"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-navy-900 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.03]">
+      <div class="w-full h-full bg-crossgrid"></div>
+    </div>
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-gold-500/5 rounded-full blur-3xl -translate-y-1/2"></div>
+
+    <div class="h-px bg-gradient-to-r from-transparent via-gold-500 to-transparent"></div>
+
+    <div class="relative max-w-4xl mx-auto px-6 py-20 md:py-24">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+        <div>
+          <p class="text-gold-400 text-xs font-medium tracking-[0.25em] uppercase mb-3">Próximo Paso</p>
+          <h2 class="font-heading text-2xl md:text-3xl font-bold text-white mb-4">
+            ¿Quiere conocernos en persona?
+          </h2>
+          <p class="text-navy-300 leading-relaxed">
+            Visítenos en nuestras oficinas o contacte con nosotros para una primera consulta sin compromiso.
+          </p>
+        </div>
+        <div class="flex flex-col sm:flex-row md:flex-col gap-4 md:items-end">
+          <a
+            href="/contacto"
+            class="inline-flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-600 text-navy-900 font-semibold px-8 py-3.5 text-sm tracking-wide uppercase transition-colors"
+          >
+            <Icon name="lucide:mail" class="w-4 h-4" />
+            Contactar
+          </a>
+          <a
+            href={`tel:${gc.phone[0].replace(/\s/g, "")}`}
+            class="inline-flex items-center justify-center gap-2 border border-navy-600 hover:border-gold-500 text-white hover:text-gold-400 px-8 py-3.5 text-sm tracking-wide uppercase transition-colors"
+          >
+            <Icon name="lucide:phone" class="w-4 h-4" />
+            {gc.phone[0]}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

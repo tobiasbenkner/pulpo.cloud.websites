@@ -1,0 +1,45 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { config } from "../data/config";
+
+const gc = config.locations.granCanaria;
+---
+
+<Layout title="Aviso Legal">
+  <section class="bg-navy-900 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.04]">
+      <div class="w-full h-full bg-diagonals"></div>
+    </div>
+    <div class="relative max-w-7xl mx-auto px-6 py-20 md:py-28">
+      <h1 class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white">Aviso Legal</h1>
+    </div>
+    <div class="h-px bg-gradient-to-r from-transparent via-gold-500 to-transparent"></div>
+  </section>
+
+  <section class="bg-white">
+    <div class="max-w-3xl mx-auto px-6 py-20 md:py-28 prose prose-navy">
+      <h2 class="font-heading text-2xl font-bold text-navy-900 mb-4">Datos de la Empresa</h2>
+      <div class="gold-divider max-w-[120px] mb-8"></div>
+
+      <div class="space-y-2 text-navy-600 text-sm leading-relaxed">
+        <p><strong>Razón Social:</strong> {config.name}</p>
+        <p><strong>Domicilio:</strong> {gc.address.street}, {gc.address.area}, {gc.address.zip} {gc.address.city}, {gc.address.country}</p>
+        <p><strong>Teléfono:</strong> {gc.phone[0]}</p>
+        {gc.fax && <p><strong>Fax:</strong> {gc.fax}</p>}
+        <p><strong>Correo Electrónico:</strong> {config.email}</p>
+      </div>
+
+      <h2 class="font-heading text-2xl font-bold text-navy-900 mt-12 mb-4">Condiciones de Uso</h2>
+      <div class="gold-divider max-w-[120px] mb-8"></div>
+      <p class="text-navy-600 text-sm leading-relaxed">
+        El acceso y uso de este sitio web atribuye la condición de usuario del mismo e implica la aceptación de todas las condiciones incluidas en este aviso legal. El usuario se compromete a hacer un uso adecuado de los contenidos y servicios que {config.shortName} ofrece a través de su portal.
+      </p>
+
+      <h2 class="font-heading text-2xl font-bold text-navy-900 mt-12 mb-4">Propiedad Intelectual</h2>
+      <div class="gold-divider max-w-[120px] mb-8"></div>
+      <p class="text-navy-600 text-sm leading-relaxed">
+        Todos los contenidos de este sitio web, incluyendo textos, imágenes, logotipos y diseño, son propiedad de {config.name} o de terceros que han autorizado su uso. Queda prohibida su reproducción sin autorización expresa.
+      </p>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,77 @@
+---
+import { Icon } from "astro-icon/components";
+import { config } from "../data/config";
+import logo2 from "../assets/logo2.png";
+
+const gc = config.locations.granCanaria;
+const fv = config.locations.fuerteventura;
+---
+
+<footer class="bg-navy-900 text-white">
+  <!-- Gold line at top -->
+  <div class="h-px bg-gradient-to-r from-transparent via-gold-500 to-transparent"></div>
+
+  <div class="max-w-7xl mx-auto px-6 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+      <!-- Brand -->
+      <div>
+        <img src={logo2.src} alt="Ascora" class="h-16 mb-5" />
+        <p class="text-navy-300 text-sm leading-relaxed">
+          Más de 30 años ofreciendo servicios de asesoría fiscal, laboral y gestoría en las Islas Canarias.
+        </p>
+      </div>
+
+      <!-- Navigation -->
+      <div>
+        <h4 class="font-heading text-lg font-semibold text-gold-400 mb-5">Navegación</h4>
+        <ul class="space-y-3">
+          <li><a href="/" class="text-navy-300 hover:text-gold-400 transition-colors text-sm">Inicio</a></li>
+          <li><a href="/servicios" class="text-navy-300 hover:text-gold-400 transition-colors text-sm">Servicios</a></li>
+          <li><a href="/sobre-nosotros" class="text-navy-300 hover:text-gold-400 transition-colors text-sm">Sobre Nosotros</a></li>
+          <li><a href="/contacto" class="text-navy-300 hover:text-gold-400 transition-colors text-sm">Contacto</a></li>
+        </ul>
+      </div>
+
+      <!-- Gran Canaria -->
+      <div>
+        <h4 class="font-heading text-lg font-semibold text-gold-400 mb-5">Gran Canaria</h4>
+        <ul class="space-y-3 text-sm text-navy-300">
+          <li class="flex items-start gap-2">
+            <Icon name="lucide:map-pin" class="w-4 h-4 text-gold-500 mt-0.5 flex-shrink-0" />
+            <span>{gc.address.street}<br />{gc.address.area}, {gc.address.city}</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <Icon name="lucide:phone" class="w-4 h-4 text-gold-500 flex-shrink-0" />
+            <a href={`tel:${gc.phone[0].replace(/\s/g, "")}`} class="hover:text-gold-400 transition-colors">{gc.phone[0]}</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Fuerteventura -->
+      <div>
+        <h4 class="font-heading text-lg font-semibold text-gold-400 mb-5">Fuerteventura</h4>
+        <ul class="space-y-3 text-sm text-navy-300">
+          <li class="flex items-start gap-2">
+            <Icon name="lucide:map-pin" class="w-4 h-4 text-gold-500 mt-0.5 flex-shrink-0" />
+            <span>{fv.address.street}<br />{fv.address.area}, {fv.address.city}</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <Icon name="lucide:phone" class="w-4 h-4 text-gold-500 flex-shrink-0" />
+            <a href={`tel:${fv.phone[0].replace(/\s/g, "")}`} class="hover:text-gold-400 transition-colors">{fv.phone[0]}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="mt-14 pt-8 border-t border-navy-700 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="text-navy-400 text-xs">
+        &copy; {new Date().getFullYear()} {config.name}. Todos los derechos reservados.
+      </p>
+      <div class="flex items-center gap-6">
+        <a href="/imprint" class="text-navy-400 hover:text-gold-400 transition-colors text-xs">Aviso Legal</a>
+        <a href="/privacy" class="text-navy-400 hover:text-gold-400 transition-colors text-xs">Política de Privacidad</a>
+      </div>
+    </div>
+  </div>
+</footer>

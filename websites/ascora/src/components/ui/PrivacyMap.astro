@@ -1,0 +1,155 @@
+---
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import previewImage from "../../assets/map-preview.jpg";
+
+interface Props {
+  url: string;
+  height?: string;
+  title?: string;
+  loadMap?: string;
+  accept?: string;
+  showMap?: string;
+}
+
+const {
+  url,
+  height = "h-full",
+  title = "Google Maps",
+  loadMap = "Cargar mapa",
+  accept = "Al hacer clic, usted acepta la transferencia de datos a Google. Guardamos esta configuración para su visita.",
+  showMap = "Mostrar mapa",
+} = Astro.props;
+---
+
+<div
+  class={`w-full relative bg-warm-100 group overflow-hidden privacy-map-wrapper ${height}`}
+>
+  <div
+    class="privacy-map-placeholder absolute inset-0 transition-opacity duration-500 z-10 overflow-y-auto flex items-center justify-center"
+  >
+    <!-- Blurred preview background -->
+    <div class="absolute inset-0 overflow-hidden">
+      <Image
+        src={previewImage}
+        alt="Vista previa del mapa"
+        class="w-full h-full object-cover blur-sm scale-105"
+        loading="eager"
+        quality={80}
+        widths={[400, 800, 1200]}
+        sizes="100vw"
+      />
+    </div>
+
+    <!-- Navy overlay with gradient -->
+    <div class="absolute inset-0 bg-gradient-to-b from-navy-900/60 via-navy-900/50 to-navy-900/70"></div>
+
+    <!-- Consent card -->
+    <div class="relative z-10 text-center max-w-sm mx-4 md:mx-6 bg-navy-900/40 backdrop-blur-sm p-5 md:p-10 border border-white/10 my-4">
+      <!-- Pin icon -->
+      <div class="relative w-12 h-12 md:w-16 md:h-16 mx-auto mb-4 md:mb-5">
+        <div class="absolute inset-0 bg-gold-500/20 rounded-full animate-ping"></div>
+        <div class="relative w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-gold-500 to-gold-600 rounded-full flex items-center justify-center shadow-lg shadow-gold-500/30">
+          <Icon name="lucide:map-pin" class="w-5 h-5 md:w-7 md:h-7 text-white" />
+        </div>
+      </div>
+
+      <h3 class="text-lg md:text-xl font-heading font-semibold text-white mb-1.5 md:mb-2">{loadMap}</h3>
+      <p class="text-white/70 text-[11px] md:text-xs leading-relaxed mb-4 md:mb-6">
+        {accept}
+      </p>
+
+      <button
+        class="privacy-map-btn inline-flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-400 text-navy-900 font-semibold py-2.5 md:py-3 px-6 md:px-8 text-xs md:text-sm uppercase tracking-wider transition-all duration-300 hover:shadow-lg hover:shadow-gold-500/25 w-full"
+      >
+        <Icon name="lucide:eye" class="w-4 h-4" />
+        {showMap}
+      </button>
+
+      <a href="/privacy" class="inline-block mt-2 md:mt-3 text-white/50 hover:text-gold-400 text-[10px] uppercase tracking-widest transition-colors">
+        Política de privacidad
+      </a>
+    </div>
+  </div>
+
+  <iframe
+    data-src={url}
+    width="100%"
+    height="100%"
+    style="border:0;"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+    title={title}
+    class="privacy-map-iframe absolute inset-0 w-full h-full opacity-0 transition-opacity duration-1000"
+  ></iframe>
+</div>
+
+<script>
+  const STORAGE_KEY = "maps-consent";
+
+  const activateMap = (wrapper: Element) => {
+    const iframe = wrapper.querySelector(".privacy-map-iframe");
+    const placeholder = wrapper.querySelector(".privacy-map-placeholder");
+
+    if (iframe && placeholder) {
+      const currentSrc = iframe.getAttribute("src");
+      const dataSrc = iframe.getAttribute("data-src");
+
+      if (!currentSrc && dataSrc) {
+        iframe.setAttribute("src", dataSrc);
+
+        (placeholder as HTMLElement).style.opacity = "0";
+        (placeholder as HTMLElement).style.pointerEvents = "none";
+        iframe.classList.remove("opacity-0");
+
+        setTimeout(() => {
+          (placeholder as HTMLElement).style.display = "none";
+        }, 500);
+      }
+    }
+  };
+
+  const revokeConsent = () => {
+    localStorage.removeItem(STORAGE_KEY);
+    document.querySelectorAll(".privacy-map-wrapper").forEach((wrapper) => {
+      const iframe = wrapper.querySelector(".privacy-map-iframe");
+      const placeholder = wrapper.querySelector(".privacy-map-placeholder");
+      if (iframe) {
+        iframe.removeAttribute("src");
+        iframe.classList.add("opacity-0");
+      }
+      if (placeholder) {
+        (placeholder as HTMLElement).style.display = "";
+        (placeholder as HTMLElement).style.opacity = "1";
+        (placeholder as HTMLElement).style.pointerEvents = "";
+      }
+    });
+  };
+
+  // Expose globally for revoke button
+  (window as any).revokeMapConsent = revokeConsent;
+
+  const initMaps = () => {
+    const allMaps = document.querySelectorAll(".privacy-map-wrapper");
+    const hasConsent = localStorage.getItem(STORAGE_KEY) === "true";
+
+    if (hasConsent) {
+      allMaps.forEach((map) => activateMap(map));
+    }
+
+    allMaps.forEach((map) => {
+      const btn = map.querySelector(".privacy-map-btn");
+      if (btn) {
+        btn.addEventListener("click", () => {
+          localStorage.setItem(STORAGE_KEY, "true");
+          const mapsNow = document.querySelectorAll(".privacy-map-wrapper");
+          mapsNow.forEach((m) => activateMap(m));
+        });
+      }
+    });
+  };
+
+  initMaps();
+  document.addEventListener("astro:page-load", initMaps);
+</script>

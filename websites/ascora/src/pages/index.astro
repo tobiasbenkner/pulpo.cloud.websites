@@ -1,0 +1,479 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+import { config } from "../data/config";
+const gc = config.locations.granCanaria;
+const fv = config.locations.fuerteventura;
+
+const services = [
+  {
+    icon: "lucide:file-text",
+    title: "Gestoría",
+    description: "Traspaso y matriculación de vehículos, trámites inmobiliarios, registros de patentes y marcas.",
+    href: "/servicios#gestoria",
+  },
+  {
+    icon: "lucide:calculator",
+    title: "Servicios Fiscales",
+    description: "Asesoramiento fiscal, contabilidad, cuentas anuales, altas y cierre de empresas.",
+    href: "/servicios#servicios-fiscales",
+  },
+  {
+    icon: "lucide:users",
+    title: "Asesoría Laboral",
+    description: "Nóminas, contratos, seguros sociales, tramitación de N.I.E. y seguridad laboral.",
+    href: "/servicios#asesoria-laboral",
+  },
+  {
+    icon: "lucide:shield-check",
+    title: "Seguros",
+    description: "Seguros de hogar, vehículo, vida, negocio, construcción, planes de pensiones y más.",
+    href: "/servicios#seguros",
+  },
+];
+
+const trustPoints = [
+  {
+    icon: "lucide:award",
+    title: "30+ años de experiencia",
+    text: "Tres décadas asesorando a empresas y particulares en las Islas Canarias.",
+  },
+  {
+    icon: "lucide:clock",
+    title: "Entrega garantizada",
+    text: "Siempre cumplimos con los plazos de entrega de sus documentos.",
+  },
+  {
+    icon: "lucide:map-pin",
+    title: "2 sedes en Canarias",
+    text: "Oficinas en Gran Canaria y Fuerteventura para estar cerca de usted.",
+  },
+];
+---
+
+<Layout title="Inicio">
+  <!-- Hero -->
+  <section class="relative bg-navy-900 overflow-hidden h-[calc(100vh-5rem)]">
+    <div class="absolute inset-0 opacity-[0.04]">
+      <div class="w-full h-full bg-diagonals"></div>
+    </div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gold-500/5 rounded-full blur-3xl"></div>
+
+    <div class="relative max-w-7xl mx-auto px-6 h-full flex items-center">
+      <div class="w-full max-w-3xl">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="h-px w-8 bg-gold-500"></div>
+          <p class="text-gold-400 text-xs font-medium tracking-[0.25em] uppercase">
+            Asesoría Fiscal, Laboral y Gestoría
+          </p>
+        </div>
+
+        <h1 class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-[1.15] mb-5">
+          Tranquilidad fiscal para su empresa en
+          <span class="text-gold-gradient"> Canarias</span>
+        </h1>
+
+        <p class="text-navy-300 text-lg leading-relaxed mb-8 max-w-xl">
+          Nos ocupamos de su contabilidad, impuestos, nóminas y trámites administrativos para que usted pueda centrarse en lo que importa: su negocio.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 mb-8">
+          <a
+            href="/contacto"
+            class="inline-flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-600 text-navy-900 font-semibold px-8 py-3.5 text-sm tracking-wide uppercase transition-colors"
+          >
+            <Icon name="lucide:phone" class="w-4 h-4" />
+            Contactar ahora
+          </a>
+          <a
+            href="/servicios"
+            class="inline-flex items-center justify-center gap-2 border border-navy-600 hover:border-gold-500 text-white hover:text-gold-400 px-8 py-3.5 text-sm tracking-wide uppercase transition-colors"
+          >
+            Ver Servicios
+            <Icon name="lucide:arrow-right" class="w-4 h-4" />
+          </a>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-x-8 gap-y-2 text-sm text-navy-400">
+          <span class="flex items-center gap-2">
+            <Icon name="lucide:check-circle" class="w-4 h-4 text-gold-500" />
+            Más de 30 años
+          </span>
+          <span class="flex items-center gap-2">
+            <Icon name="lucide:check-circle" class="w-4 h-4 text-gold-500" />
+            Gran Canaria y Fuerteventura
+          </span>
+          <span class="flex items-center gap-2">
+            <Icon name="lucide:check-circle" class="w-4 h-4 text-gold-500" />
+            Consulta sin compromiso
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-500 to-transparent"></div>
+  </section>
+
+  <!-- Trust strip -->
+  <section class="bg-navy-900 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.03]">
+      <div class="w-full h-full bg-crossgrid"></div>
+    </div>
+    <div class="relative max-w-7xl mx-auto px-6 py-14 md:py-16">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
+        {trustPoints.map((point) => (
+          <div class="flex items-center gap-5 md:justify-center">
+            <div class="w-14 h-14 flex-shrink-0 flex items-center justify-center border border-gold-500/30 text-gold-400">
+              <Icon name={point.icon} class="w-6 h-6" />
+            </div>
+            <div>
+              <h3 class="font-heading text-lg font-semibold text-white">{point.title}</h3>
+              <p class="text-sm text-navy-300 leading-relaxed">{point.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div class="h-px bg-gradient-to-r from-transparent via-gold-500/30 to-transparent"></div>
+  </section>
+
+  <!-- Services -->
+  <section class="relative bg-white overflow-hidden">
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-gold-50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 opacity-60"></div>
+
+    <div class="relative max-w-7xl mx-auto px-6 py-24 md:py-32">
+      <div class="text-center mb-16">
+        <p class="text-gold-600 text-xs font-medium tracking-[0.25em] uppercase mb-3">Lo Que Hacemos</p>
+        <h2 class="font-heading text-3xl md:text-4xl font-bold text-navy-900 mb-4">
+          Cuatro áreas, una solución integral
+        </h2>
+        <div class="gold-divider max-w-xs mx-auto mt-4 mb-6"></div>
+        <p class="text-navy-600 leading-relaxed max-w-2xl mx-auto">
+          Cubrimos todos los aspectos fiscales, laborales y administrativos de su actividad para que usted pueda concentrarse en su negocio.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {services.map((service, i) => (
+          <a href={service.href} class="group block">
+            <div class="h-full relative overflow-hidden bg-white border border-warm-200 hover:border-gold-400 transition-all duration-300 hover:shadow-xl hover:shadow-gold-500/10">
+              <!-- Top accent bar -->
+              <div class="h-1 bg-gradient-to-r from-gold-500 to-gold-300 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+
+              <div class="p-7">
+                <!-- Number + Icon -->
+                <div class="flex items-center justify-between mb-6">
+                  <div class="w-12 h-12 flex items-center justify-center bg-gold-50 text-gold-600 group-hover:bg-gold-500 group-hover:text-white transition-colors duration-300">
+                    <Icon name={service.icon} class="w-6 h-6" />
+                  </div>
+                  <span class="font-heading text-4xl font-bold text-warm-200 group-hover:text-gold-100 transition-colors">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                </div>
+
+                <h3 class="font-heading text-xl font-semibold text-navy-900 mb-3">{service.title}</h3>
+
+                <p class="text-navy-500 text-sm leading-relaxed mb-5">{service.description}</p>
+
+                <div class="flex items-center gap-1.5 text-gold-600 text-xs font-medium uppercase tracking-wider">
+                  Más información
+                  <Icon name="lucide:arrow-right" class="w-3.5 h-3.5 -translate-x-1 group-hover:translate-x-0 opacity-0 group-hover:opacity-100 transition-all" />
+                </div>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="text-center mt-12">
+        <a
+          href="/servicios"
+          class="inline-flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-600 text-navy-900 font-semibold px-8 py-3.5 text-sm tracking-wide uppercase transition-colors"
+        >
+          Ver todos los servicios
+          <Icon name="lucide:arrow-right" class="w-4 h-4" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Ascora -->
+  <section class="relative bg-navy-900 overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.03]">
+      <div class="w-full h-full bg-crossgrid"></div>
+    </div>
+    <div class="absolute top-0 left-0 w-[400px] h-[400px] bg-gold-500/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+
+    <div class="h-px bg-gradient-to-r from-transparent via-gold-500 to-transparent"></div>
+
+    <div class="relative max-w-7xl mx-auto px-6 py-24 md:py-32">
+      <div class="text-center mb-16">
+        <p class="text-gold-400 text-xs font-medium tracking-[0.25em] uppercase mb-3">¿Por Qué Ascora?</p>
+        <h2 class="font-heading text-3xl md:text-4xl font-bold text-white">
+          Lo que nos diferencia
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="font-heading text-5xl md:text-6xl font-bold text-gold-gradient mb-3">30+</div>
+          <div class="h-px w-12 bg-gold-500/30 mx-auto mb-3"></div>
+          <h3 class="text-white font-semibold mb-2">Años de trayectoria</h3>
+          <p class="text-navy-300 text-sm leading-relaxed">
+            Desde 1994 ofreciendo servicios profesionales de asesoría en las Islas Canarias.
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div class="font-heading text-5xl md:text-6xl font-bold text-gold-gradient mb-3">100%</div>
+          <div class="h-px w-12 bg-gold-500/30 mx-auto mb-3"></div>
+          <h3 class="text-white font-semibold mb-2">Servicio personalizado</h3>
+          <p class="text-navy-300 text-sm leading-relaxed">
+            Cada cliente recibe atención individual adaptada a sus necesidades específicas.
+          </p>
+        </div>
+
+        <div class="text-center">
+          <div class="font-heading text-5xl md:text-6xl font-bold text-gold-gradient mb-3">10d</div>
+          <div class="h-px w-12 bg-gold-500/30 mx-auto mb-3"></div>
+          <h3 class="text-white font-semibold mb-2">Antelación mínima</h3>
+          <p class="text-navy-300 text-sm leading-relaxed">
+            Siempre cumplimos con los plazos — sus documentos estarán listos a tiempo.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="h-px bg-gradient-to-r from-transparent via-gold-500 to-transparent"></div>
+  </section>
+
+  <!-- How it works -->
+  <section class="relative bg-warm-50">
+    <div class="absolute inset-0 bg-dots opacity-15"></div>
+    <div class="relative max-w-7xl mx-auto px-6 py-24 md:py-32">
+      <div class="text-center mb-16">
+        <p class="text-gold-600 text-xs font-medium tracking-[0.25em] uppercase mb-3">Cómo Trabajamos</p>
+        <h2 class="font-heading text-3xl md:text-4xl font-bold text-navy-900">Tres pasos para su tranquilidad</h2>
+        <div class="gold-divider max-w-xs mx-auto mt-6"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+        <!-- Connecting line (desktop) -->
+        <div class="hidden md:block absolute top-12 left-[calc(16.67%+1rem)] right-[calc(16.67%+1rem)] h-px bg-gold-300/50"></div>
+
+        {[
+          {
+            step: "01",
+            icon: "lucide:phone",
+            title: "Primer contacto",
+            text: "Llámenos o escríbanos. Analizamos su situación sin compromiso y le explicamos cómo podemos ayudarle.",
+          },
+          {
+            step: "02",
+            icon: "lucide:search",
+            title: "Análisis personalizado",
+            text: "Estudiamos su caso en detalle y le proponemos el plan de servicios que mejor se adapta a sus necesidades.",
+          },
+          {
+            step: "03",
+            icon: "lucide:briefcase",
+            title: "Gestión continua",
+            text: "Nos encargamos de todo: impuestos, nóminas, trámites. Usted se dedica a su negocio, nosotros al resto.",
+          },
+        ].map((item) => (
+          <div class="text-center relative">
+            <div class="w-24 h-24 mx-auto mb-6 relative">
+              <div class="absolute inset-0 bg-white border-2 border-gold-300 rotate-45"></div>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <Icon name={item.icon} class="w-8 h-8 text-gold-600" />
+              </div>
+            </div>
+            <p class="text-gold-500 text-xs font-bold tracking-widest uppercase mb-2">{item.step}</p>
+            <h3 class="font-heading text-xl font-semibold text-navy-900 mb-3">{item.title}</h3>
+            <p class="text-navy-500 text-sm leading-relaxed max-w-xs mx-auto">{item.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Who we serve -->
+  <section class="bg-white">
+    <div class="max-w-7xl mx-auto px-6 py-24 md:py-32">
+      <div class="text-center mb-16">
+        <p class="text-gold-600 text-xs font-medium tracking-[0.25em] uppercase mb-3">¿A Quién Asesoramos?</p>
+        <h2 class="font-heading text-3xl md:text-4xl font-bold text-navy-900">Soluciones para cada perfil</h2>
+        <div class="gold-divider max-w-xs mx-auto mt-6"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {[
+          {
+            icon: "lucide:user",
+            title: "Autónomos",
+            items: ["Alta y gestión fiscal", "Declaraciones trimestrales y anuales", "Asesoramiento continuo"],
+          },
+          {
+            icon: "lucide:building-2",
+            title: "PYMEs y Empresas",
+            items: ["Contabilidad y cuentas anuales", "Nóminas y seguros sociales", "Constitución y gestión societaria"],
+          },
+          {
+            icon: "lucide:users",
+            title: "Particulares",
+            items: ["Traspaso de vehículos", "Trámites de residencia y N.I.E.", "Seguros personales"],
+          },
+        ].map((profile) => (
+          <div class="border border-warm-200 hover:border-gold-300 p-8 transition-all duration-300 hover:shadow-lg hover:shadow-gold-500/5 group">
+            <div class="w-12 h-12 flex items-center justify-center bg-gold-50 text-gold-600 group-hover:bg-gold-500 group-hover:text-white transition-colors duration-300 mb-5">
+              <Icon name={profile.icon} class="w-6 h-6" />
+            </div>
+            <h3 class="font-heading text-xl font-semibold text-navy-900 mb-4">{profile.title}</h3>
+            <ul class="space-y-3">
+              {profile.items.map((item) => (
+                <li class="flex items-start gap-3 text-sm text-navy-600">
+                  <Icon name="lucide:check" class="w-4 h-4 text-gold-500 mt-0.5 flex-shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="relative bg-warm-50">
+    <div class="absolute inset-0 bg-diagonals opacity-[0.03]"></div>
+    <div class="relative max-w-3xl mx-auto px-6 py-24 md:py-32">
+      <div class="text-center mb-14">
+        <p class="text-gold-600 text-xs font-medium tracking-[0.25em] uppercase mb-3">Preguntas Frecuentes</p>
+        <h2 class="font-heading text-3xl md:text-4xl font-bold text-navy-900">Lo que nos preguntan</h2>
+        <div class="gold-divider max-w-xs mx-auto mt-6"></div>
+      </div>
+
+      <div class="space-y-4">
+        {[
+          {
+            q: "¿Cuánto cuesta una primera consulta?",
+            a: "La primera consulta es gratuita y sin compromiso. Analizamos su situación y le proponemos las soluciones más adecuadas.",
+          },
+          {
+            q: "¿Qué documentos necesito para darme de alta como autónomo?",
+            a: "Necesitará su DNI o NIE, número de la Seguridad Social y datos de la actividad que va a desarrollar. Nosotros nos encargamos de todos los trámites ante Hacienda y la Seguridad Social.",
+          },
+          {
+            q: "¿Puedo traspasar un vehículo desde otra comunidad autónoma?",
+            a: "Sí, gestionamos traspasos de vehículos tanto dentro de Canarias como desde la península u otras comunidades. Nos encargamos de toda la documentación.",
+          },
+          {
+            q: "¿Ofrecen servicios para empresas extranjeras que operan en Canarias?",
+            a: "Sí, asesoramos a empresas y particulares extranjeros en todos los aspectos fiscales, laborales y administrativos necesarios para operar en las Islas Canarias.",
+          },
+          {
+            q: "¿Cómo puedo solicitar el N.I.E.?",
+            a: "Gestionamos íntegramente la obtención del N.I.E. para residentes y no residentes. Le indicamos la documentación necesaria y realizamos todos los trámites por usted.",
+          },
+        ].map((faq) => (
+          <details class="group bg-white border border-warm-200 hover:border-gold-300 transition-colors">
+            <summary class="flex items-center justify-between cursor-pointer p-6 list-none">
+              <span class="font-heading text-base font-semibold text-navy-900 pr-4">{faq.q}</span>
+              <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-gold-50 text-gold-600 group-open:bg-gold-500 group-open:text-white transition-colors">
+                <Icon name="lucide:plus" class="w-4 h-4 group-open:hidden" />
+                <Icon name="lucide:minus" class="w-4 h-4 hidden group-open:block" />
+              </div>
+            </summary>
+            <div class="px-6 pb-6 -mt-1">
+              <div class="h-px w-12 bg-gradient-to-r from-gold-400 to-transparent mb-4"></div>
+              <p class="text-navy-600 text-sm leading-relaxed">{faq.a}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+
+      <div class="text-center mt-10">
+        <p class="text-navy-500 text-sm mb-4">¿Tiene otra pregunta?</p>
+        <a
+          href="/contacto"
+          class="inline-flex items-center gap-2 text-gold-600 hover:text-gold-700 font-medium text-sm tracking-wide uppercase transition-colors"
+        >
+          Contáctenos
+          <Icon name="lucide:arrow-right" class="w-4 h-4" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Locations (compact) -->
+  <section class="bg-navy-900 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.03]">
+      <div class="w-full h-full bg-crossgrid"></div>
+    </div>
+    <div class="h-px bg-gradient-to-r from-transparent via-gold-500 to-transparent"></div>
+
+    <div class="relative max-w-7xl mx-auto px-6 py-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {[gc, fv].map((loc) => (
+          <div class="flex items-start gap-5">
+            <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-gold-500/10 text-gold-400">
+              <Icon name="lucide:map-pin" class="w-6 h-6" />
+            </div>
+            <div>
+              <h3 class="font-heading text-lg font-semibold text-white mb-1">{loc.name}</h3>
+              <p class="text-navy-300 text-sm mb-3">{loc.address.street}, {loc.address.area}</p>
+              <div class="flex flex-wrap items-center gap-4">
+                <a
+                  href={`tel:${loc.phone[0].replace(/\s/g, "")}`}
+                  class="inline-flex items-center gap-1.5 text-gold-400 hover:text-gold-300 text-sm font-medium transition-colors"
+                >
+                  <Icon name="lucide:phone" class="w-3.5 h-3.5" />
+                  {loc.phone[0]}
+                </a>
+                <a
+                  href="/contacto"
+                  class="inline-flex items-center gap-1.5 text-navy-400 hover:text-gold-400 text-sm transition-colors"
+                >
+                  Más información
+                  <Icon name="lucide:arrow-right" class="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="h-px bg-gradient-to-r from-transparent via-gold-500 to-transparent"></div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="relative bg-white">
+    <div class="max-w-4xl mx-auto px-6 py-24 md:py-32 text-center">
+      <p class="text-gold-600 text-xs font-medium tracking-[0.25em] uppercase mb-4">Primer Paso</p>
+      <h2 class="font-heading text-3xl md:text-4xl font-bold text-navy-900 mb-4">
+        ¿Listo para despreocuparse de sus obligaciones fiscales?
+      </h2>
+      <div class="gold-divider max-w-xs mx-auto mb-6"></div>
+      <p class="text-navy-600 text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
+        Contáctenos sin compromiso. Le atenderemos de forma personalizada para encontrar la mejor solución para su empresa o situación particular.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/contacto"
+          class="inline-flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-600 text-navy-900 font-semibold px-8 py-3.5 text-sm tracking-wide uppercase transition-colors"
+        >
+          <Icon name="lucide:mail" class="w-4 h-4" />
+          Contactar
+        </a>
+        <a
+          href={`tel:${gc.phone[0].replace(/\s/g, "")}`}
+          class="inline-flex items-center justify-center gap-2 border border-navy-200 hover:border-gold-500 text-navy-700 hover:text-gold-600 px-8 py-3.5 text-sm tracking-wide uppercase transition-colors"
+        >
+          <Icon name="lucide:phone" class="w-4 h-4" />
+          {gc.phone[0]}
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

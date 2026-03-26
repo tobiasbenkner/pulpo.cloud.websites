@@ -1,0 +1,291 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+import { config } from "../data/config";
+import PrivacyMap from "../components/ui/PrivacyMap.astro";
+
+const gc = config.locations.granCanaria;
+const fv = config.locations.fuerteventura;
+
+const locations = [
+  { ...gc, id: "gran-canaria" },
+  { ...fv, id: "fuerteventura" },
+];
+---
+
+<Layout title="Contacto">
+  <!-- Header -->
+  <section class="bg-navy-900 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.04]">
+      <div class="w-full h-full bg-diagonals"></div>
+    </div>
+    <div class="absolute bottom-0 right-0 w-[500px] h-[300px] bg-gold-500/5 rounded-full blur-3xl translate-y-1/2 translate-x-1/4"></div>
+    <div class="relative max-w-7xl mx-auto px-6 py-20 md:py-28">
+      <p class="text-gold-400 text-xs font-medium tracking-[0.25em] uppercase mb-3">Contacto</p>
+      <h1 class="font-heading text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-5">Hable con nosotros</h1>
+      <p class="text-navy-300 max-w-2xl text-lg leading-relaxed">
+        Dos sedes para estar más cerca de usted. Elija su oficina y contáctenos directamente.
+      </p>
+    </div>
+    <div class="h-px bg-gradient-to-r from-transparent via-gold-500 to-transparent"></div>
+  </section>
+
+  <!-- Quick location selector -->
+  <section class="bg-white border-b border-warm-200 sticky top-20 z-40">
+    <div class="max-w-7xl mx-auto px-6">
+      <nav class="flex gap-1 py-1 -mb-px">
+        {locations.map((loc) => (
+          <a
+            href={`#${loc.id}`}
+            data-nav-target={loc.id}
+            class="location-nav-link flex items-center gap-2 px-5 py-3 text-sm font-medium text-navy-500 hover:text-navy-900 border-b-2 border-transparent hover:border-gold-500 transition-all whitespace-nowrap"
+          >
+            <Icon name="lucide:map-pin" class="w-4 h-4" />
+            {loc.name}
+          </a>
+        ))}
+      </nav>
+    </div>
+  </section>
+
+  <script>
+    const initScrollSpy = () => {
+      const sections = document.querySelectorAll<HTMLElement>("section[id]");
+      const navLinks = document.querySelectorAll<HTMLAnchorElement>(".location-nav-link");
+
+      if (!sections.length || !navLinks.length) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const id = entry.target.id;
+              navLinks.forEach((link) => {
+                const isActive = link.dataset.navTarget === id;
+                link.classList.toggle("text-navy-900", isActive);
+                link.classList.toggle("border-gold-500", isActive);
+                link.classList.toggle("text-navy-500", !isActive);
+                link.classList.toggle("border-transparent", !isActive);
+              });
+              history.replaceState(null, "", `#${id}`);
+            }
+          });
+        },
+        { rootMargin: "-30% 0px -60% 0px" }
+      );
+
+      sections.forEach((section) => observer.observe(section));
+    };
+
+    initScrollSpy();
+    document.addEventListener("astro:page-load", initScrollSpy);
+  </script>
+
+  <!-- Location: Gran Canaria -->
+  <section id="gran-canaria" class="bg-white scroll-mt-[8rem]">
+    <div class="max-w-7xl mx-auto px-6 py-20 md:py-28">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        <!-- Map -->
+        <div class="border border-warm-200 overflow-hidden min-h-[280px] md:min-h-[400px]">
+          <PrivacyMap url={gc.googleMapsEmbed} title={gc.name} height="h-full min-h-[280px] md:min-h-[400px]" />
+        </div>
+
+        <!-- Info + CTAs -->
+        <div>
+          <p class="text-gold-600 text-xs font-medium tracking-[0.25em] uppercase mb-3">Sede Principal</p>
+          <h2 class="font-heading text-2xl md:text-3xl font-bold text-navy-900 mb-2">{gc.name}</h2>
+          <div class="h-px w-16 bg-gradient-to-r from-gold-500 to-transparent mb-8"></div>
+
+          <!-- Address -->
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-gold-50 text-gold-600">
+                <Icon name="lucide:map-pin" class="w-5 h-5" />
+              </div>
+              <div>
+                <p class="text-xs text-navy-400 uppercase tracking-wider mb-1">Dirección</p>
+                <p class="text-sm text-navy-700 font-medium">{gc.address.street}</p>
+                <p class="text-sm text-navy-600">{gc.address.area}, {gc.address.zip} {gc.address.city}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact CTAs -->
+          <div class="space-y-3 mb-8">
+            {gc.phone.map((p: string) => (
+              <a
+                href={`tel:${p.replace(/\s/g, "")}`}
+                class="group flex items-center gap-4 p-4 border border-warm-200 hover:border-gold-400 hover:shadow-md hover:shadow-gold-500/5 transition-all duration-300"
+              >
+                <div class="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-gold-50 text-gold-600 group-hover:bg-gold-500 group-hover:text-white transition-colors">
+                  <Icon name="lucide:phone" class="w-5 h-5" />
+                </div>
+                <div>
+                  <p class="text-xs text-navy-400 uppercase tracking-wider">Teléfono</p>
+                  <p class="text-navy-900 font-semibold">{p}</p>
+                </div>
+                <Icon name="lucide:arrow-right" class="w-4 h-4 text-navy-300 group-hover:text-gold-500 ml-auto transition-colors" />
+              </a>
+            ))}
+
+            {gc.mobile && (
+              <a
+                href={`tel:${gc.mobile.replace(/\s/g, "")}`}
+                class="group flex items-center gap-4 p-4 border border-warm-200 hover:border-gold-400 hover:shadow-md hover:shadow-gold-500/5 transition-all duration-300"
+              >
+                <div class="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-gold-50 text-gold-600 group-hover:bg-gold-500 group-hover:text-white transition-colors">
+                  <Icon name="lucide:smartphone" class="w-5 h-5" />
+                </div>
+                <div>
+                  <p class="text-xs text-navy-400 uppercase tracking-wider">Móvil</p>
+                  <p class="text-navy-900 font-semibold">{gc.mobile}</p>
+                </div>
+                <Icon name="lucide:arrow-right" class="w-4 h-4 text-navy-300 group-hover:text-gold-500 ml-auto transition-colors" />
+              </a>
+            )}
+
+            {gc.fax && (
+              <div class="flex items-center gap-4 p-4 border border-warm-100 bg-warm-50">
+                <div class="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-white text-navy-400">
+                  <Icon name="lucide:printer" class="w-5 h-5" />
+                </div>
+                <div>
+                  <p class="text-xs text-navy-400 uppercase tracking-wider">Fax</p>
+                  <p class="text-navy-600 font-medium">{gc.fax}</p>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <!-- Opening hours -->
+          <div class="mb-8 p-4 border border-warm-200 bg-warm-50">
+            <div class="flex items-center gap-3 mb-3">
+              <Icon name="lucide:clock" class="w-4 h-4 text-gold-600" />
+              <p class="text-xs text-navy-400 uppercase tracking-wider font-medium">Horario de atención</p>
+            </div>
+            <div class="space-y-2">
+              {gc.hours.map((h: { days: string; time: string }) => (
+                <div class="flex items-center justify-between text-sm">
+                  <span class="text-navy-600">{h.days}</span>
+                  <span class:list={["font-medium", h.time === "Cerrado" ? "text-navy-400" : "text-navy-900"]}>{h.time}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Action buttons -->
+          <div class="flex flex-wrap gap-3">
+            <a
+              href={`mailto:${config.email}`}
+              class="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-600 text-navy-900 font-semibold px-6 py-3 text-xs tracking-wide uppercase transition-colors"
+            >
+              <Icon name="lucide:mail" class="w-4 h-4" />
+              Enviar Email
+            </a>
+            <a
+              href={gc.googleMaps}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 border border-navy-200 hover:border-gold-500 text-navy-700 hover:text-gold-600 px-6 py-3 text-xs tracking-wide uppercase transition-colors"
+            >
+              <Icon name="lucide:navigation" class="w-4 h-4" />
+              Cómo llegar
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-divider max-w-5xl mx-auto"></div>
+
+  <!-- Location: Fuerteventura -->
+  <section id="fuerteventura" class="relative bg-warm-50 scroll-mt-[8rem]">
+    <div class="absolute inset-0 bg-dots opacity-15"></div>
+    <div class="relative max-w-7xl mx-auto px-6 py-20 md:py-28">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        <!-- Info + CTAs (reversed order on desktop) -->
+        <div class="lg:order-2">
+          <p class="text-gold-600 text-xs font-medium tracking-[0.25em] uppercase mb-3">Sede Fuerteventura</p>
+          <h2 class="font-heading text-2xl md:text-3xl font-bold text-navy-900 mb-2">{fv.name}</h2>
+          <div class="h-px w-16 bg-gradient-to-r from-gold-500 to-transparent mb-8"></div>
+
+          <!-- Address -->
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-gold-50 text-gold-600">
+                <Icon name="lucide:map-pin" class="w-5 h-5" />
+              </div>
+              <div>
+                <p class="text-xs text-navy-400 uppercase tracking-wider mb-1">Dirección</p>
+                <p class="text-sm text-navy-700 font-medium">{fv.address.street}</p>
+                <p class="text-sm text-navy-600">{fv.address.area}, {fv.address.zip} {fv.address.city}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact CTAs -->
+          <div class="space-y-3 mb-8">
+            {fv.phone.map((p: string) => (
+              <a
+                href={`tel:${p.replace(/\s/g, "")}`}
+                class="group flex items-center gap-4 p-4 bg-white border border-warm-200 hover:border-gold-400 hover:shadow-md hover:shadow-gold-500/5 transition-all duration-300"
+              >
+                <div class="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-gold-50 text-gold-600 group-hover:bg-gold-500 group-hover:text-white transition-colors">
+                  <Icon name="lucide:phone" class="w-5 h-5" />
+                </div>
+                <div>
+                  <p class="text-xs text-navy-400 uppercase tracking-wider">Teléfono y Fax</p>
+                  <p class="text-navy-900 font-semibold">{p}</p>
+                </div>
+                <Icon name="lucide:arrow-right" class="w-4 h-4 text-navy-300 group-hover:text-gold-500 ml-auto transition-colors" />
+              </a>
+            ))}
+          </div>
+
+          <!-- Opening hours -->
+          <div class="mb-8 p-4 bg-white border border-warm-200">
+            <div class="flex items-center gap-3 mb-3">
+              <Icon name="lucide:clock" class="w-4 h-4 text-gold-600" />
+              <p class="text-xs text-navy-400 uppercase tracking-wider font-medium">Horario de atención</p>
+            </div>
+            <div class="space-y-2">
+              {fv.hours.map((h: { days: string; time: string }) => (
+                <div class="flex items-center justify-between text-sm">
+                  <span class="text-navy-600">{h.days}</span>
+                  <span class:list={["font-medium", h.time === "Cerrado" ? "text-navy-400" : "text-navy-900"]}>{h.time}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Action buttons -->
+          <div class="flex flex-wrap gap-3">
+            <a
+              href={`mailto:${config.email}`}
+              class="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-600 text-navy-900 font-semibold px-6 py-3 text-xs tracking-wide uppercase transition-colors"
+            >
+              <Icon name="lucide:mail" class="w-4 h-4" />
+              Enviar Email
+            </a>
+            <a
+              href={fv.googleMaps}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 border border-navy-200 hover:border-gold-500 text-navy-700 hover:text-gold-600 px-6 py-3 text-xs tracking-wide uppercase transition-colors"
+            >
+              <Icon name="lucide:navigation" class="w-4 h-4" />
+              Cómo llegar
+            </a>
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div class="lg:order-1 border border-warm-200 overflow-hidden min-h-[280px] md:min-h-[400px]">
+          <PrivacyMap url={fv.googleMapsEmbed} title={fv.name} height="h-full min-h-[280px] md:min-h-[400px]" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>

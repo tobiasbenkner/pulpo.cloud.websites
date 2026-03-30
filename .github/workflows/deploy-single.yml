@@ -53,8 +53,7 @@ jobs:
           tags: ghcr.io/tobiasbenkner/${{ steps.meta.outputs.image }}:latest
           build-args: |
             WEBSITE=${{ inputs.website }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          no-cache: true
 
       - name: Deploy
         run: |

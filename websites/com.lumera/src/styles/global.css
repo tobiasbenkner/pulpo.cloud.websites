@@ -2,13 +2,14 @@
 
 @theme {
   /* Colors */
-  --color-background: #F6F5F2;
+  --color-background: #F6F5F0;
   --color-surface: #EDECE8;
   --color-border: #D6D4CE;
-  --color-primary: #111111;
-  --color-text: #111111;
+  --color-primary: #1A1A1A;
+  --color-text: #1A1A1A;
   --color-text-muted: #6B6B6B;
   --color-secondary: #6E775F;
+  --color-accent: #722F37;
 
   /* Font families */
   --font-serif: "Cormorant Garamond", Georgia, serif;
@@ -34,19 +35,107 @@
   }
 
   ::selection {
-    background-color: #6E775F;
-    color: #F6F5F2;
+    background-color: var(--color-accent);
+    color: #F6F5F0;
   }
 }
 
 /* Scroll-triggered fade-in animation */
 .fade-in-section {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(12px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
 .fade-in-section.is-visible {
   opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered children animation */
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.stagger-children.is-visible > *:nth-child(1) { transition-delay: 0ms; opacity: 1; transform: translateY(0); }
+.stagger-children.is-visible > *:nth-child(2) { transition-delay: 100ms; opacity: 1; transform: translateY(0); }
+.stagger-children.is-visible > *:nth-child(3) { transition-delay: 200ms; opacity: 1; transform: translateY(0); }
+.stagger-children.is-visible > *:nth-child(4) { transition-delay: 300ms; opacity: 1; transform: translateY(0); }
+.stagger-children.is-visible > *:nth-child(5) { transition-delay: 400ms; opacity: 1; transform: translateY(0); }
+.stagger-children.is-visible > *:nth-child(6) { transition-delay: 500ms; opacity: 1; transform: translateY(0); }
+
+/* Subtle hero wave animation */
+@keyframes wave-drift {
+  0% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-48%, -52%) scale(1.02); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+.hero-wave {
+  animation: wave-drift 20s ease-in-out infinite;
+}
+
+/* Slow rotation for organic circles */
+@keyframes slow-spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Gentle floating */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.bg-spin {
+  animation: slow-spin 90s linear infinite;
+}
+
+.bg-float {
+  animation: float 12s ease-in-out infinite;
+}
+
+.bg-float-delayed {
+  animation: float 15s ease-in-out infinite;
+  animation-delay: -6s;
+}
+
+/* World detail expand — CSS grid row trick for smooth height animation */
+.world-detail {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.7s ease-out, opacity 0.6s ease-out;
+  opacity: 0;
+}
+
+.world-detail > .world-detail-inner {
+  overflow: hidden;
+}
+
+.world-detail.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+/* Application modal */
+.modal-overlay {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease-out, visibility 0.4s ease-out;
+}
+
+.modal-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  transform: translateY(20px);
+  transition: transform 0.4s ease-out;
+}
+
+.modal-overlay.is-open .modal-content {
   transform: translateY(0);
 }

@@ -4,14 +4,29 @@ import type { Language } from "@/lib/i18n";
 import { siteData } from "@/data/site";
 import { Image } from "astro:assets";
 
-import gallery01 from "@/assets/gallery/01.jpg";
-import gallery02 from "@/assets/gallery/02.jpg";
-import gallery03 from "@/assets/gallery/03.jpg";
-import gallery04 from "@/assets/gallery/04.jpg";
-import gallery05 from "@/assets/gallery/05.jpg";
-import gallery06 from "@/assets/gallery/06.jpg";
+// Quiet Power images
+import qp1 from "@/assets/worlds/quiet-power/gray01.jpg";
+import qp2 from "@/assets/worlds/quiet-power/gray02.jpeg";
+import qp3 from "@/assets/worlds/quiet-power/gray03.jpeg";
+import qp4 from "@/assets/worlds/quiet-power/66EC7FB3-70DC-4DC3-978D-16E6E3C54BEA.jpeg";
+import qp5 from "@/assets/worlds/quiet-power/CAE78B91-DD09-4D30-8BE2-025C98A340DD.jpeg";
+import qp6 from "@/assets/worlds/quiet-power/CEA9CF28-0DC1-4526-B8CF-1A11A645866B.jpg";
 
-const galleryImages = [gallery01, gallery02, gallery03, gallery04, gallery05, gallery06];
+// Soft Red images
+import sr1 from "@/assets/worlds/soft-red/97BD1762-892D-4814-AF63-736EA17234CF.jpg";
+import sr2 from "@/assets/worlds/soft-red/A75D82C5-A6E3-45EC-9400-F1BE71D3F811.jpeg";
+import sr3 from "@/assets/worlds/soft-red/BDE4DC94-218F-40AD-A5C0-501D6947F0F0.png";
+import sr4 from "@/assets/worlds/soft-red/DB206587-226E-4C78-8F7C-6F4C31F37CA0.jpeg";
+import sr5 from "@/assets/worlds/soft-red/red02.jpeg";
+
+// Depth images
+import dp1 from "@/assets/worlds/depth/55414344-5A6B-424B-911E-A9DFDAE2A023.png";
+import dp2 from "@/assets/worlds/depth/B9F366D3-87D1-4D36-9560-6DFE614C1A1B.jpg";
+import dp3 from "@/assets/worlds/depth/red01.jpg";
+
+const quietPowerImages = [qp1, qp2, qp3, qp4, qp5, qp6];
+const softRedImages = [sr1, sr2, sr3, sr4, sr5];
+const depthImages = [dp1, dp2, dp3];
 
 interface Props {
   lang: Language;
@@ -20,25 +35,73 @@ interface Props {
 
 const { lang, t } = Astro.props;
 
-const aboutParagraphs = t.about.text.split("\n\n");
+const worlds = [
+  {
+    id: "quiet-power",
+    title: t.worlds.quietPower.title,
+    line1: t.worlds.quietPower.line1,
+    line2: t.worlds.quietPower.line2,
+    cta: t.worlds.quietPower.cta,
+    manifest: t.worlds.quietPower.manifest,
+    images: quietPowerImages,
+    heroImage: qp1,
+  },
+  {
+    id: "soft-red",
+    title: t.worlds.softRed.title,
+    line1: t.worlds.softRed.line1,
+    line2: t.worlds.softRed.line2,
+    cta: t.worlds.softRed.cta,
+    manifest: t.worlds.softRed.manifest,
+    images: softRedImages,
+    heroImage: sr1,
+  },
+  {
+    id: "depth",
+    title: t.worlds.depth.title,
+    line1: t.worlds.depth.line1,
+    line2: t.worlds.depth.line2,
+    cta: t.worlds.depth.cta,
+    manifest: t.worlds.depth.manifest,
+    images: depthImages,
+    heroImage: dp1,
+  },
+];
+
 const taglineLines = t.hero.tagline.split("\n");
-const contactLines = t.contact.text.split("\n");
+const disclaimerLines = t.modal.disclaimer.split("\n");
+const processSteps = [t.process.step1, t.process.step2, t.process.step3];
+const aboutParagraphs = t.about.text.split("\n\n");
 const manifestLines = t.manifest.quote.split("\n");
 ---
 
 <!-- Hero -->
 <section
-  class="flex items-center justify-center min-h-[100dvh] -mt-16 md:-mt-20 px-6 text-center"
+  class="relative flex items-center justify-center min-h-[100dvh] -mt-16 md:-mt-20 px-6 text-center overflow-hidden"
 >
-  <div class="fade-in-section">
-    <h1 class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-serif tracking-wide text-primary">
+  <!-- Subtle wave background -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden">
+    <svg
+      class="hero-wave absolute top-1/2 left-1/2 w-[200%] h-[200%] opacity-[0.06]"
+      viewBox="0 0 1440 600"
+      xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="none"
+    >
+      <path d="M0,300 C240,150 480,450 720,300 C960,150 1200,450 1440,300" stroke="#1A1A1A" stroke-width="1" fill="none" />
+      <path d="M0,320 C240,170 480,470 720,320 C960,170 1200,470 1440,320" stroke="#1A1A1A" stroke-width="0.5" fill="none" />
+      <path d="M0,280 C240,130 480,430 720,280 C960,130 1200,430 1440,280" stroke="#1A1A1A" stroke-width="0.5" fill="none" />
+    </svg>
+  </div>
+
+  <div class="relative z-10 fade-in-section">
+    <h1 class="text-7xl sm:text-8xl md:text-[5.5rem] lg:text-[6rem] font-serif tracking-wide text-primary">
       LUMERA
     </h1>
-    <p class="mt-4 text-xs sm:text-sm tracking-[0.35em] uppercase text-text-muted">
+    <p class="mt-4 text-xs sm:text-sm tracking-[0.35em] uppercase text-text-muted font-sans">
       {t.hero.subtitle}
     </p>
-    <div class="mx-auto mt-8 w-12 border-t border-border"></div>
-    <p class="mt-8 font-serif italic text-lg sm:text-xl text-text-muted max-w-md mx-auto leading-relaxed">
+    <div class="mx-auto mt-10 w-12 border-t border-border"></div>
+    <p class="mt-10 font-serif italic text-xl sm:text-2xl md:text-3xl text-text-muted max-w-lg mx-auto leading-relaxed">
       {taglineLines.map((line, i) => (
         <Fragment>
           {i > 0 && <br />}
@@ -46,16 +109,24 @@ const manifestLines = t.manifest.quote.split("\n");
         </Fragment>
       ))}
     </p>
-    <p class="mt-6 text-[10px] sm:text-xs tracking-[0.3em] uppercase text-text-muted/60">
-      {t.hero.motto}
-    </p>
+    <a
+      href="#worlds"
+      class="inline-block mt-12 px-8 py-3.5 text-sm tracking-[0.2em] uppercase border border-primary text-primary hover:bg-primary hover:text-background transition-all duration-300"
+    >
+      {t.hero.cta}
+    </a>
   </div>
 </section>
 
+<!-- Transition -->
+<div class="flex justify-center py-8 fade-in-section">
+  <div class="w-16 border-t border-border"></div>
+</div>
+
 <!-- About -->
-<section class="py-24 sm:py-32 px-6">
+<section class="pb-24 sm:pb-32 px-6">
   <div class="max-w-2xl mx-auto text-center fade-in-section">
-    <h2 class="text-3xl sm:text-4xl font-serif text-primary mb-10">
+    <h2 class="text-4xl sm:text-5xl font-serif text-primary mb-10">
       {t.about.heading}
     </h2>
     <div class="space-y-6 text-base sm:text-lg leading-relaxed text-text-muted">
@@ -67,61 +138,101 @@ const manifestLines = t.manifest.quote.split("\n");
   </div>
 </section>
 
-<!-- Gallery -->
-<section class="py-24 sm:py-32 px-6">
-  <div class="max-w-5xl mx-auto fade-in-section">
-    <h2 class="text-3xl sm:text-4xl font-serif text-primary text-center mb-14">
-      {t.gallery.heading}
-    </h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-      {galleryImages.map((img, i) => (
-        <div class="aspect-[3/4] overflow-hidden rounded-sm">
-          <Image
-            src={img}
-            alt={`Portrait ${i + 1}`}
-            widths={[400, 600, 800]}
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            class="h-full w-full object-cover"
-            loading={i < 3 ? "eager" : "lazy"}
-          />
+<!-- Three Worlds -->
+<section id="worlds" class="relative py-24 sm:py-32">
+  <!-- Subtle single curves -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden">
+    <svg class="hero-wave absolute top-[15%] -left-[20%] w-[140%] h-[70%] opacity-[0.04]" viewBox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="animation-delay: -7s;">
+      <path d="M0,350 Q500,50 1000,300" stroke="#1A1A1A" stroke-width="0.8" fill="none" />
+    </svg>
+    <svg class="hero-wave absolute bottom-[10%] -right-[15%] w-[120%] h-[60%] opacity-[0.03]" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="animation-delay: -14s;">
+      <path d="M0,50 Q400,280 800,100" stroke="#1A1A1A" stroke-width="0.6" fill="none" />
+    </svg>
+  </div>
+  {worlds.map((world, index) => (
+    <div class="mb-0">
+      <!-- World Teaser -->
+      <div
+        class:list={[
+          "flex flex-col md:flex-row items-center gap-6 md:gap-10 lg:gap-16 px-6 py-12 sm:py-16 max-w-5xl mx-auto",
+          index % 2 === 1 ? "md:flex-row-reverse" : "",
+        ]}
+      >
+        <!-- Image (60%) -->
+        <div class="w-full md:w-1/2 fade-in-section">
+          <div class="aspect-[4/3] sm:aspect-[4/5] overflow-hidden">
+            <Image
+              src={world.heroImage}
+              alt={world.title}
+              widths={[400, 600, 800, 1200]}
+              sizes="(max-width: 768px) 100vw, 60vw"
+              class="h-full w-full object-cover"
+              loading={index === 0 ? "eager" : "lazy"}
+            />
+          </div>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
 
-<!-- Contact -->
-<section class="py-24 sm:py-32 px-6">
-  <div class="max-w-xl mx-auto text-center fade-in-section">
-    <h2 class="text-3xl sm:text-4xl font-serif text-primary mb-8">
-      {t.contact.heading}
-    </h2>
-    <p class="text-base sm:text-lg text-text-muted leading-relaxed mb-10">
-      {contactLines.map((line, i) => (
-        <Fragment>
-          {i > 0 && <br />}
-          {line}
-        </Fragment>
-      ))}
-    </p>
-    <div class="flex items-center justify-center gap-8 text-sm sm:text-base">
-      <a
-        href={`mailto:${siteData.contact.email}`}
-        class="text-secondary hover:text-primary transition-colors duration-200"
-      >
-        {siteData.contact.email}
-      </a>
-      <span class="text-border">|</span>
-      <a
-        href={siteData.social.instagram}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-secondary hover:text-primary transition-colors duration-200"
-      >
-        Instagram
-      </a>
+        <!-- Text (40%) -->
+        <div
+          class:list={[
+            "w-full md:w-1/2 text-center md:text-left fade-in-section",
+          ]}
+        >
+          <h2 class="text-4xl sm:text-5xl md:text-[2.5rem] lg:text-5xl font-serif text-primary tracking-wide">
+            {world.title}
+          </h2>
+          <p class="mt-6 font-serif italic text-lg sm:text-xl text-text-muted leading-relaxed">
+            {world.line1}<br />
+            {world.line2}
+          </p>
+          <button
+            class="world-enter-btn mt-10 px-8 py-3.5 text-sm tracking-[0.2em] uppercase border border-primary text-primary hover:bg-primary hover:text-background transition-all duration-300 cursor-pointer"
+            data-world={world.id}
+          >
+            {world.cta}
+          </button>
+        </div>
+      </div>
+
+      <!-- World Detail (hidden, revealed on click) -->
+      <div class="world-detail" id={`detail-${world.id}`}>
+       <div class="world-detail-inner">
+        <div class="max-w-3xl mx-auto px-6 pt-8 pb-24">
+          <!-- Manifest headline -->
+          <p class="text-center font-serif italic text-2xl sm:text-3xl md:text-4xl text-text-muted max-w-2xl mx-auto leading-relaxed mb-16 fade-in-section">
+            {world.manifest}
+          </p>
+
+          <!-- Gallery: 2 columns tablet+, 3 columns desktop -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 stagger-children">
+            {world.images.map((img, i) => (
+              <div class="aspect-square sm:aspect-4/5 max-h-[75dvh] overflow-hidden">
+                <Image
+                  src={img}
+                  alt={`${world.title} ${i + 1}`}
+                  widths={[400, 600, 800]}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  class="h-full w-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
+
+          <!-- Apply button -->
+          <div class="text-center mt-16 fade-in-section">
+            <button
+              class="apply-btn px-8 py-3.5 text-sm tracking-[0.2em] uppercase border border-primary text-primary hover:bg-primary hover:text-background transition-all duration-300 cursor-pointer"
+              data-world={world.title}
+            >
+              {t.worlds.apply}
+            </button>
+          </div>
+        </div>
+       </div>
+      </div>
     </div>
-  </div>
+  ))}
 </section>
 
 <!-- Manifest -->
@@ -141,7 +252,106 @@ const manifestLines = t.manifest.quote.split("\n");
   </div>
 </section>
 
+<!-- Application Modal -->
+<div id="application-modal" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center bg-primary/40 backdrop-blur-sm px-4" data-email={siteData.contact.email} data-whatsapp={siteData.contact.whatsapp}>
+  <div class="modal-content bg-background w-full max-w-lg max-h-[90dvh] overflow-y-auto p-8 sm:p-12 relative">
+    <!-- Close button -->
+    <button
+      id="modal-close"
+      class="absolute top-4 right-4 text-text-muted hover:text-primary transition-colors p-2 cursor-pointer"
+      aria-label={t.modal.close}
+    >
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="4" y1="4" x2="16" y2="16" />
+        <line x1="16" y1="4" x2="4" y2="16" />
+      </svg>
+    </button>
+
+    <h3 class="text-3xl font-serif text-primary mb-6">{t.modal.title}</h3>
+
+    <!-- Process steps -->
+    <div class="mb-8 pb-8 border-b border-border">
+      <p class="text-xs tracking-[0.2em] uppercase text-text-muted mb-4">{t.process.heading}</p>
+      <div class="space-y-3">
+        {processSteps.map((step, i) => (
+          <div class="flex items-center gap-3">
+            <span class="text-lg font-serif text-border">{i + 1}</span>
+            <p class="text-sm text-text-muted">{step}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div id="application-form" class="space-y-6">
+      <!-- World (pre-selected) -->
+      <div>
+        <label class="block text-sm tracking-wide uppercase text-text-muted mb-2">{t.modal.world}</label>
+        <input
+          type="text"
+          name="world"
+          id="modal-world"
+          readonly
+          class="w-full px-4 py-3 bg-surface border border-border text-primary text-sm"
+        />
+      </div>
+
+      <!-- Name -->
+      <div>
+        <label class="block text-sm tracking-wide uppercase text-text-muted mb-2">{t.modal.name}</label>
+        <input
+          type="text"
+          id="modal-name"
+          required
+          placeholder={t.modal.namePlaceholder}
+          class="w-full px-4 py-3 bg-background border border-border text-primary text-sm focus:border-primary focus:outline-none transition-colors placeholder:text-text-muted/40"
+        />
+      </div>
+
+      <!-- Message -->
+      <div>
+        <label class="block text-sm tracking-wide uppercase text-text-muted mb-2">{t.modal.message}</label>
+        <textarea
+          id="modal-message"
+          rows="3"
+          class="w-full px-4 py-3 bg-background border border-border text-primary text-sm focus:border-primary focus:outline-none transition-colors resize-none"
+        >{t.modal.messagePlaceholder}</textarea>
+      </div>
+
+      <!-- Images hint -->
+      <p class="text-xs text-text-muted/70 leading-relaxed">
+        {t.modal.imagesHint}
+      </p>
+
+      <!-- Send buttons -->
+      <div class="flex flex-col sm:flex-row gap-3">
+        <button
+          id="send-email"
+          type="button"
+          class="flex-1 py-3.5 text-sm tracking-[0.2em] uppercase border border-primary text-primary hover:bg-primary hover:text-background transition-all duration-300 cursor-pointer"
+        >
+          {t.modal.sendEmail}
+        </button>
+        <button
+          id="send-whatsapp"
+          type="button"
+          class="flex-1 py-3.5 text-sm tracking-[0.2em] uppercase border border-primary text-primary hover:bg-primary hover:text-background transition-all duration-300 cursor-pointer"
+        >
+          {t.modal.sendWhatsapp}
+        </button>
+      </div>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="mt-8 pt-6 border-t border-border">
+      {disclaimerLines.map((line) => (
+        <p class="text-xs text-text-muted/70 leading-relaxed mb-1">{line}</p>
+      ))}
+    </div>
+  </div>
+</div>
+
 <script>
+  // Intersection Observer for fade-in animations
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -154,7 +364,113 @@ const manifestLines = t.manifest.quote.split("\n");
     { threshold: 0.15 }
   );
 
-  document.querySelectorAll(".fade-in-section").forEach((el) => {
+  document.querySelectorAll(".fade-in-section, .stagger-children").forEach((el) => {
     observer.observe(el);
+  });
+
+  // World enter buttons - expand detail section
+  document.querySelectorAll(".world-enter-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const worldId = (btn as HTMLElement).dataset.world;
+      const detail = document.getElementById(`detail-${worldId}`);
+      if (!detail) return;
+
+      const isOpen = detail.classList.contains("is-open");
+
+      // Close all other details
+      document.querySelectorAll(".world-detail").forEach((d) => {
+        d.classList.remove("is-open");
+      });
+
+      if (!isOpen) {
+        detail.classList.add("is-open");
+
+        // Scroll to detail after grid transition settles
+        setTimeout(() => {
+          detail.scrollIntoView({ behavior: "smooth", block: "start" });
+
+          // Trigger fade-in for children
+          detail.querySelectorAll(".fade-in-section, .stagger-children").forEach((el) => {
+            observer.observe(el);
+          });
+        }, 350);
+      }
+    });
+  });
+
+  // Application modal
+  const modal = document.getElementById("application-modal");
+  const modalClose = document.getElementById("modal-close");
+  const modalWorld = document.getElementById("modal-world") as HTMLInputElement;
+  const modalName = document.getElementById("modal-name") as HTMLInputElement;
+  const modalMessage = document.getElementById("modal-message") as HTMLTextAreaElement;
+
+  const EMAIL = modal?.dataset.email || "";
+  const WHATSAPP = modal?.dataset.whatsapp || "";
+
+  document.querySelectorAll(".apply-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const worldName = (btn as HTMLElement).dataset.world;
+      if (modalWorld && worldName) {
+        modalWorld.value = worldName;
+      }
+      modal?.classList.add("is-open");
+      document.body.style.overflow = "hidden";
+    });
+  });
+
+  function closeModal() {
+    modal?.classList.remove("is-open");
+    document.body.style.overflow = "";
+  }
+
+  function getFormData() {
+    const world = modalWorld?.value || "";
+    const name = modalName?.value || "";
+    const message = modalMessage?.value || "";
+    return { world, name, message };
+  }
+
+  modalClose?.addEventListener("click", closeModal);
+
+  modal?.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeModal();
+  });
+
+  function validateName() {
+    if (!modalName?.value.trim()) {
+      modalName?.focus();
+      modalName?.classList.add("border-accent");
+      setTimeout(() => modalName?.classList.remove("border-accent"), 2000);
+      return false;
+    }
+    return true;
+  }
+
+  // Send via Email
+  document.getElementById("send-email")?.addEventListener("click", () => {
+    if (!validateName()) return;
+    const { world, name, message } = getFormData();
+    const subject = encodeURIComponent(`Lumera — ${world}`);
+    const body = encodeURIComponent(
+      `World: ${world}\nName: ${name}\n\n${message}`
+    );
+    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+    closeModal();
+  });
+
+  // Send via WhatsApp
+  document.getElementById("send-whatsapp")?.addEventListener("click", () => {
+    if (!validateName()) return;
+    const { world, name, message } = getFormData();
+    const text = encodeURIComponent(
+      `Lumera — ${world}\n\nName: ${name}\n${message}`
+    );
+    window.open(`https://wa.me/${WHATSAPP}?text=${text}`, "_blank");
+    closeModal();
   });
 </script>

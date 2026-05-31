@@ -3,6 +3,7 @@ import type { HomeTranslations } from "./home.i18n";
 import type { Language } from "@/lib/i18n";
 import { siteData } from "@/data/site";
 import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
 
 // Quiet Power images
 import qp1 from "@/assets/worlds/quiet-power/gray01.jpg";
@@ -334,8 +335,9 @@ const manifestLines = t.manifest.quote.split("\n");
         <button
           id="send-whatsapp"
           type="button"
-          class="flex-1 py-3.5 text-sm tracking-[0.2em] uppercase border border-primary text-primary hover:bg-primary hover:text-background transition-all duration-300 cursor-pointer"
+          class="flex-1 inline-flex items-center justify-center gap-2 py-3.5 text-sm tracking-[0.2em] uppercase border border-primary text-primary hover:bg-primary hover:text-background transition-all duration-300 cursor-pointer"
         >
+          <Icon name="simple-icons:whatsapp" class="h-4 w-4" />
           {t.modal.sendWhatsapp}
         </button>
       </div>

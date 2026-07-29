@@ -7,9 +7,18 @@ export function reduceTranslations(trans: any[], fieldName: string) {
 
   const translations = (trans ?? []).reduce(
     (acc: any, trans: any) => {
+      const code = trans?.languages_id?.code;
+      if (!code) return acc;
+
       const value = getNestedValue(trans, fieldName);
 
-      acc[trans.languages_id.code] = value ?? "";
+      // Doppelte Übersetzungszeilen pro Sprache dürfen einen bereits
+      // gefüllten Wert nicht mit einem leeren überschreiben
+      if (acc[code] && (value === null || value === undefined || value === "")) {
+        return acc;
+      }
+
+      acc[code] = value ?? "";
       return acc;
     },
     {} as Record<string, string>,
